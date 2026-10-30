@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar - Evently</title>
+    <title>Daftar - Univents</title>
 
-{{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,7 +63,7 @@
 
         <div class="mb-8 text-center">
             <a href="/" class="text-2xl font-extrabold text-[#2e4c82]">
-                <i class="fa-solid fa-calendar-days mr-2"></i>Evently
+                <i class="fa-solid fa-calendar-days mr-2"></i>Univents
             </a>
 
             <h1 class="mt-5 text-2xl font-bold text-slate-800">
