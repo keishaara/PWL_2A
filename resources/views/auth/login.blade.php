@@ -135,19 +135,6 @@
                     </div>
 
                     <div class="relative">
-                        <select
-                            name="role"
-                            required
-                            class="minimal-input w-full py-2.5 pr-8 text-sm appearance-none cursor-pointer">
-                            <option value="" disabled selected class="bg-[#162945] text-white/50">Pilih peran akun</option>
-                            <option value="student" {{ old('role') == 'student' ? 'selected' : '' }} class="bg-[#162945] text-white">Mahasiswa</option>
-                            <option value="organizer" {{ old('role') == 'organizer' ? 'selected' : '' }} class="bg-[#162945] text-white">Penyelenggara</option>
-                        </select>
-
-                        <i class="fa-solid fa-chevron-down absolute right-2 top-3.5 text-white/50 text-xs pointer-events-none"></i>
-                    </div>
-
-                    <div class="relative">
                         <input
                             type="password"
                             name="password"

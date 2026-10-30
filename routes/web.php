@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
@@ -20,3 +21,15 @@ Route::post('/login', [AuthController::class, 'login'])
     ->name('login.store');
 Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout');
+
+Route::get('/dashboard', function () {
+    return '<h1>Halo Mahasiswa: ' . Auth::user()->name . ' 👋</h1><p>Kamu berhasil login!</p><form action="' . route('logout') . '" method="POST">' . csrf_field() . '<button type="submit">Logout</button></form>';
+})->middleware('auth')->name('dashboard');
+
+Route::get('/organisasi/dashboard', function () {
+    return '<h1>Halo Penyelenggara: ' . Auth::user()->name . ' 🏛️</h1><p>Kamu berhasil login!</p><form action="' . route('logout') . '" method="POST">' . csrf_field() . '<button type="submit">Logout</button></form>';
+})->middleware('auth')->name('organisasi.dashboard');
+
+Route::get('/admin/dashboard', function () {
+    return '<h1>Halo Admin: ' . Auth::user()->name . ' 👑</h1><p>Kamu berhasil login!</p><form action="' . route('logout') . '" method="POST">' . csrf_field() . '<button type="submit">Logout</button></form>';
+})->middleware('auth')->name('admin.dashboard');

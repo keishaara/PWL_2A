@@ -12,34 +12,27 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request)
+     public function login(Request $request)
     {
         $credentials = $request->validate([
             'email'    => ['required', 'email'],
             'password' => ['required'],
-            'role'     => ['required', 'in:student,organizer'],
         ], [
             'email.required'    => 'Alamat email wajib diisi.',
             'email.email'       => 'Format email tidak valid.',
             'password.required' => 'Password wajib diisi.',
-            'role.required'     => 'Role wajib diisi.',
-            'role.in'           => 'Role tidak valid.',
         ]);
-
         $remember = $request->boolean('remember');
-
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
-
             $user = Auth::user();
-
-            if ($user->role === 'organizer') {
+            if ($user->role === 'admin') {
+                return redirect()->intended('/admin/dashboard');
+            } elseif ($user->role === 'organizer') {
                 return redirect()->intended('/organisasi/dashboard');
             }
-
             return redirect()->intended('/dashboard');
         }
-
         return back()->withErrors([
             'email' => 'Email atau password yang Anda masukkan salah.',
         ])->onlyInput('email');
