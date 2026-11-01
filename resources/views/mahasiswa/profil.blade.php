@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,6 +38,7 @@
         }
     </style>
 </head>
+
 <body class="bg-brand-bg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
     <header class="w-full bg-brand-navy border-b border-white/10 sticky top-0 z-40 shadow-sm">
@@ -50,11 +52,11 @@
                 <div class="hidden sm:block h-5 w-[1px] bg-white/20"></div>
 
                 <nav class="hidden sm:flex items-center gap-3 text-xs font-semibold text-white/80">
-                    <a href="{{ route('dashboard') }}" class="hover:text-brand-cyan transition flex items-center gap-1.5">
+                    <!-- <a href="{{ route('dashboard') }}" class="hover:text-brand-cyan transition flex items-center gap-1.5">
                         <i class="fa-solid fa-house"></i>
                         <span>Dashboard</span>
                     </a>
-                    <span class="text-white/30">/</span>
+                    <span class="text-white/30">/</span> -->
                     <span class="text-brand-cyan">Profil Mahasiswa</span>
                 </nav>
             </div>
@@ -75,14 +77,19 @@
     </header>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
-        
+
         <aside class="w-full md:w-64 shrink-0 space-y-3">
             <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-1">
                 <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3 py-2">Navigasi Akun</div>
-                
+
                 <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
                     <i class="fa-solid fa-house w-4 text-center"></i>
                     <span>Dashboard</span>
+                </a>
+
+                <a href="{{ route('events.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
+                    <i class="fa-solid fa-compass w-4 text-center"></i>
+                    <span>Katalog Acara</span>
                 </a>
 
                 <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold bg-brand-navy text-white shadow-sm transition">
@@ -111,58 +118,58 @@
         <main class="flex-1 space-y-6">
 
             @if(session('success'))
-                <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between text-sm shadow-sm">
-                    <div class="flex items-center gap-3">
-                        <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-check text-xs"></i>
-                        </div>
-                        <span class="font-medium">{{ session('success') }}</span>
+            <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between text-sm shadow-sm">
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-check text-xs"></i>
                     </div>
-                    <button type="button" onclick="this.parentElement.remove()" class="text-emerald-600 hover:text-emerald-900">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+                    <span class="font-medium">{{ session('success') }}</span>
                 </div>
+                <button type="button" onclick="this.parentElement.remove()" class="text-emerald-600 hover:text-emerald-900">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
             @endif
 
             @if(session('success_password'))
-                <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between text-sm shadow-sm">
-                    <div class="flex items-center gap-3">
-                        <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-lock text-xs"></i>
-                        </div>
-                        <span class="font-medium">{{ session('success_password') }}</span>
+            <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between text-sm shadow-sm">
+                <div class="flex items-center gap-3">
+                    <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-lock text-xs"></i>
                     </div>
-                    <button type="button" onclick="this.parentElement.remove()" class="text-emerald-600 hover:text-emerald-900">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+                    <span class="font-medium">{{ session('success_password') }}</span>
                 </div>
+                <button type="button" onclick="this.parentElement.remove()" class="text-emerald-600 hover:text-emerald-900">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
             @endif
 
             @if($errors->any())
-                <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm shadow-sm">
-                    <div class="flex items-start gap-3">
-                        <div class="w-7 h-7 rounded-full bg-brand-coral text-white flex items-center justify-center shrink-0 mt-0.5">
-                            <i class="fa-solid fa-exclamation text-xs"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-bold mb-1">Periksa kembali data Anda:</h4>
-                            <ul class="list-disc list-inside space-y-0.5 text-xs">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+            <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm shadow-sm">
+                <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 rounded-full bg-brand-coral text-white flex items-center justify-center shrink-0 mt-0.5">
+                        <i class="fa-solid fa-exclamation text-xs"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-bold mb-1">Periksa kembali data Anda:</h4>
+                        <ul class="list-disc list-inside space-y-0.5 text-xs">
+                            @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
+            </div>
             @endif
 
             <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center gap-6">
                 <div class="relative">
                     <div class="w-24 h-24 rounded-2xl overflow-hidden bg-brand-navy text-white flex items-center justify-center text-3xl font-extrabold shadow-md border-2 border-slate-100">
                         @if(!empty($user->avatar) && file_exists(public_path('uploads/profiles/' . $user->avatar)))
-                            <img src="{{ asset('uploads/profiles/' . $user->avatar) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
+                        <img src="{{ asset('uploads/profiles/' . $user->avatar) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
                         @else
-                            <span class="text-brand-cyan">{{ strtoupper(substr($user->name ?? 'M', 0, 2)) }}</span>
+                        <span class="text-brand-cyan">{{ strtoupper(substr($user->name ?? 'M', 0, 2)) }}</span>
                         @endif
                     </div>
                     <label for="foto_profil" class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-brand-cyan text-brand-navy flex items-center justify-center cursor-pointer shadow-md hover:scale-105 transition" title="Ganti Foto">
@@ -178,12 +185,12 @@
                         </span>
                     </div>
                     <p class="text-sm text-slate-500 font-medium">
-                        <span class="font-semibold text-slate-700">NPM:</span> {{ $user->npm ?? 'Belum diatur' }} 
-                        <span class="mx-2 text-slate-300">|</span> 
+                        <span class="font-semibold text-slate-700">NPM:</span> {{ $user->npm ?? 'Belum diatur' }}
+                        <span class="mx-2 text-slate-300">|</span>
                         <span>{{ $user->major ?? 'Jurusan belum diisi' }}</span>
                         @if($user->semester)
-                            <span class="mx-2 text-slate-300">|</span> 
-                            <span>Semester {{ $user->semester }}</span>
+                        <span class="mx-2 text-slate-300">|</span>
+                        <span>Semester {{ $user->semester }}</span>
                         @endif
                     </p>
                     <p class="text-xs text-slate-400">
@@ -207,83 +214,76 @@
 
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
                         <label class="block text-xs font-bold text-slate-700 mb-1.5">Unggah Foto Profil Baru</label>
-                        <input 
-                            type="file" 
-                            name="foto_profil" 
-                            id="foto_profil" 
+                        <input
+                            type="file"
+                            name="foto_profil"
+                            id="foto_profil"
                             accept="image/png, image/jpeg, image/jpg"
-                            class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-brand-navy file:text-white hover:file:bg-[#2563EB] cursor-pointer"
-                        >
+                            class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-brand-navy file:text-white hover:file:bg-[#2563EB] cursor-pointer">
                         <span class="text-[11px] text-slate-400 mt-1 block">Format: JPG, JPEG, atau PNG (Maks. 2MB).</span>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Lengkap</label>
-                            <input 
-                                type="text" 
-                                name="name" 
-                                value="{{ old('name', $user->name) }}" 
+                            <input
+                                type="text"
+                                name="name"
+                                value="{{ old('name', $user->name) }}"
                                 required
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition"
-                            >
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition">
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">NPM</label>
-                            <input 
-                                type="text" 
-                                value="{{ $user->npm ?? '-' }}" 
+                            <input
+                                type="text"
+                                value="{{ $user->npm ?? '-' }}"
                                 readonly
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-100 text-slate-500 text-sm cursor-not-allowed"
-                            >
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-100 text-slate-500 text-sm cursor-not-allowed">
                             <span class="text-[10px] text-slate-400 mt-0.5 block">NPM dikunci sesuai identitas registrasi.</span>
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Email Mahasiswa</label>
-                            <input 
-                                type="email" 
-                                name="email" 
-                                value="{{ old('email', $user->email) }}" 
+                            <input
+                                type="email"
+                                name="email"
+                                value="{{ old('email', $user->email) }}"
                                 required
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition"
-                            >
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition">
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">No. WhatsApp / Telepon</label>
-                            <input 
-                                type="text" 
-                                name="phone" 
-                                value="{{ old('phone', $user->phone) }}" 
+                            <input
+                                type="text"
+                                name="phone"
+                                value="{{ old('phone', $user->phone) }}"
                                 placeholder="Contoh: 081234567890"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition"
-                            >
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition">
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Program Studi</label>
-                            <input 
-                                type="text" 
-                                name="major" 
-                                value="{{ old('major', $user->major) }}" 
+                            <input
+                                type="text"
+                                name="major"
+                                value="{{ old('major', $user->major) }}"
                                 placeholder="Contoh: Ilmu Komputer"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition"
-                            >
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition">
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Semester</label>
-                            <input 
-                                type="number" 
-                                name="semester" 
-                                min="1" 
-                                max="14" 
-                                value="{{ old('semester', $user->semester) }}" 
+                            <input
+                                type="number"
+                                name="semester"
+                                min="1"
+                                max="14"
+                                value="{{ old('semester', $user->semester) }}"
                                 placeholder="Contoh: 3"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition"
-                            >
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition">
                         </div>
                     </div>
 
@@ -311,35 +311,32 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div class="sm:col-span-2">
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Kata Sandi Saat Ini</label>
-                            <input 
-                                type="password" 
-                                name="current_password" 
+                            <input
+                                type="password"
+                                name="current_password"
                                 required
                                 placeholder="Masukkan kata sandi lama"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition"
-                            >
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition">
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Kata Sandi Baru</label>
-                            <input 
-                                type="password" 
-                                name="password" 
+                            <input
+                                type="password"
+                                name="password"
                                 required
                                 placeholder="Minimal 8 karakter"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition"
-                            >
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition">
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Konfirmasi Kata Sandi Baru</label>
-                            <input 
-                                type="password" 
-                                name="password_confirmation" 
+                            <input
+                                type="password"
+                                name="password_confirmation"
                                 required
                                 placeholder="Ulangi kata sandi baru"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition"
-                            >
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition">
                         </div>
                     </div>
 
@@ -355,4 +352,5 @@
     </div>
 
 </body>
+
 </html>
