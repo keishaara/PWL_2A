@@ -16,19 +16,22 @@ class Registration extends Model
         'status',
     ];
 
-    /**
-     * Relasi ke Model Event (Pendaftaran terikat pada 1 event)
-     */
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
-
-    /**
-     * Relasi ke Model User 
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
+
+    public function ticket()
+    {
+        return $this->hasOne(Ticket::class);
     }
 }

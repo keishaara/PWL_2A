@@ -76,6 +76,37 @@
 
     <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow">
 
+        @if (session('success'))
+        <div class="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-sm">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-circle-check text-emerald-600 text-xl"></i>
+                <div>{{ session('success') }}</div>
+            </div>
+            <a href="{{ route('payments.index') }}" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-700 transition whitespace-nowrap">
+                Lihat Tiket / Tagihan Saya
+            </a>
+        </div>
+        @endif
+
+        @if (session('info'))
+        <div class="mb-6 p-4 rounded-2xl bg-blue-50 border border-blue-200 text-blue-800 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-sm">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-circle-info text-blue-600 text-xl"></i>
+                <div>{{ session('info') }}</div>
+            </div>
+            <a href="{{ route('payments.index') }}" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white font-bold text-xs hover:bg-blue-700 transition whitespace-nowrap">
+                Lihat Tagihan Saya
+            </a>
+        </div>
+        @endif
+
+        @if (session('error'))
+        <div class="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm flex items-center gap-3 shadow-sm">
+            <i class="fa-solid fa-circle-exclamation text-rose-600 text-xl"></i>
+            <div>{{ session('error') }}</div>
+        </div>
+        @endif
+
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
             <div class="lg:col-span-2 space-y-6">
@@ -157,18 +188,56 @@
                         </div>
                         <div class="flex items-center justify-between text-xs">
                             <span class="text-slate-500">Biaya Pendaftaran</span>
+                            @if($event->isPaid())
+                            <span class="font-extrabold text-brand-coral text-base">
+                                Rp {{ number_format($event->price, 0, ',', '.') }}
+                            </span>
+                            @else
                             <span class="font-bold text-[#39D9C1] text-sm">GRATIS</span>
+                            @endif
                         </div>
                     </div>
 
                     @auth
-                    @if ($remainingQuota > 0)
-                    <button
-                        onclick="alert('Fitur submit pendaftaran tiket event akan segera aktif di sesi berikutnya!')"
-                        class="w-full py-3.5 px-4 rounded-xl bg-[#F45D69] text-white font-bold text-sm hover:bg-[#e04d59] transition shadow-lg shadow-[#F45D69]/30 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-ticket"></i>
-                        <span>Daftar Kegiatan Ini</span>
-                    </button>
+                    @php
+                        $userReg = $event->registrations->where('user_id', Auth::id())->where('status', '!=', 'cancelled')->first();
+                    @endphp
+
+                    @if($userReg)
+                        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-2">
+                            <div class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>Anda Sudah Terdaftar</span>
+                            </div>
+                            <p class="text-[11px] text-slate-500">
+                                @if($event->isPaid())
+                                    Status pembayaran Anda dapat dipantau di halaman invoice / status tagihan.
+                                @else
+                                    Tiket gratis Anda sudah aktif.
+                                @endif
+                            </p>
+                            <div class="pt-1">
+                                @if($event->isPaid() && $userReg->payment)
+                                    <a href="{{ route('payments.show', $userReg->payment->invoice_number) }}" class="inline-block w-full py-2.5 px-3 rounded-xl bg-brand-navy text-white font-bold text-xs hover:bg-slate-800 transition">
+                                        Buka Invoice Tagihan
+                                    </a>
+                                @else
+                                    <a href="{{ route('payments.index') }}" class="inline-block w-full py-2.5 px-3 rounded-xl bg-brand-navy text-white font-bold text-xs hover:bg-slate-800 transition">
+                                        Lihat Status & Riwayat
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    @elseif ($remainingQuota > 0)
+                    <form action="{{ route('events.register', $event->slug) }}" method="POST">
+                        @csrf
+                        <button
+                            type="submit"
+                            class="w-full py-3.5 px-4 rounded-xl bg-[#F45D69] text-white font-bold text-sm hover:bg-[#e04d59] transition shadow-lg shadow-[#F45D69]/30 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-ticket"></i>
+                            <span>{{ $event->isPaid() ? 'Daftar & Lanjut ke Pembayaran' : 'Daftar Kegiatan Ini (Gratis)' }}</span>
+                        </button>
+                    </form>
                     @else
                     <button disabled class="w-full py-3.5 px-4 rounded-xl bg-slate-300 text-slate-500 font-bold text-sm cursor-not-allowed">
                         Kuota Penuh

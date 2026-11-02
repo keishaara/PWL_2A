@@ -186,8 +186,12 @@
                                         {{ $event->category->name }}
                                     </span>
 
-                                    <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-white/95 text-brand-coral shadow-sm">
-                                        <i class="fa-solid fa-users mr-1"></i> Kuota {{ $event->quota }}
+                                    <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-white/95 shadow-sm {{ $event->isPaid() ? 'text-brand-coral' : 'text-emerald-600' }}">
+                                        @if($event->isPaid())
+                                            Rp {{ number_format($event->price, 0, ',', '.') }}
+                                        @else
+                                            GRATIS
+                                        @endif
                                     </span>
                                 </div>
 

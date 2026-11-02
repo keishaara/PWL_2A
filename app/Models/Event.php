@@ -18,6 +18,10 @@ class Event extends Model
         'start_date',
         'end_date',
         'quota',
+        'price',
+        'bank_name',
+        'bank_account_number',
+        'bank_account_holder',
         'banner',
         'status',
         'rejection_reason',
@@ -26,7 +30,13 @@ class Event extends Model
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
+        'price' => 'decimal:2',
     ];
+
+    public function isPaid(): bool
+    {
+        return (float) $this->price > 0;
+    }
 
     public function organization(): BelongsTo
     {
@@ -41,5 +51,10 @@ class Event extends Model
     public function registrations(): HasMany
     {
         return $this->hasMany(Registration::class);
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -48,6 +49,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mahasiswa/profil', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('/mahasiswa/profil', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/mahasiswa/profil/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::post('/events/{slug}/register', [PaymentController::class, 'registerEvent'])->name('events.register');
+    Route::get('/mahasiswa/pembayaran', [PaymentController::class, 'index'])->name('payments.index');
+    Route::get('/mahasiswa/pembayaran/{invoice_number}', [PaymentController::class, 'show'])->name('payments.show');
+    Route::post('/mahasiswa/pembayaran/{invoice_number}/bukti', [PaymentController::class, 'uploadProof'])->name('payments.proof.store');
 });
 
 Route::get('/organisasi/dashboard', function () {
