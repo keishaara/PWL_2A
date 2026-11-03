@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,6 +37,7 @@
         }
     </style>
 </head>
+
 <body class="bg-brand-bg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
     <header class="w-full bg-brand-navy border-b border-white/10 sticky top-0 z-40 shadow-sm">
@@ -49,230 +51,267 @@
                 <div class="hidden sm:block h-5 w-[1px] bg-white/20"></div>
 
                 <nav class="hidden sm:flex items-center gap-4 text-xs font-semibold text-white/80">
-                    <a href="{{ route('dashboard') }}" class="hover:text-brand-cyan transition">Dashboard</a>
-                    <a href="{{ route('events.index') }}" class="hover:text-brand-cyan transition">Jelajah Acara</a>
                     <a href="{{ route('payments.index') }}" class="text-brand-cyan transition">Status Pembayaran</a>
                 </nav>
             </div>
 
             <div class="flex items-center gap-4">
-                <span class="text-xs font-semibold text-white/80">
-                    {{ Auth::user()->name }}
-                </span>
-                <a href="{{ route('payments.index') }}" class="text-xs font-medium bg-white/10 text-white px-3 py-1.5 rounded-lg hover:bg-white/20 transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-receipt text-brand-cyan"></i>
-                    <span>Tagihan Saya</span>
+                <a href="{{ route('profile.show') }}" class="flex items-center gap-2 text-xs font-semibold text-white/90 hover:text-white transition">
+                    <div class="w-7 h-7 rounded-full bg-brand-cyan/20 border border-brand-cyan flex items-center justify-center text-brand-cyan font-bold">
+                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                    </div>
+                    <span class="hidden md:inline">{{ Auth::user()->name }}</span>
                 </a>
             </div>
+
         </div>
     </header>
 
-    <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
-            <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
-                <a href="{{ route('events.index') }}" class="hover:text-brand-navy">Acara</a>
-                <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
-                <a href="{{ route('payments.index') }}" class="hover:text-brand-navy">Pembayaran</a>
-                <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
-                <span class="text-brand-navy font-semibold">Checkout Invoice</span>
+    <div class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex flex-col lg:flex-row gap-8">
+
+        <aside class="w-full md:w-64 shrink-0 space-y-4">
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-1">
+                <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3 py-2">Navigasi Akun</div>
+
+                <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold bg-brand-navy text-white shadow-sm transition">
+                    <i class="fa-solid fa-house w-4 text-center text-brand-cyan"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="{{ route('events.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
+                    <i class="fa-solid fa-compass w-4 text-center"></i>
+                    <span>Katalog Acara</span>
+                </a>
+
+                <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
+                    <i class="fa-solid fa-user w-4 text-center"></i>
+                    <span>Profil Mahasiswa</span>
+                </a>
+
+                <form action="{{ route('logout') }}" method="POST" class="pt-2">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-brand-coral hover:bg-rose-50 transition text-left">
+                        <i class="fa-solid fa-right-from-bracket w-4 text-center"></i>
+                        <span>Keluar Akun</span>
+                    </button>
+                </form>
             </div>
 
-            <a href="{{ route('payments.index') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-brand-coral transition">
-                <i class="fa-solid fa-arrow-left"></i>
-                <span>Kembali ke Riwayat Pembayaran</span>
-            </a>
-        </div>
-
-        @if (session('success'))
-        <div class="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-center gap-3">
-            <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
-            <div>{{ session('success') }}</div>
-        </div>
-        @endif
-
-        @if (session('info'))
-        <div class="mb-6 p-4 rounded-xl bg-blue-50 border border-blue-200 text-blue-800 text-xs sm:text-sm flex items-center gap-3">
-            <i class="fa-solid fa-circle-info text-blue-600 text-lg"></i>
-            <div>{{ session('info') }}</div>
-        </div>
-        @endif
-
-        @if (session('error'))
-        <div class="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm flex items-center gap-3">
-            <i class="fa-solid fa-circle-exclamation text-rose-600 text-lg"></i>
-            <div>{{ session('error') }}</div>
-        </div>
-        @endif
-
-        @if ($errors->any())
-        <div class="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm">
-            <div class="font-bold mb-1 flex items-center gap-2">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                <span>Gagal Mengunggah:</span>
+            <div class="bg-brand-navy text-white p-5 rounded-2xl border border-slate-800 shadow-sm text-center">
+                <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-9 mx-auto object-contain bg-white rounded-lg p-1.5 mb-3">
+                <h4 class="text-xs font-bold text-brand-cyan uppercase tracking-wider mb-1">Status Mahasiswa</h4>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                    Akun kamu terverifikasi sebagai mahasiswa aktif. Cari acara seru dan kumpulkan sertifikat digital!
+                </p>
             </div>
-            <ul class="list-disc list-inside space-y-0.5 text-rose-700">
-                @foreach ($errors->all() as $err)
+        </aside>
+
+        <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
+                    <a href="{{ route('events.index') }}" class="hover:text-brand-navy">Acara</a>
+                    <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+                    <a href="{{ route('payments.index') }}" class="hover:text-brand-navy">Pembayaran</a>
+                    <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+                    <span class="text-brand-navy font-semibold">Checkout Invoice</span>
+                </div>
+
+                <a href="{{ route('payments.index') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-brand-coral transition">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Kembali ke Riwayat Pembayaran</span>
+                </a>
+            </div>
+
+            @if (session('success'))
+            <div class="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-center gap-3">
+                <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
+                <div>{{ session('success') }}</div>
+            </div>
+            @endif
+
+            @if (session('info'))
+            <div class="mb-6 p-4 rounded-xl bg-blue-50 border border-blue-200 text-blue-800 text-xs sm:text-sm flex items-center gap-3">
+                <i class="fa-solid fa-circle-info text-blue-600 text-lg"></i>
+                <div>{{ session('info') }}</div>
+            </div>
+            @endif
+
+            @if (session('error'))
+            <div class="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm flex items-center gap-3">
+                <i class="fa-solid fa-circle-exclamation text-rose-600 text-lg"></i>
+                <div>{{ session('error') }}</div>
+            </div>
+            @endif
+
+            @if ($errors->any())
+            <div class="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm">
+                <div class="font-bold mb-1 flex items-center gap-2">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>Gagal Mengunggah:</span>
+                </div>
+                <ul class="list-disc list-inside space-y-0.5 text-rose-700">
+                    @foreach ($errors->all() as $err)
                     <li>{{ $err }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+                    @endforeach
+                </ul>
+            </div>
+            @endif
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-            <div class="lg:col-span-7 space-y-6">
-                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-7 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-brand-navy via-brand-cyan to-brand-coral"></div>
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-7 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-brand-navy via-brand-cyan to-brand-coral"></div>
 
-                    <div class="flex flex-wrap items-start justify-between gap-4 border-b border-slate-100 pb-5">
-                        <div>
-                            <span class="inline-block text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                                Invoice Tagihan Acara
-                            </span>
-                            <h1 class="text-xl sm:text-2xl font-extrabold text-brand-navy mt-1">
-                                {{ $payment->invoice_number }}
-                            </h1>
-                            <p class="text-xs text-slate-500 mt-1">
-                                Diterbitkan pada: {{ $payment->created_at->translatedFormat('d F Y, H:i') }} WIB
-                            </p>
-                        </div>
+                        <div class="flex flex-wrap items-start justify-between gap-4 border-b border-slate-100 pb-5">
+                            <div>
+                                <span class="inline-block text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                    Invoice Tagihan Acara
+                                </span>
+                                <h1 class="text-xl sm:text-2xl font-extrabold text-brand-navy mt-1">
+                                    {{ $payment->invoice_number }}
+                                </h1>
+                                <p class="text-xs text-slate-500 mt-1">
+                                    Diterbitkan pada: {{ $payment->created_at->translatedFormat('d F Y, H:i') }} WIB
+                                </p>
+                            </div>
 
-                        <div>
-                            <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border {{ $payment->status_badge_class }}">
-                                @if($payment->status === 'paid')
+                            <div>
+                                <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border {{ $payment->status_badge_class }}">
+                                    @if($payment->status === 'paid')
                                     <i class="fa-solid fa-circle-check"></i>
-                                @elseif($payment->status === 'waiting_verification')
+                                    @elseif($payment->status === 'waiting_verification')
                                     <i class="fa-solid fa-clock-rotate-left"></i>
-                                @elseif($payment->status === 'rejected')
+                                    @elseif($payment->status === 'rejected')
                                     <i class="fa-solid fa-circle-xmark"></i>
-                                @else
+                                    @else
                                     <i class="fa-solid fa-hourglass-half"></i>
-                                @endif
-                                <span>{{ $payment->status_label }}</span>
-                            </span>
+                                    @endif
+                                    <span>{{ $payment->status_label }}</span>
+                                </span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="py-5 border-b border-slate-100 flex items-start gap-4">
-                        @if($payment->event->banner)
+                        <div class="py-5 border-b border-slate-100 flex items-start gap-4">
+                            @if($payment->event->banner)
                             <img src="{{ asset('storage/' . $payment->event->banner) }}" alt="{{ $payment->event->title }}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-slate-100 flex-shrink-0">
-                        @else
+                            @else
                             <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 flex-shrink-0">
                                 <i class="fa-regular fa-image text-2xl"></i>
                             </div>
-                        @endif
+                            @endif
 
-                        <div class="flex-1">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-navy/5 text-brand-navy uppercase tracking-wider">
-                                {{ $payment->event->category->name ?? 'Kegiatan Kampus' }}
-                            </span>
-                            <h3 class="text-sm sm:text-base font-bold text-brand-navy mt-1 line-clamp-2">
-                                {{ $payment->event->title }}
-                            </h3>
-                            <div class="flex flex-wrap items-center gap-3 text-[11px] text-slate-500 mt-1.5">
-                                <span><i class="fa-regular fa-calendar text-slate-400 mr-1"></i> {{ $payment->event->start_date->translatedFormat('d M Y') }}</span>
-                                <span><i class="fa-solid fa-location-dot text-slate-400 mr-1"></i> {{ $payment->event->location }}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="py-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs border-b border-slate-100">
-                        <div>
-                            <span class="text-slate-400 block mb-1">Ditagihkan Kepada:</span>
-                            <p class="font-bold text-brand-navy">{{ $payment->user->name }}</p>
-                            <p class="text-slate-500 text-[11px]">{{ $payment->user->npm ?? 'Mahasiswa' }} &bull; {{ $payment->user->email }}</p>
-                        </div>
-                        <div>
-                            <span class="text-slate-400 block mb-1">Batas Waktu Pembayaran:</span>
-                            <p class="font-bold text-rose-600 flex items-center gap-1.5">
-                                <i class="fa-regular fa-clock"></i>
-                                <span>{{ $payment->expires_at ? $payment->expires_at->translatedFormat('d F Y, H:i') . ' WIB' : '24 Jam setelah checkout' }}</span>
-                            </p>
-                            <p class="text-[11px] text-slate-400 mt-0.5">Segera transfer sebelum batas waktu berakhir</p>
-                        </div>
-                    </div>
-
-                    <div class="pt-5 flex items-center justify-between">
-                        <div>
-                            <span class="text-xs text-slate-500 font-medium block">Total Pembayaran:</span>
-                            <span class="text-2xl sm:text-3xl font-extrabold text-brand-navy">
-                                Rp {{ number_format($payment->amount, 0, ',', '.') }}
-                            </span>
-                        </div>
-
-                        <button type="button" onclick="window.print()" class="px-3 py-2 text-xs font-semibold text-slate-600 hover:text-brand-navy bg-slate-100 hover:bg-slate-200 rounded-lg transition inline-flex items-center gap-1.5">
-                            <i class="fa-solid fa-print"></i>
-                            <span class="hidden sm:inline">Cetak Invoice</span>
-                        </button>
-                    </div>
-
-                    @if($payment->rejection_reason)
-                    <div class="mt-5 p-4 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800">
-                        <div class="font-bold mb-1 flex items-center gap-2">
-                            <i class="fa-solid fa-circle-xmark text-rose-600"></i>
-                            <span>Alasan Pembayaran Ditolak:</span>
-                        </div>
-                        <p class="text-rose-700 leading-relaxed">{{ $payment->rejection_reason }}</p>
-                        <p class="mt-2 text-[11px] text-rose-500">Silakan unggah ulang foto bukti transfer yang jelas dan sesuai.</p>
-                    </div>
-                    @endif
-                </div>
-
-                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-7">
-                    <h3 class="text-sm font-bold text-brand-navy flex items-center gap-2 mb-4">
-                        <i class="fa-solid fa-building-columns text-brand-coral"></i>
-                        <span>Rekening Tujuan Pembayaran</span>
-                    </h3>
-
-                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/70 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-slate-500">Nama Bank</span>
-                            <span class="text-xs font-bold text-brand-navy uppercase">{{ $payment->bank_name ?? 'Bank Mandiri' }}</span>
-                        </div>
-
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-slate-500">Nomor Rekening</span>
-                            <div class="flex items-center gap-2">
-                                <span id="accNumber" class="text-sm font-mono font-bold text-brand-coral tracking-wider">
-                                    {{ $payment->bank_account_number ?? '123-00-9876543-2' }}
+                            <div class="flex-1">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-navy/5 text-brand-navy uppercase tracking-wider">
+                                    {{ $payment->event->category->name ?? 'Kegiatan Kampus' }}
                                 </span>
-                                <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('accNumber').innerText); alert('Nomor rekening berhasil disalin!')" class="p-1 px-2 text-[10px] font-bold bg-white border border-slate-200 rounded text-slate-600 hover:text-brand-navy transition">
-                                    <i class="fa-regular fa-copy"></i> Salin
-                                </button>
+                                <h3 class="text-sm sm:text-base font-bold text-brand-navy mt-1 line-clamp-2">
+                                    {{ $payment->event->title }}
+                                </h3>
+                                <div class="flex flex-wrap items-center gap-3 text-[11px] text-slate-500 mt-1.5">
+                                    <span><i class="fa-regular fa-calendar text-slate-400 mr-1"></i> {{ $payment->event->start_date->translatedFormat('d M Y') }}</span>
+                                    <span><i class="fa-solid fa-location-dot text-slate-400 mr-1"></i> {{ $payment->event->location }}</span>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-slate-500">Atas Nama (A/N)</span>
-                            <span class="text-xs font-bold text-brand-navy">{{ $payment->bank_account_holder ?? 'Panitia Acara Kampus' }}</span>
+                        <div class="py-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs border-b border-slate-100">
+                            <div>
+                                <span class="text-slate-400 block mb-1">Ditagihkan Kepada:</span>
+                                <p class="font-bold text-brand-navy">{{ $payment->user->name }}</p>
+                                <p class="text-slate-500 text-[11px]">{{ $payment->user->npm ?? 'Mahasiswa' }} &bull; {{ $payment->user->email }}</p>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block mb-1">Batas Waktu Pembayaran:</span>
+                                <p class="font-bold text-rose-600 flex items-center gap-1.5">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <span>{{ $payment->expires_at ? $payment->expires_at->translatedFormat('d F Y, H:i') . ' WIB' : '24 Jam setelah checkout' }}</span>
+                                </p>
+                                <p class="text-[11px] text-slate-400 mt-0.5">Segera transfer sebelum batas waktu berakhir</p>
+                            </div>
+                        </div>
+
+                        <div class="pt-5 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs text-slate-500 font-medium block">Total Pembayaran:</span>
+                                <span class="text-2xl sm:text-3xl font-extrabold text-brand-navy">
+                                    Rp {{ number_format($payment->amount, 0, ',', '.') }}
+                                </span>
+                            </div>
+
+                            <button type="button" onclick="window.print()" class="px-3 py-2 text-xs font-semibold text-slate-600 hover:text-brand-navy bg-slate-100 hover:bg-slate-200 rounded-lg transition inline-flex items-center gap-1.5">
+                                <i class="fa-solid fa-print"></i>
+                                <span class="hidden sm:inline">Cetak Invoice</span>
+                            </button>
+                        </div>
+
+                        @if($payment->rejection_reason)
+                        <div class="mt-5 p-4 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800">
+                            <div class="font-bold mb-1 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-xmark text-rose-600"></i>
+                                <span>Alasan Pembayaran Ditolak:</span>
+                            </div>
+                            <p class="text-rose-700 leading-relaxed">{{ $payment->rejection_reason }}</p>
+                            <p class="mt-2 text-[11px] text-rose-500">Silakan unggah ulang foto bukti transfer yang jelas dan sesuai.</p>
+                        </div>
+                        @endif
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-7">
+                        <h3 class="text-sm font-bold text-brand-navy flex items-center gap-2 mb-4">
+                            <i class="fa-solid fa-building-columns text-brand-coral"></i>
+                            <span>Rekening Tujuan Pembayaran</span>
+                        </h3>
+
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/70 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-slate-500">Nama Bank</span>
+                                <span class="text-xs font-bold text-brand-navy uppercase">{{ $payment->bank_name ?? 'Bank Mandiri' }}</span>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-slate-500">Nomor Rekening</span>
+                                <div class="flex items-center gap-2">
+                                    <span id="accNumber" class="text-sm font-mono font-bold text-brand-coral tracking-wider">
+                                        {{ $payment->bank_account_number ?? '123-00-9876543-2' }}
+                                    </span>
+                                    <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('accNumber').innerText); alert('Nomor rekening berhasil disalin!')" class="p-1 px-2 text-[10px] font-bold bg-white border border-slate-200 rounded text-slate-600 hover:text-brand-navy transition">
+                                        <i class="fa-regular fa-copy"></i> Salin
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-slate-500">Atas Nama (A/N)</span>
+                                <span class="text-xs font-bold text-brand-navy">{{ $payment->bank_account_holder ?? 'Panitia Acara Kampus' }}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 space-y-2.5 text-xs text-slate-600">
+                            <p class="font-bold text-slate-800">Langkah-langkah:</p>
+                            <ol class="list-decimal list-inside space-y-1.5 text-slate-500">
+                                <li>Transfer tepat sejumlah <span class="font-bold text-brand-navy">Rp {{ number_format($payment->amount, 0, ',', '.') }}</span> ke rekening di atas melalui ATM, M-Banking, atau Internet Banking.</li>
+                                <li>Simpan atau tangkap layar (screenshot) struk bukti transaksi pembayaran Anda.</li>
+                                <li>Unggah file foto bukti tersebut pada form di samping sebelum batas waktu habis.</li>
+                                <li>Tunggu panitia memeriksa dan memverifikasi bukti pembayaran Anda.</li>
+                            </ol>
                         </div>
                     </div>
 
-                    <div class="mt-5 space-y-2.5 text-xs text-slate-600">
-                        <p class="font-bold text-slate-800">Langkah-langkah:</p>
-                        <ol class="list-decimal list-inside space-y-1.5 text-slate-500">
-                            <li>Transfer tepat sejumlah <span class="font-bold text-brand-navy">Rp {{ number_format($payment->amount, 0, ',', '.') }}</span> ke rekening di atas melalui ATM, M-Banking, atau Internet Banking.</li>
-                            <li>Simpan atau tangkap layar (screenshot) struk bukti transaksi pembayaran Anda.</li>
-                            <li>Unggah file foto bukti tersebut pada form di samping sebelum batas waktu habis.</li>
-                            <li>Tunggu panitia memeriksa dan memverifikasi bukti pembayaran Anda.</li>
-                        </ol>
-                    </div>
                 </div>
 
-            </div>
+                <div class="lg:col-span-5 space-y-6">
 
-            <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-7 sticky top-24">
+                        <h3 class="text-base font-extrabold text-brand-navy flex items-center gap-2 mb-1">
+                            <i class="fa-solid fa-cloud-arrow-up text-brand-cyan"></i>
+                            <span>Upload Bukti Transfer</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-6">
+                            Pastikan bukti transfer mencantumkan nomor transaksi, tanggal, dan nominal yang jelas.
+                        </p>
 
-                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-7 sticky top-24">
-                    <h3 class="text-base font-extrabold text-brand-navy flex items-center gap-2 mb-1">
-                        <i class="fa-solid fa-cloud-arrow-up text-brand-cyan"></i>
-                        <span>Upload Bukti Transfer</span>
-                    </h3>
-                    <p class="text-xs text-slate-500 mb-6">
-                        Pastikan bukti transfer mencantumkan nomor transaksi, tanggal, dan nominal yang jelas.
-                    </p>
-
-                    @if ($payment->status === 'paid')
+                        @if ($payment->status === 'paid')
                         <div class="text-center py-8 px-4 rounded-xl bg-emerald-50 border border-emerald-200">
                             <div class="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 text-2xl mx-auto mb-3">
                                 <i class="fa-solid fa-circle-check"></i>
@@ -301,7 +340,7 @@
                             </div>
                         </div>
 
-                    @else
+                        @else
 
                         @if($payment->status === 'waiting_verification' && $payment->payment_proof)
                         <div class="mb-5 p-4 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-800">
@@ -329,7 +368,7 @@
 
                                 <div class="relative border-2 border-dashed border-slate-300 hover:border-brand-coral rounded-2xl p-6 text-center cursor-pointer transition bg-slate-50/50 hover:bg-slate-50 group">
                                     <input type="file" name="payment_proof" id="payment_proof" accept="image/png, image/jpeg, image/jpg" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="previewImage(this)">
-                                    
+
                                     <div id="uploadPlaceholder">
                                         <div class="w-12 h-12 rounded-full bg-brand-coral/10 text-brand-coral flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition">
                                             <i class="fa-solid fa-image text-xl"></i>
@@ -362,15 +401,17 @@
                                 <i class="fa-solid fa-shield-halved mr-1"></i> Data dan bukti pembayaran Anda terlindungi dengan aman.
                             </p>
                         </form>
-                    @endif
+                        @endif
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+        </main>
 
-    </main>
+    </div>
 
     <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">
         &copy; {{ date('Y') }} Univents Kampus &bull; Platform Manajemen & Pendaftaran Acara Mahasiswa
@@ -387,7 +428,7 @@
                 const file = input.files[0];
                 const reader = new FileReader();
 
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     previewImage.src = e.target.result;
                     fileName.textContent = file.name;
                     placeholder.classList.add('hidden');
@@ -399,4 +440,5 @@
         }
     </script>
 </body>
+
 </html>

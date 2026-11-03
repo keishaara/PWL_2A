@@ -62,16 +62,12 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <span class="hidden md:inline text-xs font-semibold text-white/80">
-                    {{ Auth::user()->name }}
-                </span>
-                <form action="{{ route('logout') }}" method="POST" class="inline m-0">
-                    @csrf
-                    <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/10 text-white hover:bg-brand-coral transition border border-white/10">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span>Keluar</span>
-                    </button>
-                </form>
+                <a href="{{ route('profile.show') }}" class="flex items-center gap-2 text-xs font-semibold text-white/90 hover:text-white transition">
+                    <div class="w-7 h-7 rounded-full bg-brand-cyan/20 border border-brand-cyan flex items-center justify-center text-brand-cyan font-bold">
+                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                    </div>
+                    <span class="hidden md:inline">{{ Auth::user()->name }}</span>
+                </a>
             </div>
         </div>
     </header>
@@ -90,6 +86,11 @@
                 <a href="{{ route('events.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
                     <i class="fa-solid fa-compass w-4 text-center"></i>
                     <span>Katalog Acara</span>
+                </a>
+
+                <a href="{{ route('payments.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
+                    <i class="fa-solid fa-receipt w-4 text-center"></i>
+                    <span>Status Pembayaran</span>
                 </a>
 
                 <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold bg-brand-navy text-white shadow-sm transition">

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,6 +37,7 @@
         }
     </style>
 </head>
+
 <body class="bg-brand-bg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
 
@@ -51,37 +53,28 @@
 
                 <nav class="hidden sm:flex items-center gap-4 text-xs font-semibold text-white/80">
                     <span class="text-brand-cyan">Dashboard Mahasiswa</span>
-                    <a href="{{ route('events.index') }}" class="hover:text-brand-cyan transition">Jelajah Acara</a>
-                    <a href="{{ route('payments.index') }}" class="hover:text-brand-cyan transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-receipt text-brand-cyan"></i>
-                        <span>Status Pembayaran</span>
-                    </a>
                 </nav>
             </div>
 
             <div class="flex items-center gap-4">
-                <span class="hidden md:inline text-xs font-semibold text-white/80">
-                    {{ Auth::user()->name }}
-                </span>
-                <form action="{{ route('logout') }}" method="POST" class="inline m-0">
-                    @csrf
-                    <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/10 text-white hover:bg-brand-coral transition border border-white/10">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span>Keluar</span>
-                    </button>
-                </form>
+                <a href="{{ route('profile.show') }}" class="flex items-center gap-2 text-xs font-semibold text-white/90 hover:text-white transition">
+                    <div class="w-7 h-7 rounded-full bg-brand-cyan/20 border border-brand-cyan flex items-center justify-center text-brand-cyan font-bold">
+                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                    </div>
+                    <span class="hidden md:inline">{{ Auth::user()->name }}</span>
+                </a>
             </div>
         </div>
     </header>
 
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
-        
+
 
         <aside class="w-full md:w-64 shrink-0 space-y-4">
             <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-1">
                 <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3 py-2">Navigasi Akun</div>
-                
+
                 <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold bg-brand-navy text-white shadow-sm transition">
                     <i class="fa-solid fa-house w-4 text-center text-brand-cyan"></i>
                     <span>Dashboard</span>
@@ -90,6 +83,11 @@
                 <a href="{{ route('events.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
                     <i class="fa-solid fa-compass w-4 text-center"></i>
                     <span>Katalog Acara</span>
+                </a>
+
+                <a href="{{ route('payments.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
+                    <i class="fa-solid fa-receipt w-4 text-center"></i>
+                    <span>Status Pembayaran</span>
                 </a>
 
                 <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
@@ -118,7 +116,7 @@
 
         <main class="flex-1 space-y-6">
 
-        <div class="bg-brand-navy text-white rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-md">
+            <div class="bg-brand-navy text-white rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-md">
                 <div class="absolute -top-16 -right-16 w-64 h-64 bg-brand-cyan/15 rounded-full blur-2xl pointer-events-none"></div>
                 <div class="absolute -bottom-16 -left-16 w-64 h-64 bg-brand-coral/15 rounded-full blur-2xl pointer-events-none"></div>
 
@@ -197,36 +195,36 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                     @forelse ($events as $event)
-                        <div class="rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between hover:border-brand-cyan transition duration-200 group bg-slate-50/50">
-                            <div>
-                                <div class="relative h-36 w-full overflow-hidden bg-slate-200">
-                                    <img src="{{ $event->banner ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500' }}" alt="{{ $event->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                                    <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-brand-navy/90 text-white">
-                                        {{ $event->category->name }}
-                                    </span>
-                                </div>
-                                <div class="p-4 space-y-2">
-                                    <span class="text-[11px] font-bold text-brand-cyan block">
-                                        <i class="fa-regular fa-calendar mr-1"></i> {{ $event->start_date->translatedFormat('d M Y') }}
-                                    </span>
-                                    <h4 class="font-bold text-sm text-brand-navy line-clamp-2 leading-snug">
-                                        {{ $event->title }}
-                                    </h4>
-                                    <p class="text-xs text-slate-500 line-clamp-1">
-                                        <i class="fa-solid fa-location-dot mr-1"></i> {{ $event->location }}
-                                    </p>
-                                </div>
+                    <div class="rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between hover:border-brand-cyan transition duration-200 group bg-slate-50/50">
+                        <div>
+                            <div class="relative h-36 w-full overflow-hidden bg-slate-200">
+                                <img src="{{ $event->banner ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500' }}" alt="{{ $event->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-brand-navy/90 text-white">
+                                    {{ $event->category->name }}
+                                </span>
                             </div>
-                            <div class="p-4 pt-0">
-                                <a href="{{ route('events.show', $event->slug) }}" class="block text-center w-full py-2 rounded-xl text-xs font-bold bg-brand-navy text-white hover:bg-brand-coral transition">
-                                    Lihat Acara
-                                </a>
+                            <div class="p-4 space-y-2">
+                                <span class="text-[11px] font-bold text-brand-cyan block">
+                                    <i class="fa-regular fa-calendar mr-1"></i> {{ $event->start_date->translatedFormat('d M Y') }}
+                                </span>
+                                <h4 class="font-bold text-sm text-brand-navy line-clamp-2 leading-snug">
+                                    {{ $event->title }}
+                                </h4>
+                                <p class="text-xs text-slate-500 line-clamp-1">
+                                    <i class="fa-solid fa-location-dot mr-1"></i> {{ $event->location }}
+                                </p>
                             </div>
                         </div>
+                        <div class="p-4 pt-0">
+                            <a href="{{ route('events.show', $event->slug) }}" class="block text-center w-full py-2 rounded-xl text-xs font-bold bg-brand-navy text-white hover:bg-brand-coral transition">
+                                Lihat Acara
+                            </a>
+                        </div>
+                    </div>
                     @empty
-                        <div class="col-span-3 text-center py-10 text-slate-400 text-xs">
-                            Belum ada acara yang tersedia saat ini.
-                        </div>
+                    <div class="col-span-3 text-center py-10 text-slate-400 text-xs">
+                        Belum ada acara yang tersedia saat ini.
+                    </div>
                     @endforelse
                 </div>
             </div>
@@ -240,4 +238,5 @@
     </footer>
 
 </body>
+
 </html>

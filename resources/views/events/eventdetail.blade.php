@@ -64,7 +64,12 @@
             </div>
 
 
-            <a href="{{ route('events.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/10 text-white hover:bg-brand-coral transition border border-white/10">
+            <!-- <a href="{{ route('events.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/10 text-white hover:bg-brand-coral transition border border-white/10">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back</span>
+            </a> -->
+
+            <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/10 text-white hover:bg-brand-coral transition border border-white/10">
                 <i class="fa-solid fa-arrow-left"></i>
                 <span>Back</span>
             </a>
@@ -200,34 +205,34 @@
 
                     @auth
                     @php
-                        $userReg = $event->registrations->where('user_id', Auth::id())->where('status', '!=', 'cancelled')->first();
+                    $userReg = $event->registrations->where('user_id', Auth::id())->where('status', '!=', 'cancelled')->first();
                     @endphp
 
                     @if($userReg)
-                        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-2">
-                            <div class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700">
-                                <i class="fa-solid fa-circle-check"></i>
-                                <span>Anda Sudah Terdaftar</span>
-                            </div>
-                            <p class="text-[11px] text-slate-500">
-                                @if($event->isPaid())
-                                    Status pembayaran Anda dapat dipantau di halaman invoice / status tagihan.
-                                @else
-                                    Tiket gratis Anda sudah aktif.
-                                @endif
-                            </p>
-                            <div class="pt-1">
-                                @if($event->isPaid() && $userReg->payment)
-                                    <a href="{{ route('payments.show', $userReg->payment->invoice_number) }}" class="inline-block w-full py-2.5 px-3 rounded-xl bg-brand-navy text-white font-bold text-xs hover:bg-slate-800 transition">
-                                        Buka Invoice Tagihan
-                                    </a>
-                                @else
-                                    <a href="{{ route('payments.index') }}" class="inline-block w-full py-2.5 px-3 rounded-xl bg-brand-navy text-white font-bold text-xs hover:bg-slate-800 transition">
-                                        Lihat Status & Riwayat
-                                    </a>
-                                @endif
-                            </div>
+                    <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-2">
+                        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Anda Sudah Terdaftar</span>
                         </div>
+                        <p class="text-[11px] text-slate-500">
+                            @if($event->isPaid())
+                            Status pembayaran Anda dapat dipantau di halaman invoice / status tagihan.
+                            @else
+                            Tiket gratis Anda sudah aktif.
+                            @endif
+                        </p>
+                        <div class="pt-1">
+                            @if($event->isPaid() && $userReg->payment)
+                            <a href="{{ route('payments.show', $userReg->payment->invoice_number) }}" class="inline-block w-full py-2.5 px-3 rounded-xl bg-brand-navy text-white font-bold text-xs hover:bg-slate-800 transition">
+                                Buka Invoice Tagihan
+                            </a>
+                            @else
+                            <a href="{{ route('payments.index') }}" class="inline-block w-full py-2.5 px-3 rounded-xl bg-brand-navy text-white font-bold text-xs hover:bg-slate-800 transition">
+                                Lihat Status & Riwayat
+                            </a>
+                            @endif
+                        </div>
+                    </div>
                     @elseif ($remainingQuota > 0)
                     <form action="{{ route('events.register', $event->slug) }}" method="POST">
                         @csrf

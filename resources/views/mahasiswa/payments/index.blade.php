@@ -49,8 +49,6 @@
                 <div class="hidden sm:block h-5 w-[1px] bg-white/20"></div>
 
                 <nav class="hidden sm:flex items-center gap-4 text-xs font-semibold text-white/80">
-                    <a href="{{ route('dashboard') }}" class="hover:text-brand-cyan transition">Dashboard</a>
-                    <a href="{{ route('events.index') }}" class="hover:text-brand-cyan transition">Jelajah Acara</a>
                     <a href="{{ route('payments.index') }}" class="text-brand-cyan font-bold transition">Status Pembayaran</a>
                 </nav>
             </div>
@@ -66,7 +64,51 @@
         </div>
     </header>
 
-    <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
+
+        <aside class="w-full md:w-64 shrink-0 space-y-4">
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-1">
+                <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3 py-2">Navigasi Akun</div>
+
+                <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
+                    <i class="fa-solid fa-house w-4 text-center"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="{{ route('events.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
+                    <i class="fa-solid fa-compass w-4 text-center"></i>
+                    <span>Katalog Acara</span>
+                </a>
+
+                <a href="{{ route('payments.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold bg-brand-navy text-white shadow-sm transition">
+                    <i class="fa-solid fa-receipt w-4 text-center text-brand-cyan"></i>
+                    <span>Status Pembayaran</span>
+                </a>
+
+                <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
+                    <i class="fa-solid fa-user w-4 text-center"></i>
+                    <span>Profil Mahasiswa</span>
+                </a>
+
+                <form action="{{ route('logout') }}" method="POST" class="pt-2">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-brand-coral hover:bg-rose-50 transition text-left">
+                        <i class="fa-solid fa-right-from-bracket w-4 text-center"></i>
+                        <span>Keluar Akun</span>
+                    </button>
+                </form>
+            </div>
+
+            <div class="bg-brand-navy text-white p-5 rounded-2xl border border-slate-800 shadow-sm text-center">
+                <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-9 mx-auto object-contain bg-white rounded-lg p-1.5 mb-3">
+                <h4 class="text-xs font-bold text-brand-cyan uppercase tracking-wider mb-1">Status Mahasiswa</h4>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                    Akun kamu terverifikasi sebagai mahasiswa aktif. Cari acara seru dan kumpulkan sertifikat digital!
+                </p>
+            </div>
+        </aside>
+
+        <main class="flex-1 min-w-0">
 
         <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
             <div>
@@ -270,6 +312,7 @@
         @endif
 
     </main>
+    </div>
 
     <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">
         &copy; {{ date('Y') }} Univents Kampus &bull; Platform Manajemen & Pendaftaran Acara Mahasiswa
