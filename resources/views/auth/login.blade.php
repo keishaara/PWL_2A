@@ -69,13 +69,46 @@
             border-top: 2px solid #ffffff;
             border-bottom: 2px solid #ffffff;
         }
+
+        /* Transisi geser foto antara halaman login <-> register */
+        @view-transition {
+            navigation: auto;
+        }
+
+        .photo-panel {
+            view-transition-name: photo;
+        }
+
+        ::view-transition-group(photo) {
+            animation-duration: 0.7s;
+            animation-timing-function: cubic-bezier(0.77, 0, 0.18, 1);
+        }
+
+        ::view-transition-old(photo),
+        ::view-transition-new(photo) {
+            height: 100%;
+            object-fit: cover;
+            overflow: clip;
+        }
+
+        ::view-transition-group(root) {
+            animation-duration: 0.7s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            ::view-transition-group(*),
+            ::view-transition-old(*),
+            ::view-transition-new(*) {
+                animation: none !important;
+            }
+        }
     </style>
 </head>
 
-<body class="page-bg min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8">
+<body class="page-bg min-h-screen flex items-center justify-center p-3 sm:p-4">
 
-    <div class="w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[540px]">
-        <div class="relative w-full md:w-1/2 min-h-[260px] md:min-h-full flex flex-col justify-between p-8 sm:p-10 text-white overflow-hidden">
+    <div class="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row md:h-[536px]">
+        <div class="photo-panel relative w-full md:w-1/2 min-h-[260px] md:min-h-full flex flex-col justify-between p-8 sm:p-10 text-white overflow-hidden">
             <img
                 src="https://images.unsplash.com/photo-1781038507661-06501ddcdc90?q=80&w=1373&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
                 alt="Kampus"
