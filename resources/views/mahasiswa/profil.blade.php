@@ -41,82 +41,13 @@
 
 <body class="bg-brand-bg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
-    <header class="w-full bg-brand-navy border-b border-white/10 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-5">
-                <a href="{{ url('/') }}" class="flex items-center gap-2.5">
-                    <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-8 w-auto object-contain bg-white rounded-md p-1">
-                    <span class="text-xl font-extrabold tracking-tight text-white hidden sm:inline">Uni<span class="text-brand-cyan">vents</span></span>
-                </a>
-
-                <div class="hidden sm:block h-5 w-[1px] bg-white/20"></div>
-
-                <nav class="hidden sm:flex items-center gap-3 text-xs font-semibold text-white/80">
-                    <!-- <a href="{{ route('dashboard') }}" class="hover:text-brand-cyan transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-house"></i>
-                        <span>Dashboard</span>
-                    </a>
-                    <span class="text-white/30">/</span> -->
-                    <span class="text-brand-cyan">Profil Mahasiswa</span>
-                </nav>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <span class="hidden md:inline text-xs font-semibold text-white/80">
-                    {{ Auth::user()->name }}
-                </span>
-                <form action="{{ route('logout') }}" method="POST" class="inline m-0">
-                    @csrf
-                    <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/10 text-white hover:bg-brand-coral transition border border-white/10">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span>Keluar</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </header>
+     @include('mahasiswa.partials.header', ['title' => 'Profil Mahasiswa'])
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
 
-        <aside class="w-full md:w-64 shrink-0 space-y-3">
-            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-1">
-                <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3 py-2">Navigasi Akun</div>
+        @include('mahasiswa.partials.sidebar', ['active' => 'profile'])
 
-                <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
-                    <i class="fa-solid fa-house w-4 text-center"></i>
-                    <span>Dashboard</span>
-                </a>
-
-                <a href="{{ route('events.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
-                    <i class="fa-solid fa-compass w-4 text-center"></i>
-                    <span>Katalog Acara</span>
-                </a>
-
-                <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold bg-brand-navy text-white shadow-sm transition">
-                    <i class="fa-solid fa-user w-4 text-center text-brand-cyan"></i>
-                    <span>Profil Mahasiswa</span>
-                </a>
-
-                <form action="{{ route('logout') }}" method="POST" class="pt-2">
-                    @csrf
-                    <button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-brand-coral hover:bg-rose-50 transition text-left">
-                        <i class="fa-solid fa-right-from-bracket w-4 text-center"></i>
-                        <span>Keluar Akun</span>
-                    </button>
-                </form>
-            </div>
-
-            <div class="bg-brand-navy text-white p-5 rounded-2xl border border-slate-800 shadow-sm text-center">
-                <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-10 mx-auto object-contain bg-white rounded-lg p-1.5 mb-3">
-                <h4 class="text-xs font-bold text-brand-cyan uppercase tracking-wider mb-1">Univents Mahasiswa</h4>
-                <p class="text-[11px] text-slate-300 leading-relaxed">
-                    Pastikan nama dan NPM Anda akurat untuk kemudahan validasi sertifikat dan e-tiket acara.
-                </p>
-            </div>
-        </aside>
-
-        <main class="flex-1 space-y-6">
-
+        <main class="flex-1 min-w-0">
             @if(session('success'))
             <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between text-sm shadow-sm">
                 <div class="flex items-center gap-3">
@@ -350,7 +281,7 @@
 
         </main>
     </div>
-
+    @include('mahasiswa.partials.footer')
 </body>
 
 </html>

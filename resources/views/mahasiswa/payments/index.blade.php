@@ -38,38 +38,13 @@
 </head>
 <body class="bg-brand-bg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
-    <header class="w-full bg-brand-navy border-b border-white/10 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-5">
-                <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5">
-                    <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-8 w-auto object-contain bg-white rounded-md p-1">
-                    <span class="text-xl font-extrabold tracking-tight text-white hidden sm:inline">Uni<span class="text-brand-cyan">vents</span></span>
-                </a>
+    @include('mahasiswa.partials.header', ['title' => 'Status Pembayaran'])
 
-                <div class="hidden sm:block h-5 w-[1px] bg-white/20"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
 
-                <nav class="hidden sm:flex items-center gap-4 text-xs font-semibold text-white/80">
-                    <a href="{{ route('dashboard') }}" class="hover:text-brand-cyan transition">Dashboard</a>
-                    <a href="{{ route('events.index') }}" class="hover:text-brand-cyan transition">Jelajah Acara</a>
-                    <a href="{{ route('tickets.index') }}" class="hover:text-brand-cyan transition">Tiket Saya</a>
-                    <a href="{{ route('bookmarks.index') }}" class="hover:text-brand-cyan transition">Tersimpan</a>
-                    <a href="{{ route('payments.index') }}" class="text-brand-cyan font-bold transition">Status Pembayaran</a>
-                </nav>
-            </div>
+        @include('mahasiswa.partials.sidebar', ['active' => 'payments'])
 
-            <div class="flex items-center gap-4">
-                <a href="{{ route('profile.show') }}" class="flex items-center gap-2 text-xs font-semibold text-white/90 hover:text-white transition">
-                    <div class="w-7 h-7 rounded-full bg-brand-cyan/20 border border-brand-cyan flex items-center justify-center text-brand-cyan font-bold">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                    </div>
-                    <span class="hidden md:inline">{{ Auth::user()->name }}</span>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-
+        <main class="flex-1 min-w-0">
         <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
             <div>
                 <span class="text-xs font-bold text-brand-coral uppercase tracking-wider block mb-1">
@@ -171,7 +146,7 @@
                     
                     <div class="flex items-start gap-4">
                         @if($payment->event->banner)
-                            <img src="{{ asset('storage/' . $payment->event->banner) }}" alt="{{ $payment->event->title }}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-slate-100 flex-shrink-0">
+                            <img src="{{ $payment->event->banner_url }}" alt="{{ $payment->event->title }}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border border-slate-100 flex-shrink-0">
                         @else
                             <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 flex-shrink-0">
                                 <i class="fa-regular fa-image text-2xl"></i>
@@ -272,10 +247,9 @@
         @endif
 
     </main>
+    </div>
 
-    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">
-        &copy; {{ date('Y') }} Univents Kampus &bull; Platform Manajemen & Pendaftaran Acara Mahasiswa
-    </footer>
+    @include('mahasiswa.partials.footer')
 
 </body>
 </html>

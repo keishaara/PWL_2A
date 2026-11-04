@@ -47,7 +47,7 @@ Route::get('/events/{slug}', [EventController::class, 'show'])
     ->name('events.show');
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'student'])->group(function () {
     Route::get('/mahasiswa/profil', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('/mahasiswa/profil', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/mahasiswa/profil/password', [ProfileController::class, 'updatePassword'])->name('profile.password');  

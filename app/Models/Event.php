@@ -38,6 +38,17 @@ class Event extends Model
         return (float) $this->price > 0;
     }
 
+    public function getBannerUrlAttribute(): ?string
+    {
+        if (! $this->banner) {
+            return null;
+        }
+
+        return \Illuminate\Support\Str::startsWith($this->banner, ['http://', 'https://'])
+            ? $this->banner
+            : asset('storage/' . $this->banner);
+    }
+
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
