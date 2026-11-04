@@ -52,6 +52,8 @@
                 <nav class="hidden sm:flex items-center gap-4 text-xs font-semibold text-white/80">
                     <span class="text-brand-cyan">Dashboard Mahasiswa</span>
                     <a href="{{ route('events.index') }}" class="hover:text-brand-cyan transition">Jelajah Acara</a>
+                    <a href="{{ route('tickets.index') }}" class="hover:text-brand-cyan transition">Tiket Saya</a>
+                    <a href="{{ route('bookmarks.index') }}" class="hover:text-brand-cyan transition">Tersimpan</a>
                     <a href="{{ route('payments.index') }}" class="hover:text-brand-cyan transition flex items-center gap-1.5">
                         <i class="fa-solid fa-receipt text-brand-cyan"></i>
                         <span>Status Pembayaran</span>
@@ -77,7 +79,6 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
         
-
         <aside class="w-full md:w-64 shrink-0 space-y-4">
             <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-1">
                 <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3 py-2">Navigasi Akun</div>
@@ -92,6 +93,8 @@
                     <span>Katalog Acara</span>
                 </a>
 
+                <a href="{{ route('tickets.index') }}" class="hover:text-brand-cyan transition">E-Tiket Saya</a>
+                <a href="{{ route('bookmarks.index') }}" class="hover:text-brand-cyan transition">Event Tersimpan</a>
                 <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
                     <i class="fa-solid fa-user w-4 text-center"></i>
                     <span>Profil Mahasiswa</span>

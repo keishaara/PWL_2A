@@ -19,35 +19,46 @@ class PaymentController extends Controller
     public function registerEvent(Request $request, $slug)
     {
         $user = Auth::user();
-        $event = Event::where('slug', $slug)
+
+        $eventId = Event::where('slug', $slug)
             ->where('status', 'approved')
-            ->firstOrFail();
+            ->firstOrFail()
+            ->id;
 
-        $totalRegistered = $event->registrations()
-            ->where('status', '!=', 'cancelled')
-            ->count();
+        // cek kuota + buat pendaftaran dalam satu transaksi
+        // (SELECT ... FOR UPDATE) supaya pendaftar bersamaan tidak melewati kuota
+        return DB::transaction(function () use ($eventId, $user) {
+            $event = Event::with('organization')
+                ->whereKey($eventId)
+                ->lockForUpdate()
+                ->firstOrFail();
 
-        if ($totalRegistered >= $event->quota) {
-            return back()->with('error', 'Maaf, kuota pendaftaran untuk kegiatan ini sudah penuh.');
-        }
+            $existingRegistration = Registration::where('event_id', $event->id)
+                ->where('user_id', $user->id)
+                ->where('status', '!=', 'cancelled')
+                ->first();
 
-        $existingRegistration = Registration::where('event_id', $event->id)
-            ->where('user_id', $user->id)
-            ->where('status', '!=', 'cancelled')
-            ->first();
-
-        if ($existingRegistration) {
-            if ($event->isPaid()) {
-                $payment = $existingRegistration->payment;
-                if ($payment && in_array($payment->status, ['pending', 'waiting_verification', 'rejected'])) {
-                    return redirect()->route('payments.show', $payment->invoice_number)
-                        ->with('info', 'Anda sudah mendaftar untuk acara ini. Silakan selesaikan pembayaran Anda.');
+            if ($existingRegistration) {
+                if ($event->isPaid()) {
+                    $payment = $existingRegistration->payment;
+                    if ($payment && in_array($payment->status, ['pending', 'waiting_verification', 'rejected'])) {
+                        return redirect()->route('payments.show', $payment->invoice_number)
+                            ->with('info', 'Anda sudah mendaftar untuk acara ini. Silakan selesaikan pembayaran Anda.');
+                    }
                 }
+                return redirect()->route('events.show', $event->slug)
+                    ->with('info', 'Anda sudah terdaftar pada kegiatan ini.');
             }
-            return back()->with('info', 'Anda sudah terdaftar pada kegiatan ini.');
-        }
 
-        return DB::transaction(function () use ($event, $user) {
+            $totalRegistered = $event->registrations()
+                ->where('status', '!=', 'cancelled')
+                ->count();
+
+            if ($totalRegistered >= $event->quota) {
+                return redirect()->route('events.show', $event->slug)
+                    ->with('error', 'Maaf, kuota pendaftaran untuk kegiatan ini sudah penuh.');
+            }
+
             if ($event->isPaid()) {
                 $registration = Registration::create([
                     'event_id' => $event->id,
@@ -79,31 +90,33 @@ class PaymentController extends Controller
 
                 return redirect()->route('payments.show', $payment->invoice_number)
                     ->with('success', 'Pendaftaran berhasil dibuat! Silakan lakukan pembayaran sebelum batas waktu berakhir.');
-            } else {
-                $registration = Registration::create([
-                    'event_id' => $event->id,
-                    'user_id'  => $user->id,
-                    'status'   => 'confirmed',
-                ]);
-
-                $ticketCode = 'TIX-' . strtoupper(Str::random(8));
-                Ticket::create([
-                    'registration_id' => $registration->id,
-                    'ticket_code'     => $ticketCode,
-                    'status'          => 'unused',
-                ]);
-
-                History::create([
-                    'user_id'     => $user->id,
-                    'action'      => 'Pendaftaran Event Gratis',
-                    'description' => "Berhasil mendaftar pada event gratis {$event->title}. Kode tiket: {$ticketCode}",
-                ]);
-
-                return redirect()->route('events.show', $event->slug)
-                    ->with('success', "Pendaftaran berhasil! Anda telah terdaftar di acara '{$event->title}'. Kode tiket Anda: {$ticketCode}");
             }
+
+            $registration = Registration::create([
+                'event_id' => $event->id,
+                'user_id'  => $user->id,
+                'status'   => 'confirmed',
+            ]);
+
+            $ticket = Ticket::issueFor($registration);
+
+            History::create([
+                'user_id'     => $user->id,
+                'action'      => 'Pendaftaran Event Gratis',
+                'description' => "Berhasil mendaftar pada event gratis {$event->title}. Kode tiket: {$ticket->ticket_code}",
+            ]);
+
+            \App\Models\Notification::create([
+                'user_id' => $user->id,
+                'title'   => 'Pendaftaran Berhasil',
+                'message' => "Kamu terdaftar di '{$event->title}'. E-Ticket kamu: {$ticket->ticket_code}.",
+            ]);
+
+            return redirect()->route('events.show', $event->slug)
+                ->with('success', "Pendaftaran berhasil! Anda telah terdaftar di acara '{$event->title}'. Kode tiket Anda: {$ticket->ticket_code}");
         });
     }
+
     public function show($invoice_number)
     {
         $user = Auth::user();

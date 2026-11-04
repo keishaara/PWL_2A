@@ -51,6 +51,8 @@
                 <nav class="hidden sm:flex items-center gap-4 text-xs font-semibold text-white/80">
                     <a href="{{ route('dashboard') }}" class="hover:text-brand-cyan transition">Dashboard</a>
                     <a href="{{ route('events.index') }}" class="hover:text-brand-cyan transition">Jelajah Acara</a>
+                    <a href="{{ route('tickets.index') }}" class="hover:text-brand-cyan transition">Tiket Saya</a>
+                    <a href="{{ route('bookmarks.index') }}" class="hover:text-brand-cyan transition">Tersimpan</a>
                     <a href="{{ route('payments.index') }}" class="text-brand-cyan font-bold transition">Status Pembayaran</a>
                 </nav>
             </div>

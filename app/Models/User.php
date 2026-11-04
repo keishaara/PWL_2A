@@ -37,6 +37,16 @@ class User extends Authenticatable
         'remember_token',
     ];
     
+    // wishlist menggunakan tabel histories yang sudah ada (action = 'bookmark', description = id event)
+    public function bookmarkedEventIds(): array
+    {
+        return \App\Models\History::where('user_id', $this->id)
+            ->where('action', 'bookmark')
+            ->pluck('description')
+            ->map(fn ($id) => (int) $id)
+            ->all();
+    }
+
     protected function casts(): array
     {
         return [

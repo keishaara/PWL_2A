@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -32,7 +33,11 @@ class EventController extends Controller
 
         $events = $query->orderBy('start_date', 'asc')->paginate(9);
 
-        return view('events.eventcategory', compact('events', 'categories'));
+        $bookmarkedIds = Auth::check()
+            ? Auth::user()->bookmarkedEventIds()
+            : [];
+
+        return view('events.eventcategory', compact('events', 'categories', 'bookmarkedIds'));
     }
 
     public function show($slug)
@@ -45,6 +50,9 @@ class EventController extends Controller
         $totalRegistered = $event->registrations()->where('status', '!=', 'cancelled')->count();
         $remainingQuota = max(0, $event->quota - $totalRegistered);
 
-        return view('events.eventdetail', compact('event', 'remainingQuota'));
+        $isBookmarked = Auth::check()
+            && in_array($event->id, Auth::user()->bookmarkedEventIds());
+
+        return view('events.eventdetail', compact('event', 'remainingQuota', 'isBookmarked'));
     }
 }

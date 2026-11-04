@@ -88,6 +88,18 @@
         </div>
         @endif
 
+        @if (session('bookmark'))
+        <div class="mb-6 p-4 rounded-2xl bg-brand-amber/20 border border-brand-amber text-[#8F6800] text-xs sm:text-sm flex items-center justify-between gap-3 shadow-sm">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-bookmark text-xl"></i>
+                <div>{{ session('bookmark') }}</div>
+            </div>
+            <a href="{{ route('bookmarks.index') }}" class="px-3 py-1.5 rounded-lg bg-brand-navy text-white font-bold text-xs hover:bg-slate-800 transition whitespace-nowrap">
+                Lihat Tersimpan
+            </a>
+        </div>
+        @endif
+
         @if (session('info'))
         <div class="mb-6 p-4 rounded-2xl bg-blue-50 border border-blue-200 text-blue-800 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-sm">
             <div class="flex items-center gap-3">
@@ -243,6 +255,16 @@
                         Kuota Penuh
                     </button>
                     @endif
+
+                    <form action="{{ route('events.bookmark', $event->slug) }}" method="POST" class="mt-3">
+                        @csrf
+                        <button type="submit"
+                                class="w-full py-2.5 px-4 rounded-xl border text-xs font-bold transition flex items-center justify-center gap-2
+                                       {{ $isBookmarked ? 'bg-brand-coral/10 border-brand-coral text-brand-coral' : 'border-slate-300 text-slate-600 hover:border-brand-navy hover:text-brand-navy' }}">
+                            <i class="{{ $isBookmarked ? 'fa-solid' : 'fa-regular' }} fa-bookmark"></i>
+                            <span>{{ $isBookmarked ? 'Tersimpan' : 'Simpan Acara' }}</span>
+                        </button>
+                    </form>
                     @else
                     <a
                         href="{{ route('login') }}"

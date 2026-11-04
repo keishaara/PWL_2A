@@ -4,24 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class History extends Model
 {
     use HasFactory;
 
-    protected $table = 'tickets';
+    protected $table = 'histories';
 
-    protected $fillable = [
-        'registration_id',
-        'ticket_code',
-        'status',
-    ];
+    protected $fillable = ['user_id', 'action', 'description'];
 
-    /**
-     * Relasi ke model Registration
-     */
-    public function registration()
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Registration::class);
+        return $this->belongsTo(User::class);
     }
 }

@@ -91,6 +91,16 @@
                     <span>Katalog Acara</span>
                 </a>
 
+                <a href="{{ route('tickets.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
+                    <i class="fa-solid fa-ticket w-4 text-center"></i>
+                    <span>E-Tiket Saya</span>
+                </a>
+
+                <a href="{{ route('bookmarks.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
+                    <i class="fa-solid fa-bookmark w-4 text-center"></i>
+                    <span>Event Tersimpan</span>
+                </a>
+
                 <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition">
                     <i class="fa-solid fa-user w-4 text-center"></i>
                     <span>Profil Mahasiswa</span>
@@ -170,6 +180,12 @@
                 @endif
             </div>
 
+            @if (session('bookmark'))
+                <div class="p-4 rounded-xl bg-brand-amber/20 border border-brand-amber text-[#8F6800] text-xs sm:text-sm flex items-center gap-3">
+                    <i class="fa-solid fa-bookmark text-lg"></i><div>{{ session('bookmark') }}</div>
+                </div>
+            @endif
+
             @if ($events->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                     @foreach ($events as $event)
@@ -185,6 +201,17 @@
                                     <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-brand-navy/90 text-white backdrop-blur-sm">
                                         {{ $event->category->name }}
                                     </span>
+
+                                    @auth
+                                    <form action="{{ route('events.bookmark', $event->slug) }}" method="POST" class="absolute top-2.5 right-2.5">
+                                        @csrf
+                                        <button type="submit"
+                                                title="{{ in_array($event->id, $bookmarkedIds) ? 'Hapus dari tersimpan' : 'Simpan acara' }}"
+                                                class="h-8 w-8 rounded-full bg-white/95 shadow-sm flex items-center justify-center text-sm hover:scale-110 transition {{ in_array($event->id, $bookmarkedIds) ? 'text-brand-coral' : 'text-slate-400 hover:text-brand-coral' }}">
+                                            <i class="{{ in_array($event->id, $bookmarkedIds) ? 'fa-solid' : 'fa-regular' }} fa-bookmark"></i>
+                                        </button>
+                                    </form>
+                                    @endauth
 
                                     <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-white/95 shadow-sm {{ $event->isPaid() ? 'text-brand-coral' : 'text-emerald-600' }}">
                                         @if($event->isPaid())
