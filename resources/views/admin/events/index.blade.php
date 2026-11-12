@@ -24,34 +24,11 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
-
-    <header class="w-full bg-brand-navy border-b border-white/10 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-8 w-auto object-contain">
-                <span class="text-xl font-extrabold tracking-tight text-white">Uni<span class="text-brand-cyan">vents</span></span>
-                <span class="ml-2 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 uppercase tracking-wider">Administrator</span>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <span class="text-xs font-semibold text-white/90">{{ Auth::user()->name }}</span>
-                <form action="{{ route('logout') }}" method="POST" class="inline m-0">
-                    @csrf
-                    <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/10 text-white hover:bg-brand-coral transition border border-white/10">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span>Keluar</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </header>
-
+    @include('admin.partials.header')
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
 
-
         @include('admin.partials.sidebar', ['active' => 'verification'])
-
 
         <main class="flex-1 min-w-0">
 
@@ -184,7 +161,7 @@
                                     @if($event->status === 'pending')
                                     <div class="flex items-center justify-center gap-2">
 
-`                                    <form action="{{ route('admin.events.approve', $event->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menyetujui acara ini?')">
+                                    <form action="{{ route('admin.events.approve', $event->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menyetujui acara ini?')">
                                             @csrf
                                             <button type="submit" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition flex items-center gap-1 shadow-sm">
                                                 <i class="fa-solid fa-check"></i>

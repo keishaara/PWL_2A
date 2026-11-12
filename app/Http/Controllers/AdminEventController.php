@@ -27,6 +27,14 @@ class AdminEventController extends Controller
         return view('admin.events.index', compact('events', 'stats'));
     }
 
+    public function show($id)
+    {
+        $event = Event::with(['organization', 'category'])
+            ->findOrFail($id);
+
+        return view('admin.events.show', compact('event'));
+    }
+
     public function approve($id)
     {
         $event = Event::findOrFail($id);

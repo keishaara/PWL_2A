@@ -1,8 +1,11 @@
 <header class="w-full bg-brand-navy border-b border-white/10 sticky top-0 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div class="flex items-center gap-5">
-            <a href="{{ url('/') }}" class="flex items-center gap-2.5">
-                <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-10 w-auto object-contain">
+            <button type="button" onclick="toggleStudentSidebar()" aria-label="Buka menu" class="md:hidden w-9 h-9 -ml-1 -mr-2 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center border border-white/10 transition">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="{{ url('/') }}" class="flex items-center gap-3">
+                <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-7 w-auto object-contain">
                 <span class="text-xl font-extrabold tracking-tight text-white">Uni<span class="text-brand-cyan">vents</span></span>
             </a>
 
