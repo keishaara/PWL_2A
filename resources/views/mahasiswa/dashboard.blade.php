@@ -47,7 +47,7 @@
 
         @include('mahasiswa.partials.sidebar', ['active' => 'dashboard'])
 
-        <main class="flex-1 min-w-0">
+        <main class="flex-1 min-w-0 space-y-5">
 
             <div class="bg-brand-navy text-white rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-md">
                 <div

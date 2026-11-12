@@ -271,9 +271,7 @@
         </main>
         </div>
 
-        <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">
-            &copy; {{ date('Y') }} Univents Kampus &bull; Platform Manajemen & Pendaftaran Acara Mahasiswa
-        </footer>
+        @include('mahasiswa.partials.footer')
 
 </body>
 

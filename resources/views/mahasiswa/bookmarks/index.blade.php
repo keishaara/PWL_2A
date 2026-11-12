@@ -94,9 +94,8 @@
         </main>
     </div>
 
-    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">
-        &copy; {{ date('Y') }} Univents Kampus
-    </footer>
+    @include('mahasiswa.partials.footer')
+
 </body>
 
 </html>
