@@ -74,3 +74,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/events/{id}/approve', [AdminEventController::class, 'approve'])->name('admin.events.approve');
     Route::post('/events/{id}/reject', [AdminEventController::class, 'reject'])->name('admin.events.reject');
 });
+
+require __DIR__ . '/admin_transactions.php';

@@ -1,9 +1,9 @@
 @php
     $items = [
         'verification' => ['Verifikasi Acara', route('admin.dashboard'), 'fa-clipboard-check'],
+        'transactions' => ['Monitoring Transaksi', route('admin.transactions.index'), 'fa-chart-line'],
         // Nanti Zahra & Dinda tinggal aktifkan route di bawah ini:
         // 'categories' => ['Kelola Kategori', '#', 'fa-tags'],
-        // 'transactions' => ['Monitoring Transaksi', '#', 'fa-chart-line'],
     ];
 @endphp
 
