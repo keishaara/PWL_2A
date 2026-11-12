@@ -2,8 +2,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div class="flex items-center gap-5">
             <a href="{{ url('/') }}" class="flex items-center gap-2.5">
-                <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-8 w-auto object-contain bg-white rounded-md p-1">
-                <span class="text-xl font-extrabold tracking-tight text-white hidden sm:inline">Uni<span class="text-brand-cyan">vents</span></span>
+                <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-10 w-auto object-contain">
+                <span class="text-xl font-extrabold tracking-tight text-white">Uni<span class="text-brand-cyan">vents</span></span>
             </a>
 
             <div class="hidden sm:block h-5 w-[1px] bg-white/20"></div>

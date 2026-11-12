@@ -10,6 +10,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\AdminEventController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -68,6 +69,8 @@ Route::get('/organisasi/dashboard', function () {
     return '<h1>Halo Penyelenggara: ' . Auth::user()->name . ' 🏛️</h1><p>Kamu berhasil login!</p><form action="' . route('logout') . '" method="POST">' . csrf_field() . '<button type="submit">Logout</button></form>';
 })->middleware('auth')->name('organisasi.dashboard');
 
-Route::get('/admin/dashboard', function () {
-    return '<h1>Halo Admin: ' . Auth::user()->name . ' 👑</h1><p>Kamu berhasil login!</p><form action="' . route('logout') . '" method="POST">' . csrf_field() . '<button type="submit">Logout</button></form>';
-})->middleware('auth')->name('admin.dashboard');
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminEventController::class, 'index'])->name('admin.dashboard');
+    Route::post('/events/{id}/approve', [AdminEventController::class, 'approve'])->name('admin.events.approve');
+    Route::post('/events/{id}/reject', [AdminEventController::class, 'reject'])->name('admin.events.reject');
+});

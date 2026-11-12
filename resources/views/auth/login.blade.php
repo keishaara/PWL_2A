@@ -96,6 +96,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+
             ::view-transition-group(*),
             ::view-transition-old(*),
             ::view-transition-new(*) {
@@ -109,10 +110,16 @@
 
     <div class="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row md:h-[536px]">
         <div class="photo-panel relative w-full md:w-1/2 min-h-[260px] md:min-h-full flex flex-col justify-between p-8 sm:p-10 text-white overflow-hidden">
-            <img
-                src="https://images.unsplash.com/photo-1781038507661-06501ddcdc90?q=80&w=1373&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
-                alt="Kampus"
-                class="absolute inset-0 w-full h-full object-cover">
+
+            <img src="https://images.unsplash.com/photo-1781038507661-06501ddcdc90?q=80&w=1373&auto=format&fit=crop"
+                class="slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Kampus 1">
+
+            <img src="https://unsplash.com/id/foto/orang-orang-berkumpul-di-lapangan-rumput-6QAc23A_cDU?q=80&w=1373&auto=format&fit=crop"
+                class="slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Kampus 2">
+
+            <img src="https://unsplash.com/id/foto/sebuah-band-menampilkan-musik-live-di-luar-ruangan-di-malam-hari-3FzH5Ueq_HA?q=80&w=1373&auto=format&fit=crop"
+                class="slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Kampus 3">
+
             <div class="absolute inset-0 bg-[#162945]/60 backdrop-blur-[2px]"></div>
 
             <div class="relative z-10 text-[11px] font-semibold tracking-widest uppercase text-white/75">
@@ -128,12 +135,8 @@
 
         <div class="w-full md:w-1/2 bg-[#162945] p-8 sm:p-12 flex flex-col justify-between text-white">
 
-            <div class="text-center pt-2">
-                <div class="brand-bracket">
-                    <span class="text-base sm:text-lg font-bold tracking-[0.25em] text-white">
-                        UNIVENTS
-                    </span>
-                </div>
+            <div class="text-center pt-2 p-4 rounded">
+                <span class="text-4xl font-extrabold tracking-tight text-white">Uni<span class="text-[#14d8b0]">vents</span></span>
             </div>
 
             <div class="my-auto py-6">
@@ -228,7 +231,22 @@
                 input.type = 'password';
                 icon.classList.replace('fa-eye-slash', 'fa-eye');
             }
-        }
+        };
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-img');
+
+        setInterval(() => {
+            if (slides.length > 0) {
+                slides[currentSlide].classList.remove('opacity-100');
+                slides[currentSlide].classList.add('opacity-0');
+
+                currentSlide = (currentSlide + 1) % slides.length;
+
+                slides[currentSlide].classList.remove('opacity-0');
+                slides[currentSlide].classList.add('opacity-100');
+            }
+        }, 4000);
     </script>
 
 </body>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,19 +40,24 @@
             font-family: 'DM Sans', sans-serif;
             background-color: #F8FAFC;
         }
-        h1, h2, h3, .font-heading {
+
+        h1,
+        h2,
+        h3,
+        .font-heading {
             font-family: 'Glacial Indifference', 'DM Sans', sans-serif;
         }
     </style>
 </head>
+
 <body class="bg-surface text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-aquamarine selection:text-darkEclipse">
 
-    <header class="w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-50">
+    <header class="w-full bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="{{ url('/') }}" class="flex items-center">
-                <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-9 w-auto object-contain">
+            <a href="{{ url('/') }}" class="flex items-center gap-2.5">
+                <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-11 w-auto object-contain">
+                <span class="text-2xl font-extrabold tracking-tight text-darkEclipse font-heading">Uni<span class="text-[#14d8b0]">vents</span></span>
             </a>
-
             <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
                 <a href="#peran" class="hover:text-darkEclipse transition">Untuk Siapa</a>
                 <a href="#fitur" class="hover:text-darkEclipse transition">Fitur Platform</a>
@@ -61,37 +67,37 @@
 
             <div class="flex items-center gap-3">
                 @if (Route::has('login'))
-                    @auth
-                        @if(Auth::user()->role === 'student')
-                            <a href="{{ route('profile.show') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-darkEclipse bg-slate-100 hover:bg-slate-200 transition">
-                                <i class="fa-regular fa-user text-ripeMalinka"></i>
-                                <span>Profil Mahasiswa</span>
-                            </a>
-                            <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-darkEclipse text-white hover:bg-slate-800 transition shadow-sm">
-                                <i class="fa-solid fa-house text-aquamarine text-xs"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        @elseif(Auth::user()->role === 'organizer')
-                            <a href="{{ route('organisasi.dashboard') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-darkEclipse text-white hover:bg-slate-800 transition shadow-sm">
-                                <span>Dashboard Ormawa</span>
-                                <i class="fa-solid fa-arrow-right text-xs"></i>
-                            </a>
-                        @else
-                            <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-darkEclipse text-white hover:bg-slate-800 transition shadow-sm">
-                                <span>Dashboard Admin</span>
-                                <i class="fa-solid fa-arrow-right text-xs"></i>
-                            </a>
-                        @endif
-                    @else
-                        <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:text-darkEclipse transition">
-                            Masuk
-                        </a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-darkEclipse text-white hover:bg-slate-800 transition shadow-sm">
-                                Daftar Akun
-                            </a>
-                        @endif
-                    @endauth
+                @auth
+                @if(Auth::user()->role === 'student')
+                <a href="{{ route('profile.show') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-darkEclipse bg-slate-100 hover:bg-slate-200 transition">
+                    <i class="fa-regular fa-user text-ripeMalinka"></i>
+                    <span>Profil Mahasiswa</span>
+                </a>
+                <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-darkEclipse text-white hover:bg-slate-800 transition shadow-sm">
+                    <i class="fa-solid fa-house text-aquamarine text-xs"></i>
+                    <span>Dashboard</span>
+                </a>
+                @elseif(Auth::user()->role === 'organizer')
+                <a href="{{ route('organisasi.dashboard') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-darkEclipse text-white hover:bg-slate-800 transition shadow-sm">
+                    <span>Dashboard Ormawa</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+                @else
+                <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-darkEclipse text-white hover:bg-slate-800 transition shadow-sm">
+                    <span>Dashboard Admin</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+                @endif
+                @else
+                <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:text-darkEclipse transition">
+                    Masuk
+                </a>
+                @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-darkEclipse text-white hover:bg-slate-800 transition shadow-sm">
+                    Daftar Akun
+                </a>
+                @endif
+                @endauth
                 @endif
             </div>
         </div>
@@ -133,7 +139,7 @@
                 <div class="lg:col-span-5">
                     <div class="relative mx-auto max-w-sm sm:max-w-md">
                         <div class="absolute -top-3 -right-3 w-full h-full rounded-3xl bg-aquamarine/20 border border-aquamarine/40 -z-10"></div>
-                        
+
                         <div class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-xl space-y-5">
                             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
                                 <div class="flex items-center gap-2.5">
@@ -211,7 +217,7 @@
                         <div class="w-12 h-12 rounded-2xl bg-aquamarine/25 text-darkEclipse flex items-center justify-center text-xl font-bold">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </div>
-                        
+
                         <div>
                             <span class="text-xs font-bold uppercase tracking-wider text-aquamarine bg-darkEclipse px-3 py-1 rounded-full inline-block mb-3">Untuk Mahasiswa</span>
                             <h3 class="font-heading text-2xl font-bold text-darkEclipse">Kemudahan Eksplorasi & Tiket Digital</h3>
@@ -240,7 +246,7 @@
                         <div class="w-12 h-12 rounded-2xl bg-ripeMalinka/20 text-ripeMalinka flex items-center justify-center text-xl font-bold">
                             <i class="fa-solid fa-users-gear"></i>
                         </div>
-                        
+
                         <div>
                             <span class="text-xs font-bold uppercase tracking-wider text-white bg-ripeMalinka px-3 py-1 rounded-full inline-block mb-3">Untuk Penyelenggara</span>
                             <h3 class="font-heading text-2xl font-bold text-darkEclipse">Manajemen Peserta & Publikasi Terpusat</h3>
@@ -342,9 +348,9 @@
                         </div>
                         <div class="p-6 pt-0">
                             @auth
-                                <a href="{{ route('dashboard') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Lihat Detail Acara</a>
+                            <a href="{{ route('dashboard') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Lihat Detail Acara</a>
                             @else
-                                <a href="{{ route('login') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Masuk untuk Ikut Acara</a>
+                            <a href="{{ route('login') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Masuk untuk Ikut Acara</a>
                             @endauth
                         </div>
                     </div>
@@ -367,9 +373,9 @@
                         </div>
                         <div class="p-6 pt-0">
                             @auth
-                                <a href="{{ route('dashboard') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Lihat Detail Acara</a>
+                            <a href="{{ route('dashboard') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Lihat Detail Acara</a>
                             @else
-                                <a href="{{ route('login') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Masuk untuk Ikut Acara</a>
+                            <a href="{{ route('login') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Masuk untuk Ikut Acara</a>
                             @endauth
                         </div>
                     </div>
@@ -392,9 +398,9 @@
                         </div>
                         <div class="p-6 pt-0">
                             @auth
-                                <a href="{{ route('dashboard') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Lihat Detail Acara</a>
+                            <a href="{{ route('dashboard') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Lihat Detail Acara</a>
                             @else
-                                <a href="{{ route('login') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Masuk untuk Beli Tiket</a>
+                            <a href="{{ route('login') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Masuk untuk Beli Tiket</a>
                             @endauth
                         </div>
                     </div>
@@ -413,13 +419,13 @@
                 </div>
                 <div class="flex items-center gap-4">
                     @auth
-                        <a href="{{ route('profile.show') }}" class="px-7 py-3.5 rounded-xl text-sm font-bold bg-aquamarine text-darkEclipse hover:bg-[#31c4ad] transition shadow-md">
-                            Buka Profil Saya
-                        </a>
+                    <a href="{{ route('profile.show') }}" class="px-7 py-3.5 rounded-xl text-sm font-bold bg-aquamarine text-darkEclipse hover:bg-[#31c4ad] transition shadow-md">
+                        Buka Profil Saya
+                    </a>
                     @else
-                        <a href="{{ route('register') }}" class="px-7 py-3.5 rounded-xl text-sm font-bold bg-aquamarine text-darkEclipse hover:bg-[#31c4ad] transition shadow-md">
-                            Daftar Akun Baru
-                        </a>
+                    <a href="{{ route('register') }}" class="px-7 py-3.5 rounded-xl text-sm font-bold bg-aquamarine text-darkEclipse hover:bg-[#31c4ad] transition shadow-md">
+                        Daftar Akun Baru
+                    </a>
                     @endauth
                 </div>
             </div>
@@ -443,4 +449,5 @@
     </footer>
 
 </body>
+
 </html>
