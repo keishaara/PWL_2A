@@ -69,4 +69,89 @@ class AdminTransactionController extends Controller
 
         return view('admin.transactions.index', compact('transactions', 'stats', 'eventSummaries', 'allPaidEvents'));
     }
+
+    public function export(Request $request)
+    {
+        $query = Payment::with(['user', 'event.organization'])
+            ->latest();
+
+        if ($request->filled('status') && in_array($request->status, ['pending', 'waiting_verification', 'paid', 'rejected'])) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('event_id')) {
+            $query->where('event_id', $request->event_id);
+        }
+
+        $payments = $query->get();
+
+        $headers = [
+            'No',
+            'No. Invoice',
+            'Nama Acara',
+            'Penyelenggara / Ormawa',
+            'Nama Mahasiswa',
+            'NPM',
+            'Email',
+            'Bank Tujuan',
+            'Nominal (Rp)',
+            'Status',
+            'Waktu Konfirmasi / Bayar',
+            'Waktu Transaksi',
+        ];
+
+        $rows = [];
+        $no = 1;
+        foreach ($payments as $pay) {
+            $rows[] = [
+                $no++,
+                $pay->invoice_number,
+                $pay->event->title ?? '-',
+                $pay->event->organization->name ?? '-',
+                $pay->user->name ?? '-',
+                $pay->user->npm ?? '-',
+                $pay->user->email ?? '-',
+                $pay->bank_name ?? '-',
+                (float) $pay->amount,
+                match ($pay->status) {
+                    'pending'              => 'Belum Bayar',
+                    'waiting_verification' => 'Menunggu Verifikasi',
+                    'paid'                 => 'Lunas',
+                    'rejected'             => 'Ditolak',
+                    default                => $pay->status,
+                },
+                $pay->paid_at ? $pay->paid_at->format('d/m/Y H:i') : '-',
+                $pay->created_at ? $pay->created_at->format('d/m/Y H:i') : '-',
+            ];
+        }
+
+        $totalPaid = Payment::where('status', 'paid')->sum('amount');
+        $totalPending = Payment::whereIn('status', ['pending', 'waiting_verification'])->sum('amount');
+
+        $ringkasan = [
+            ['Total Dana Masuk (Lunas)', 'Rp ' . number_format($totalPaid, 0, ',', '.')],
+            ['Total Dana Menunggu / Pending', 'Rp ' . number_format($totalPending, 0, ',', '.')],
+            ['Total Transaksi Tercatat', Payment::count()],
+            ['Waktu Export Data', \Carbon\Carbon::now()->format('d/m/Y H:i:s')],
+            ['Level Akses', 'Administrator Univents Global'],
+        ];
+
+        $sheets = [
+            'Semua Transaksi Kampus' => [
+                'headers' => $headers,
+                'rows'    => $rows,
+            ],
+            'Ringkasan Finansial Kampus' => [
+                'headers' => ['Kategori', 'Nilai'],
+                'rows'    => $ringkasan,
+            ],
+        ];
+
+        $filePath = \App\Support\SimpleXlsx::create($sheets);
+        $fileName = 'Rekap_Transaksi_Global_Univents_' . date('Ymd_His') . '.xlsx';
+
+        return response()->download($filePath, $fileName, [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        ])->deleteFileAfterSend(true);
+    }
 }

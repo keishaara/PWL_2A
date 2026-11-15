@@ -132,6 +132,10 @@
                            class="px-3 py-1.5 rounded-lg text-xs font-bold transition {{ request('status') === 'paid' ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
                             Lunas ({{ $stats['paid_count'] }})
                         </a>
+                        <a href="{{ route('organisasi.payments.index', array_merge(request()->except('page'), ['status' => 'pending'])) }}" 
+                           class="px-3 py-1.5 rounded-lg text-xs font-bold transition {{ request('status') === 'pending' ? 'bg-amber-500 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
+                            Belum Bayar ({{ $stats['pending_count'] ?? 0 }})
+                        </a>
                         <a href="{{ route('organisasi.payments.index', array_merge(request()->except('page'), ['status' => 'rejected'])) }}" 
                            class="px-3 py-1.5 rounded-lg text-xs font-bold transition {{ request('status') === 'rejected' ? 'bg-rose-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
                             Ditolak ({{ $stats['rejected_count'] }})
@@ -224,8 +228,8 @@
                                 </td>
                                 <td class="py-3.5 px-4 text-right">
                                     <div class="inline-flex items-center justify-end gap-1.5">
-                                        @if($p->status === 'waiting_verification' || $p->status === 'pending' || $p->status === 'rejected')
-
+                                        @if($p->status === 'waiting_verification')
+                                            <!-- Tombol Konfirmasi Lunas -->
                                             <form action="{{ route('organisasi.payments.confirm', $p->id) }}" method="POST" onsubmit="return confirm('Konfirmasi lunas pembayaran invoice {{ $p->invoice_number }}? E-Ticket akan otomatis terbit untuk mahasiswa.');">
                                                 @csrf
                                                 <button type="submit" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition shadow-sm text-[11px]">
@@ -234,11 +238,38 @@
                                                 </button>
                                             </form>
 
+                                            <!-- Tombol Tolak -->
                                             <button type="button" 
                                                     onclick="openRejectModal('{{ route('organisasi.payments.reject', $p->id) }}', '{{ $p->invoice_number }}')" 
                                                     class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white border border-rose-300 text-rose-600 hover:bg-rose-50 font-bold transition text-[11px]">
                                                 <i class="fa-solid fa-xmark"></i>
                                                 <span>Tolak</span>
+                                            </button>
+                                        @elseif($p->status === 'pending')
+                                            @if($p->payment_proof)
+                                                <form action="{{ route('organisasi.payments.confirm', $p->id) }}" method="POST" onsubmit="return confirm('Konfirmasi lunas pembayaran invoice {{ $p->invoice_number }}? E-Ticket akan otomatis terbit untuk mahasiswa.');">
+                                                    @csrf
+                                                    <button type="submit" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition shadow-sm text-[11px]">
+                                                        <i class="fa-solid fa-check"></i>
+                                                        <span>Konfirmasi Lunas</span>
+                                                    </button>
+                                                </form>
+                                                <button type="button" 
+                                                        onclick="openRejectModal('{{ route('organisasi.payments.reject', $p->id) }}', '{{ $p->invoice_number }}')" 
+                                                        class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white border border-rose-300 text-rose-600 hover:bg-rose-50 font-bold transition text-[11px]">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                    <span>Tolak</span>
+                                                </button>
+                                            @else
+                                                <span class="inline-flex items-center gap-1 text-slate-400 font-semibold text-[11px] px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg" title="Mahasiswa belum mengunggah bukti transfer">
+                                                    <i class="fa-regular fa-clock"></i> Belum Bayar
+                                                </span>
+                                            @endif
+                                        @elseif($p->status === 'rejected')
+                                            <button type="button" 
+                                                    onclick="openRejectModal('{{ route('organisasi.payments.reject', $p->id) }}', '{{ $p->invoice_number }}')" 
+                                                    class="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-rose-600 bg-rose-50 hover:bg-rose-100 font-bold transition text-[10px]" title="Ubah alasan penolakan">
+                                                <i class="fa-solid fa-pen"></i> Ubah Alasan
                                             </button>
                                         @else
                                             <span class="inline-flex items-center gap-1 text-emerald-600 font-bold text-[11px] px-2 py-1 bg-emerald-50 rounded-lg">

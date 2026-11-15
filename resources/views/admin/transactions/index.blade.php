@@ -33,9 +33,17 @@
 
         <main class="flex-1 min-w-0">
 
-            <div class="mb-6">
-                <h1 class="text-2xl font-extrabold text-brand-navy">Monitoring Transaksi Global</h1>
-                <p class="text-xs text-slate-500 mt-1">Rekapitulasi komprehensif data perputaran uang seluruh event & kegiatan se-kampus.</p>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h1 class="text-2xl font-extrabold text-brand-navy">Monitoring Transaksi Global</h1>
+                    <p class="text-xs text-slate-500 mt-1">Rekapitulasi komprehensif data perputaran uang seluruh event & kegiatan se-kampus.</p>
+                </div>
+                <div>
+                    <a href="{{ route('admin.transactions.export', request()->only('status', 'event_id')) }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition shadow-sm">
+                        <i class="fa-solid fa-file-excel text-sm"></i>
+                        <span>Ekspor Excel (.xlsx)</span>
+                    </a>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">

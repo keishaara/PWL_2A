@@ -67,6 +67,7 @@ class OrganizerPaymentController extends Controller
             'total_income'   => (float) Payment::whereIn('event_id', $eventIds)->where('status', 'paid')->sum('amount'),
             'waiting_count'  => Payment::whereIn('event_id', $eventIds)->where('status', 'waiting_verification')->count(),
             'paid_count'     => Payment::whereIn('event_id', $eventIds)->where('status', 'paid')->count(),
+            'pending_count'  => Payment::whereIn('event_id', $eventIds)->where('status', 'pending')->count(),
             'rejected_count' => Payment::whereIn('event_id', $eventIds)->where('status', 'rejected')->count(),
             'all_count'      => Payment::whereIn('event_id', $eventIds)->count(),
         ];
