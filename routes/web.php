@@ -92,3 +92,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 });
 
 require __DIR__ . '/admin_transactions.php';
+require __DIR__ . '/organizer_payments.php';

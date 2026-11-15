@@ -2,10 +2,8 @@
     $items = [
         'events'        => ['Acara Saya', route('organisasi.dashboard'), 'fa-calendar-days'],
         'create_event'  => ['Buat Acara Baru', route('organisasi.events.create'), 'fa-plus-circle'],
-        // Menu untuk teman-teman tim (Zahra, Dinda, Fahmi):
-        // 'participants'  => ['Daftar Peserta', '#', 'fa-users'],
-        // 'payments'      => ['Verifikasi Pembayaran', '#', 'fa-receipt'],
-        // 'attendance'    => ['Presensi Hari-H', '#', 'fa-qrcode'],
+        'payments'      => ['Verifikasi Pembayaran', route('organisasi.payments.index'), 'fa-receipt'],
+      
     ];
 @endphp
 

@@ -34,15 +34,8 @@
                 <span class="ml-2 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-400/20 text-blue-300 border border-blue-400/30 uppercase tracking-wider">Penyelenggara</span>
             </div>
 
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
                 <span class="text-xs font-semibold text-white/90">{{ Auth::user()->name }}</span>
-                <form action="{{ route('logout') }}" method="POST" class="inline m-0">
-                    @csrf
-                    <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/10 text-white hover:bg-brand-coral transition border border-white/10">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span>Keluar</span>
-                    </button>
-                </form>
             </div>
         </div>
     </header>
