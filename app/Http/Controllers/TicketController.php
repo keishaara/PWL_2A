@@ -13,7 +13,7 @@ class TicketController extends Controller
     public function index(Request $request)
     {
         $tickets = $this->ownedTickets()
-            ->with(['registration.event.category', 'registration.event.organization'])
+            ->with(['registration.event.category', 'registration.event.organization', 'review'])
             ->latest()
             ->paginate(6);
 

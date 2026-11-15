@@ -49,8 +49,7 @@
                                         class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-brand-navy text-white">{{ $event->category->name }}</span>
                                     @if ($ticket->status === 'used')
                                         <span
-                                            class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-500 border border-slate-200">Sudah
-                                            Dipakai</span>
+                                            class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Hadir{{ $ticket->checked_in_at ? ' · ' . $ticket->checked_in_at->format('d/m/Y H:i') : '' }}</span>
                                     @else
                                         <span
                                             class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-brand-cyan/15 text-[#0F685B] border border-brand-cyan/40">
@@ -83,6 +82,35 @@
                                     class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-coral text-white text-xs font-bold hover:bg-[#e04d59] transition shadow-sm">
                                     <i class="fa-solid fa-file-pdf"></i><span>Download PDF</span>
                                 </a>
+                                @if ($ticket->status === 'used')
+                                    <a href="{{ route('certificates.download', $ticket->ticket_code) }}"
+                                        class="inline-flex items-center gap-2 ml-1 px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition shadow-sm">
+                                        <i class="fa-solid fa-award"></i><span>Download Sertifikat</span>
+                                    </a>
+                                @endif
+                                @if ($ticket->status === 'used' && $event->end_date->isPast())
+                                    <form action="{{ route('reviews.store', $ticket->ticket_code) }}" method="POST" class="mt-4 p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-3">
+                                        @csrf
+                                        <h4 class="text-sm font-bold text-brand-navy">{{ $ticket->review ? 'Ubah Ulasan' : 'Beri Rating & Ulasan' }}</h4>
+                                        @if ($ticket->review)
+                                            <p class="text-xs text-amber-600">Rating saat ini: {{ str_repeat('★', $ticket->review->rating) }}{{ str_repeat('☆', 5 - $ticket->review->rating) }}</p>
+                                        @endif
+                                        <label class="block text-xs font-semibold text-slate-600">Rating
+                                            <select name="rating" required class="block mt-1 w-full rounded-lg border-slate-300 text-sm">
+                                                @for ($rating = 1; $rating <= 5; $rating++)
+                                                    <option value="{{ $rating }}" @selected(old('rating', $ticket->review?->rating) == $rating)>{{ $rating }} bintang</option>
+                                                @endfor
+                                            </select>
+                                        </label>
+                                        <label class="block text-xs font-semibold text-slate-600">Ulasan
+                                            <textarea name="comment" rows="3" maxlength="1000" required class="block mt-1 w-full rounded-lg border-slate-300 text-sm" placeholder="Bagikan pengalamanmu...">{{ old('comment', $ticket->review?->comment) }}</textarea>
+                                        </label>
+                                        @error('review')<p class="text-xs text-rose-600">{{ $message }}</p>@enderror
+                                        @error('rating')<p class="text-xs text-rose-600">{{ $message }}</p>@enderror
+                                        @error('comment')<p class="text-xs text-rose-600">{{ $message }}</p>@enderror
+                                        <button class="px-4 py-2 rounded-lg bg-brand-navy text-white text-xs font-bold">Simpan Ulasan</button>
+                                    </form>
+                                @endif
                             </div>
 
                             <div

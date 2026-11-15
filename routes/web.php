@@ -13,6 +13,10 @@ use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\AdminEventController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\OrganizerEventController;
+use App\Http\Controllers\OrganizerParticipationController;
+use App\Http\Controllers\EventReviewController;
+use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\NotificationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -65,6 +69,8 @@ Route::middleware(['auth', 'student'])->group(function () {
 
     Route::get('/mahasiswa/tersimpan', [BookmarkController::class, 'index'])->name('bookmarks.index');
     Route::post('/events/{slug}/bookmark', [BookmarkController::class, 'toggle'])->name('events.bookmark');
+    Route::post('/mahasiswa/tiket/{ticketCode}/ulasan', [EventReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/mahasiswa/tiket/{ticketCode}/sertifikat', [CertificateController::class, 'download'])->name('certificates.download');
 });
 
 Route::middleware(['auth', 'organizer'])->prefix('organisasi')->name('organisasi.')->group(function () {
@@ -74,7 +80,14 @@ Route::middleware(['auth', 'organizer'])->prefix('organisasi')->name('organisasi
     Route::get('/acara/{id}/edit', [OrganizerEventController::class, 'edit'])->name('events.edit');
     Route::put('/acara/{id}', [OrganizerEventController::class, 'update'])->name('events.update');
     Route::delete('/acara/{id}', [OrganizerEventController::class, 'destroy'])->name('events.destroy');
+    Route::get('/presensi', [OrganizerParticipationController::class, 'attendanceIndex'])->name('attendance.index');
+    Route::get('/presensi/{event}', [OrganizerParticipationController::class, 'attendance'])->name('attendance.show');
+    Route::post('/presensi/{event}', [OrganizerParticipationController::class, 'checkIn'])->name('attendance.check-in');
+    Route::get('/ulasan', [OrganizerParticipationController::class, 'reviews'])->name('reviews.index');
 });
+
+Route::middleware('auth')->post('/notifikasi/{notification}/baca', [NotificationController::class, 'markRead'])
+    ->name('notifications.read');
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
