@@ -44,11 +44,11 @@
             </form>
         </div>
 
-        <div class="bg-brand-navy text-white p-3 rounded-2xl border border-slate-800 shadow-sm text-center">
+        <!-- <div class="bg-brand-navy text-white p-3 rounded-2xl border border-slate-800 shadow-sm text-center">
             <p class="text-[11px] text-slate-300 leading-relaxed">
                 Cari acara seru dan kumpulkan sertifikat digital!
             </p>
-        </div>
+        </div> -->
     </div>
 </aside>
 

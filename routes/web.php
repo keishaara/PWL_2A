@@ -12,6 +12,7 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\AdminEventController;
 use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\OrganizerEventController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -66,9 +67,14 @@ Route::middleware(['auth', 'student'])->group(function () {
     Route::post('/events/{slug}/bookmark', [BookmarkController::class, 'toggle'])->name('events.bookmark');
 });
 
-Route::get('/organisasi/dashboard', function () {
-    return '<h1>Halo Penyelenggara: ' . Auth::user()->name . ' 🏛️</h1><p>Kamu berhasil login!</p><form action="' . route('logout') . '" method="POST">' . csrf_field() . '<button type="submit">Logout</button></form>';
-})->middleware('auth')->name('organisasi.dashboard');
+Route::middleware(['auth', 'organizer'])->prefix('organisasi')->name('organisasi.')->group(function () {
+    Route::get('/dashboard', [OrganizerEventController::class, 'index'])->name('dashboard');
+    Route::get('/acara/buat', [OrganizerEventController::class, 'create'])->name('events.create');
+    Route::post('/acara', [OrganizerEventController::class, 'store'])->name('events.store');
+    Route::get('/acara/{id}/edit', [OrganizerEventController::class, 'edit'])->name('events.edit');
+    Route::put('/acara/{id}', [OrganizerEventController::class, 'update'])->name('events.update');
+    Route::delete('/acara/{id}', [OrganizerEventController::class, 'destroy'])->name('events.destroy');
+});
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {

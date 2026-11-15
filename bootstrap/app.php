@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'student' => \App\Http\Middleware\EnsureStudent::class,
             'admin'   => \App\Http\Middleware\EnsureAdmin::class,
+            'organizer' => \App\Http\Middleware\EnsureOrganizer::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
@@ -22,3 +23,5 @@ return Application::configure(basePath: dirname(__DIR__))
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
     })->create();
+
+    

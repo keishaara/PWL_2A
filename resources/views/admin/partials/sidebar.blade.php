@@ -39,16 +39,6 @@
                 </button>
             </form>
         </div>
-
-        <div class="bg-brand-navy text-white p-5 rounded-2xl border border-slate-800 shadow-sm text-center">
-            <div class="w-10 h-10 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 flex items-center justify-center mx-auto mb-2 text-base font-bold">
-                <i class="fa-solid fa-shield-halved"></i>
-            </div>
-            <h4 class="text-xs font-bold text-amber-300 uppercase tracking-wider mb-1">Super Admin</h4>
-            <p class="text-[11px] text-slate-300 leading-relaxed">
-                Anda memiliki wewenang penuh untuk memverifikasi acara kampus dan mengelola konten platform.
-            </p>
-        </div>
     </div>
 </aside>
 
