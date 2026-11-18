@@ -292,6 +292,6 @@
         </div>
     </div>
     @endif
-
+    @include('admin.partials.footer')
 </body>
 </html>

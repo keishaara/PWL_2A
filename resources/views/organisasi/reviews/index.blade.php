@@ -28,5 +28,6 @@
             <div class="mt-5">{{ $reviews->links() }}</div>
         </main>
     </div>
+    @include('organisasi.partials.footer')
 </body>
 </html>

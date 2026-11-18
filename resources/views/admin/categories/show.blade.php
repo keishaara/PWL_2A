@@ -241,6 +241,6 @@
 
         </main>
     </div>
-
+    @include('admin.partials.footer')
 </body>
 </html>

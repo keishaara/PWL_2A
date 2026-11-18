@@ -209,7 +209,6 @@
 
         </main>
     </div>
-
+    @include('organisasi.partials.footer')
 </body>
-
 </html>

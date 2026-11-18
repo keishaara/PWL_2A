@@ -343,6 +343,6 @@
             }
         }
     </script>
+    @include('organisasi.partials.footer')
 </body>
-
 </html>

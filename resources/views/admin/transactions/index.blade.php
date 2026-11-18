@@ -281,6 +281,6 @@
             &copy; {{ date('Y') }} Evently (Univents). Monitoring Transaksi Global Perputaran Keuangan Kampus.
         </div>
     </footer>
-
+    @include('admin.partials.footer')
 </body>
 </html>

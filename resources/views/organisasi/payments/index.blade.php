@@ -392,5 +392,6 @@
             modal.classList.remove('flex');
         }
     </script>
+    @include('organisasi.partials.footer')
 </body>
 </html>

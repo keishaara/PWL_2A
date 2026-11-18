@@ -239,5 +239,6 @@
             document.getElementById('rejectModal').classList.add('hidden');
         }
     </script>
+    @include('admin.partials.footer')
 </body>
 </html>

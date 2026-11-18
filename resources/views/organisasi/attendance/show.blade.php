@@ -52,5 +52,6 @@
             <div class="mt-5">{{ $registrations->links() }}</div>
         </main>
     </div>
+    @include('organisasi.partials.footer')
 </body>
 </html>

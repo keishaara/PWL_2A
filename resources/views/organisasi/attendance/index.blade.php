@@ -27,5 +27,6 @@
             <div class="mt-5">{{ $events->links() }}</div>
         </main>
     </div>
+    @include('organisasi.partials.footer')
 </body>
 </html>

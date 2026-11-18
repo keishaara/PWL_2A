@@ -250,5 +250,6 @@
             openCategoryModal(@json(old('_mode', 'create')), @json(old('_id', '')), @json(old('name', '')));
         @endif
     </script>
+    @include('admin.partials.footer')
 </body>
 </html>
