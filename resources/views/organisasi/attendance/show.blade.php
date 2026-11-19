@@ -4,11 +4,11 @@
     @include('mahasiswa.partials.head')
     <title>Daftar Presensi - Univents</title>
 </head>
-<body class="min-h-screen text-brand-navy">
-    <header class="bg-brand-navy text-white p-4 font-bold">Presensi Hari-H</header>
-    <div class="max-w-7xl mx-auto p-4 md:p-8 flex flex-col md:flex-row gap-8">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+    @include('organisasi.partials.header', ['title' => 'Presensi Hari-H'])
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
         @include('organisasi.partials.sidebar', ['active' => 'attendance'])
-        <main class="flex-1">
+        <main class="flex-1 min-w-0">
             <a href="{{ route('organisasi.attendance.index') }}" class="text-sm text-slate-500 hover:underline">← Semua Acara</a>
             <h1 class="text-2xl font-extrabold mt-3">{{ $event->title }}</h1>
             <p class="text-sm text-slate-500 mt-1">{{ $event->start_date->format('d M Y H:i') }} · {{ $event->location }}</p>

@@ -27,19 +27,7 @@
 
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <header class="w-full bg-brand-navy border-b border-white/10 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-8 w-auto object-contain">
-                <span class="text-xl font-extrabold tracking-tight text-white">Uni<span class="text-brand-cyan">vents</span></span>
-                <span class="ml-2 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-400/20 text-blue-300 border border-blue-400/30 uppercase tracking-wider">Penyelenggara</span>
-            </div>
-
-            <div class="flex items-center gap-3">
-                <span class="text-xs font-semibold text-white/90">{{ Auth::user()->name }}</span>
-            </div>
-        </div>
-    </header>
+    @include('organisasi.partials.header', ['title' => 'Verifikasi Pembayaran'])
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
 

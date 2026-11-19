@@ -4,11 +4,11 @@
     @include('mahasiswa.partials.head')
     <title>Rekap Ulasan - Univents</title>
 </head>
-<body class="min-h-screen text-brand-navy">
-    <header class="bg-brand-navy text-white p-4 font-bold">Rekap Ulasan Acara</header>
-    <div class="max-w-7xl mx-auto p-4 md:p-8 flex flex-col md:flex-row gap-8">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+    @include('organisasi.partials.header', ['title' => 'Rekap Ulasan'])
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
         @include('organisasi.partials.sidebar', ['active' => 'reviews'])
-        <main class="flex-1">
+        <main class="flex-1 min-w-0">
             <h1 class="text-2xl font-extrabold mb-2">Ulasan Peserta</h1>
             <p class="text-sm text-slate-500 mb-6">Ulasan dari peserta yang telah hadir di acara organisasi.</p>
             <div class="space-y-4">
