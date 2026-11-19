@@ -21,6 +21,7 @@ class OrganizerEventController extends Controller
         );
 
         $query = Event::with('category')
+            ->withCount(['registrations as participants_count' => fn ($q) => $q->where('status', 'confirmed')])
             ->where('organization_id', $organization->id)
             ->latest();
 

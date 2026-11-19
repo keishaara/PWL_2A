@@ -116,4 +116,33 @@ class OrganizerParticipationController extends Controller
         return Event::where('organization_id', $this->organization()->id)
             ->findOrFail($event->id);
     }
+
+    public function participants(Request $request, Event $event)
+    {
+        $event = $this->ownedEvent($event);
+
+        $query = $event->registrations()->with(['user', 'ticket'])->latest();
+
+        if ($request->filled('status') && in_array($request->status, ['pending', 'confirmed', 'cancelled'])) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('q')) {
+            $term = $request->q;
+            $query->whereHas('user', fn ($u) => $u
+                ->where('name', 'ilike', "%{$term}%")
+                ->orWhere('npm', 'ilike', "%{$term}%"));
+        }
+
+        $registrations = $query->paginate(15)->withQueryString();
+
+        $stats = [
+            'all'       => $event->registrations()->count(),
+            'pending'   => $event->registrations()->where('status', 'pending')->count(),
+            'confirmed' => $event->registrations()->where('status', 'confirmed')->count(),
+            'cancelled' => $event->registrations()->where('status', 'cancelled')->count(),
+        ];
+
+        return view('organisasi.events.participants', compact('event', 'registrations', 'stats'));
+    }
 }

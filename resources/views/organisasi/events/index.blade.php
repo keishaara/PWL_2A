@@ -93,7 +93,7 @@
                             <tr class="bg-slate-50 border-b border-slate-200 text-slate-400 font-bold uppercase tracking-wider text-[11px]">
                                 <th class="p-4">Acara</th>
                                 <th class="p-4">Kategori & Tipe</th>
-                                <th class="p-4">Jadwal & Kuota</th>
+                                <th class="p-4">Jadwal & Peserta</th>
                                 <th class="p-4">Status Verifikasi</th>
                                 <th class="p-4 text-center">Aksi</th>
                             </tr>
@@ -126,7 +126,10 @@
                                 </td>
                                 <td class="p-4">
                                     <p class="font-semibold text-slate-700">{{ $event->start_date ? $event->start_date->format('d M Y, H:i') : '-' }}</p>
-                                    <p class="text-[11px] text-slate-400 mt-0.5">Kuota: {{ $event->quota }} peserta</p>
+                                    <a href="{{ route('organisasi.events.participants', $event->id) }}" class="inline-flex items-center gap-1 text-[11px] font-semibold text-brand-cyan hover:underline mt-0.5">
+                                        <i class="fa-solid fa-users"></i>
+                                        Peserta: {{ $event->participants_count }}/{{ $event->quota }}
+                                    </a>
                                 </td>
                                 <td class="p-4">
                                     @if($event->status === 'approved')

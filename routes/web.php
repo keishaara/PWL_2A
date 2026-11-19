@@ -80,6 +80,7 @@ Route::middleware(['auth', 'organizer'])->prefix('organisasi')->name('organisasi
     Route::get('/acara/{id}/edit', [OrganizerEventController::class, 'edit'])->name('events.edit');
     Route::put('/acara/{id}', [OrganizerEventController::class, 'update'])->name('events.update');
     Route::delete('/acara/{id}', [OrganizerEventController::class, 'destroy'])->name('events.destroy');
+    Route::get('/acara/{event}/peserta', [OrganizerParticipationController::class, 'participants'])->name('events.participants');
     Route::get('/presensi', [OrganizerParticipationController::class, 'attendanceIndex'])->name('attendance.index');
     Route::get('/presensi/{event}', [OrganizerParticipationController::class, 'attendance'])->name('attendance.show');
     Route::post('/presensi/{event}', [OrganizerParticipationController::class, 'checkIn'])->name('attendance.check-in');
