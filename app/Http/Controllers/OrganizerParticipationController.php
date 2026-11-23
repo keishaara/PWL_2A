@@ -44,6 +44,13 @@ class OrganizerParticipationController extends Controller
     public function checkIn(Request $request, Event $event)
     {
         $event = $this->ownedEvent($event);
+        $today = now()->startOfDay();
+        if ($today->lt($event->start_date->copy()->startOfDay()) || $today->gt($event->end_date->copy()->startOfDay())) {
+            return back()->withErrors([
+                'ticket_code' => 'Check-in hanya dapat dilakukan pada tanggal acara.',
+            ]);
+        }
+
         $validated = $request->validate([
             'ticket_code' => ['required', 'string', 'max:255'],
         ]);

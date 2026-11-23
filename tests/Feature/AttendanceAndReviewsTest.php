@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Notification;
 use App\Models\Organization;
 use App\Models\Registration;
 use App\Models\Ticket;
@@ -128,6 +129,74 @@ class AttendanceAndReviewsTest extends TestCase
             ->assertNotFound();
 
         $this->assertDatabaseHas('tickets', ['id' => $ticket->id, 'status' => 'unused']);
+    }
+
+    public function test_organizer_can_only_check_in_during_the_event_dates(): void
+    {
+        [$organizer, $event, $ticket] = $this->eventWithTicket();
+        $event->update([
+            'start_date' => now()->addDay(),
+            'end_date' => now()->addDays(2),
+        ]);
+
+        $this->actingAs($organizer)
+            ->post(route('organisasi.attendance.check-in', $event), ['ticket_code' => $ticket->ticket_code])
+            ->assertSessionHasErrors('ticket_code');
+
+        $this->assertDatabaseHas('tickets', ['id' => $ticket->id, 'status' => 'unused']);
+    }
+
+    public function test_admin_approval_notifies_the_organizer_once(): void
+    {
+        [$organizer, $event] = $this->eventWithTicket();
+        $event->update(['status' => 'pending']);
+        $admin = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@example.test',
+            'password' => 'password',
+            'role' => 'admin',
+        ]);
+
+        $this->actingAs($admin)
+            ->post(route('admin.events.approve', $event))
+            ->assertSessionHas('success');
+
+        $this->assertDatabaseHas('notifications', [
+            'user_id' => $organizer->id,
+            'title' => 'Acara Disetujui',
+        ]);
+
+        $this->post(route('admin.events.approve', $event));
+        $this->assertDatabaseCount('notifications', 1);
+
+        Notification::create([
+            'user_id' => $admin->id,
+            'title' => 'Notifikasi Admin',
+            'message' => 'Pesan khusus admin.',
+        ]);
+        $this->get(route('admin.dashboard'))->assertOk()->assertSee('Notifikasi Admin');
+    }
+
+    public function test_admin_rejection_notifies_the_organizer_with_the_reason(): void
+    {
+        [$organizer, $event] = $this->eventWithTicket();
+        $event->update(['status' => 'pending']);
+        $admin = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@example.test',
+            'password' => 'password',
+            'role' => 'admin',
+        ]);
+
+        $this->actingAs($admin)
+            ->post(route('admin.events.reject', $event), ['rejection_reason' => 'Informasi belum lengkap.'])
+            ->assertSessionHas('success');
+
+        $this->assertDatabaseHas('notifications', [
+            'user_id' => $organizer->id,
+            'title' => 'Acara Ditolak',
+            'message' => "Acara '{$event->title}' ditolak. Alasan: Informasi belum lengkap.",
+        ]);
     }
 
     private function eventWithTicket(): array

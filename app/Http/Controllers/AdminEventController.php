@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
 class AdminEventController extends Controller
@@ -37,11 +38,20 @@ class AdminEventController extends Controller
 
     public function approve($id)
     {
-        $event = Event::findOrFail($id);
+        $event = Event::with('organization')->findOrFail($id);
+        $wasApproved = $event->status === 'approved';
         $event->update([
             'status' => 'approved',
             'rejection_reason' => null,
         ]);
+
+        if (! $wasApproved && $event->organization) {
+            Notification::create([
+                'user_id' => $event->organization->user_id,
+                'title' => 'Acara Disetujui',
+                'message' => "Acara '{$event->title}' telah disetujui dan kini tayang di katalog.",
+            ]);
+        }
 
         return back()->with('success', "Acara '{$event->title}' berhasil disetujui dan kini tayang di katalog!");
     }
@@ -55,11 +65,20 @@ class AdminEventController extends Controller
             'rejection_reason.min'      => 'Alasan penolakan minimal 5 karakter.',
         ]);
 
-        $event = Event::findOrFail($id);
+        $event = Event::with('organization')->findOrFail($id);
+        $wasRejected = $event->status === 'rejected';
         $event->update([
             'status'           => 'rejected',
             'rejection_reason' => $request->rejection_reason,
         ]);
+
+        if (! $wasRejected && $event->organization) {
+            Notification::create([
+                'user_id' => $event->organization->user_id,
+                'title' => 'Acara Ditolak',
+                'message' => "Acara '{$event->title}' ditolak. Alasan: {$event->rejection_reason}",
+            ]);
+        }
 
         return back()->with('success', "Acara '{$event->title}' telah ditolak beserta alasan penolakannya.");
     }
