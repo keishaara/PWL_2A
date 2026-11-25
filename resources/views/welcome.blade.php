@@ -12,11 +12,12 @@
             theme: {
                 extend: {
                     colors: {
-                        darkEclipse: '#162945',
-                        ripeMalinka: '#F45D69',
-                        aquamarine: '#39D9C1',
-                        nakedNoodle: '#FCCC6B',
-                        surface: '#F8FAFC'
+                        darkEclipse: '#14213D', 
+                        cyberNavy: '#121E38', 
+                        electricBlue: '#1E90FF', 
+                        ripeMalinka: '#FF6B5B', 
+                        amber: '#FCCC6B',
+                        surface: '#F8F6F1'
                     },
                     fontFamily: {
                         glacial: ['"Glacial Indifference"', 'sans-serif'],
@@ -38,7 +39,7 @@
     <style>
         body {
             font-family: 'DM Sans', sans-serif;
-            background-color: #F8FAFC;
+            background-color: #F8F6F1;
         }
 
         h1,
@@ -50,13 +51,12 @@
     </style>
 </head>
 
-<body class="bg-surface text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-aquamarine selection:text-darkEclipse">
-
+<body class="bg-surface text-slate-800 antialiased min-h-screen flex flex-col justify-between">
     <header class="w-full bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="{{ url('/') }}" class="flex items-center gap-2.5">
                 <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-11 w-auto object-contain">
-                <span class="text-2xl font-extrabold tracking-tight text-darkEclipse font-heading">Uni<span class="text-[#14d8b0]">vents</span></span>
+                <span class="text-2xl font-extrabold tracking-tight text-darkEclipse font-heading">Uni<span class="text-electricBlue">vents</span></span>
             </a>
             <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
                 <a href="#peran" class="hover:text-darkEclipse transition">Untuk Siapa</a>
@@ -74,7 +74,7 @@
                     <span>Profil Mahasiswa</span>
                 </a>
                 <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold bg-darkEclipse text-white hover:bg-slate-800 transition shadow-sm">
-                    <i class="fa-solid fa-house text-aquamarine text-xs"></i>
+                    <i class="fa-solid fa-house text-electricBlue text-xs"></i>
                     <span>Dashboard</span>
                 </a>
                 @elseif(Auth::user()->role === 'organizer')
@@ -125,7 +125,7 @@
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
                         <a href="#peran" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-sm font-bold bg-darkEclipse text-white hover:bg-slate-800 transition shadow-sm flex items-center justify-center gap-2">
                             <span>Pelajari Alur Layanan</span>
-                            <i class="fa-solid fa-arrow-down text-xs text-aquamarine"></i>
+                            <i class="fa-solid fa-arrow-down text-xs text-electricBlue"></i>
                         </a>
                         <a href="#agenda" class="w-full sm:w-auto px-6 py-3.5 rounded-xl text-sm font-semibold bg-white text-slate-700 hover:bg-slate-50 border border-slate-200 transition flex items-center justify-center gap-2 shadow-sm">
                             <span>Jelajahi Agenda Kampus</span>
@@ -138,12 +138,12 @@
 
                 <div class="lg:col-span-5">
                     <div class="relative mx-auto max-w-sm sm:max-w-md">
-                        <div class="absolute -top-3 -right-3 w-full h-full rounded-3xl bg-aquamarine/20 border border-aquamarine/40 -z-10"></div>
+                        <div class="absolute -top-3 -right-3 w-full h-full rounded-3xl bg-electricBlue/20 border border-electricBlue/40 -z-10"></div>
 
                         <div class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-xl space-y-5">
                             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
                                 <div class="flex items-center gap-2.5">
-                                    <span class="w-2.5 h-2.5 rounded-full bg-aquamarine"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-electricBlue"></span>
                                     <span class="font-heading font-bold text-xs uppercase tracking-wider text-darkEclipse">Ekosistem Univents</span>
                                 </div>
                                 <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-100">
@@ -152,8 +152,8 @@
                             </div>
 
                             <div class="space-y-3">
-                                <a href="#agenda" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-3.5 hover:border-aquamarine transition block">
-                                    <div class="w-10 h-10 rounded-xl bg-darkEclipse text-aquamarine flex items-center justify-center font-bold text-base shrink-0">
+                                <a href="#agenda" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-3.5 hover:border-electricBlue transition block">
+                                    <div class="w-10 h-10 rounded-xl bg-darkEclipse text-electricBlue flex items-center justify-center font-bold text-base shrink-0">
                                         <i class="fa-solid fa-code"></i>
                                     </div>
                                     <div class="min-w-0 flex-1">
@@ -178,8 +178,8 @@
                                     </span>
                                 </a>
 
-                                <a href="#agenda" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-3.5 hover:border-nakedNoodle transition block">
-                                    <div class="w-10 h-10 rounded-xl bg-nakedNoodle/35 text-darkEclipse flex items-center justify-center font-bold text-base shrink-0">
+                                <a href="#agenda" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-3.5 hover:border-amber transition block">
+                                    <div class="w-10 h-10 rounded-xl bg-amber/35 text-darkEclipse flex items-center justify-center font-bold text-base shrink-0">
                                         <i class="fa-solid fa-music"></i>
                                     </div>
                                     <div class="min-w-0 flex-1">
@@ -214,12 +214,12 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
 
                     <div class="bg-surface rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6 relative overflow-hidden">
-                        <div class="w-12 h-12 rounded-2xl bg-aquamarine/25 text-darkEclipse flex items-center justify-center text-xl font-bold">
+                        <div class="w-12 h-12 rounded-2xl bg-electricBlue/20 text-electricBlue flex items-center justify-center text-xl font-bold">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </div>
 
                         <div>
-                            <span class="text-xs font-bold uppercase tracking-wider text-aquamarine bg-darkEclipse px-3 py-1 rounded-full inline-block mb-3">Untuk Mahasiswa</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-electricBlue bg-darkEclipse px-3 py-1 rounded-full inline-block mb-3">Untuk Mahasiswa</span>
                             <h3 class="font-heading text-2xl font-bold text-darkEclipse">Kemudahan Eksplorasi & Tiket Digital</h3>
                             <p class="text-slate-600 text-sm leading-relaxed mt-2">
                                 Dapatkan akses terpusat ke seluruh kegiatan kampus tanpa harus mengecek puluhan poster di mading atau grup percakapan.
@@ -228,15 +228,15 @@
 
                         <ul class="space-y-3.5 text-xs sm:text-sm text-slate-600 border-t border-slate-200/70 pt-5">
                             <li class="flex items-start gap-3">
-                                <i class="fa-solid fa-circle-check text-aquamarine mt-0.5 text-base"></i>
+                                <i class="fa-solid fa-circle-check text-electricBlue mt-0.5 text-base"></i>
                                 <span><strong>Pendaftaran 1-Klik:</strong> Terhubung otomatis dengan data diri mahasiswa (NPM, Program Studi, Semester).</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <i class="fa-solid fa-circle-check text-aquamarine mt-0.5 text-base"></i>
+                                <i class="fa-solid fa-circle-check text-electricBlue mt-0.5 text-base"></i>
                                 <span><strong>E-Ticket Bebas Kertas:</strong> Simpan tiket langsung di smartphone untuk proses presensi instan di lokasi.</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <i class="fa-solid fa-circle-check text-aquamarine mt-0.5 text-base"></i>
+                                <i class="fa-solid fa-circle-check text-electricBlue mt-0.5 text-base"></i>
                                 <span><strong>Profil Mahasiswa Terpusat:</strong> Update kontak WhatsApp dan kelola riwayat kepesertaan acara kapan saja.</span>
                             </li>
                         </ul>
@@ -283,8 +283,8 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm hover:border-aquamarine transition duration-200 space-y-4">
-                    <div class="w-12 h-12 rounded-2xl bg-aquamarine/25 text-darkEclipse flex items-center justify-center text-xl font-bold">
+                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm hover:border-electricBlue transition duration-200 space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-electricBlue/20 text-electricBlue flex items-center justify-center text-xl font-bold">
                         <i class="fa-solid fa-compass"></i>
                     </div>
                     <h3 class="font-heading text-lg font-bold text-darkEclipse">Katalog Acara Terpadu</h3>
@@ -303,8 +303,8 @@
                     </p>
                 </div>
 
-                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm hover:border-nakedNoodle transition duration-200 space-y-4">
-                    <div class="w-12 h-12 rounded-2xl bg-nakedNoodle/35 text-darkEclipse flex items-center justify-center text-xl font-bold">
+                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm hover:border-amber transition duration-200 space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-amber/35 text-darkEclipse flex items-center justify-center text-xl font-bold">
                         <i class="fa-regular fa-id-card"></i>
                     </div>
                     <h3 class="font-heading text-lg font-bold text-darkEclipse">Profil Mahasiswa Mandiri</h3>
@@ -330,10 +330,11 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
 
-                    <div class="bg-surface rounded-3xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between">
+                    <!-- Kartu 1: Workshop Laravel -->
+                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between hover:border-electricBlue transition duration-200">
                         <div>
                             <div class="p-5 border-b border-slate-100 flex items-center justify-between">
-                                <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-aquamarine/25 text-darkEclipse">
+                                <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-electricBlue/15 text-electricBlue">
                                     Workshop
                                 </span>
                                 <span class="text-xs font-bold text-emerald-600">Gratis</span>
@@ -348,14 +349,15 @@
                         </div>
                         <div class="p-6 pt-0">
                             @auth
-                            <a href="{{ route('dashboard') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Lihat Detail Acara</a>
+                            <a href="{{ route('dashboard') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-electricBlue hover:bg-[#187bcd] text-white transition shadow-sm">Lihat Detail Acara</a>
                             @else
-                            <a href="{{ route('login') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Masuk untuk Ikut Acara</a>
+                            <a href="{{ route('login') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-electricBlue hover:bg-[#187bcd] text-white transition shadow-sm">Masuk untuk Ikut Acara</a>
                             @endauth
                         </div>
                     </div>
 
-                    <div class="bg-surface rounded-3xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between">
+                    <!-- Kartu 2: Seminar AI -->
+                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between hover:border-electricBlue transition duration-200">
                         <div>
                             <div class="p-5 border-b border-slate-100 flex items-center justify-between">
                                 <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-ripeMalinka/20 text-ripeMalinka">
@@ -373,17 +375,18 @@
                         </div>
                         <div class="p-6 pt-0">
                             @auth
-                            <a href="{{ route('dashboard') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Lihat Detail Acara</a>
+                            <a href="{{ route('dashboard') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-electricBlue hover:bg-[#187bcd] text-white transition shadow-sm">Lihat Detail Acara</a>
                             @else
-                            <a href="{{ route('login') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Masuk untuk Ikut Acara</a>
+                            <a href="{{ route('login') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-electricBlue hover:bg-[#187bcd] text-white transition shadow-sm">Masuk untuk Ikut Acara</a>
                             @endauth
                         </div>
                     </div>
 
-                    <div class="bg-surface rounded-3xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between">
+                    <!-- Kartu 3: Festival Seni Musik -->
+                    <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between hover:border-electricBlue transition duration-200">
                         <div>
                             <div class="p-5 border-b border-slate-100 flex items-center justify-between">
-                                <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-nakedNoodle/35 text-darkEclipse">
+                                <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-amber/25 text-amber-600">
                                     Seni & Musik
                                 </span>
                                 <span class="text-xs font-bold text-darkEclipse">Rp 25.000</span>
@@ -398,9 +401,9 @@
                         </div>
                         <div class="p-6 pt-0">
                             @auth
-                            <a href="{{ route('dashboard') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Lihat Detail Acara</a>
+                            <a href="{{ route('dashboard') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-electricBlue hover:bg-[#187bcd] text-white transition shadow-sm">Lihat Detail Acara</a>
                             @else
-                            <a href="{{ route('login') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-darkEclipse hover:bg-slate-800 text-white transition">Masuk untuk Beli Tiket</a>
+                            <a href="{{ route('login') }}" class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-electricBlue hover:bg-[#187bcd] text-white transition shadow-sm">Masuk untuk Beli Tiket</a>
                             @endauth
                         </div>
                     </div>
@@ -419,11 +422,11 @@
                 </div>
                 <div class="flex items-center gap-4">
                     @auth
-                    <a href="{{ route('profile.show') }}" class="px-7 py-3.5 rounded-xl text-sm font-bold bg-aquamarine text-darkEclipse hover:bg-[#31c4ad] transition shadow-md">
+                    <a href="{{ route('profile.show') }}" class="px-7 py-3.5 rounded-xl text-sm font-bold bg-electricBlue text-white hover:bg-[#187bcd] transition shadow-md">
                         Buka Profil Saya
                     </a>
                     @else
-                    <a href="{{ route('register') }}" class="px-7 py-3.5 rounded-xl text-sm font-bold bg-aquamarine text-darkEclipse hover:bg-[#31c4ad] transition shadow-md">
+                    <a href="{{ route('register') }}" class="px-7 py-3.5 rounded-xl text-sm font-bold bg-electricBlue text-white hover:bg-[#187bcd] transition shadow-md">
                         Daftar Akun Baru
                     </a>
                     @endauth
@@ -448,4 +451,5 @@
         </div>
     </footer>
 </body>
+
 </html>

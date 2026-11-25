@@ -12,11 +12,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#162945',
-                            coral: '#F45D69',
-                            cyan: '#39D9C1',
-                            amber: '#FCCC6B',
-                            bg: '#F8FAFC'
+                            navy: '#14213D',
+                            coral: '#FF6B5B',
+                            blue: '#1E90FF',
+                            cyber: '#121E38',
+                            warmBg: '#F8F6F1',
+                            amber: '#FCCC6B'
                         }
                     }
                 }
@@ -32,11 +33,11 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F8FAFC;
+            background-color: #F8F6F1;
         }
     </style>
 </head>
-<body class="bg-brand-bg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-brand-warmBg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
     @include('mahasiswa.partials.header', ['title' => 'Status Pembayaran'])
 

@@ -30,7 +30,7 @@
             @foreach ($items as $key => [$label, $url, $icon])
                 @php $isActive = ($active ?? '') === $key; @endphp
                 <a href="{{ $url }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition {{ $isActive ? 'font-bold bg-brand-navy text-white shadow-sm' : 'font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy' }}">
-                    <i class="fa-solid {{ $icon }} w-4 text-center {{ $isActive ? 'text-brand-cyan' : '' }}"></i>
+                    <i class="fa-solid {{ $icon }} w-4 text-center {{ $isActive ? 'text-brand-blue' : '' }}"></i>
                     <span>{{ $label }}</span>
                 </a>
             @endforeach

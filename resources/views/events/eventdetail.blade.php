@@ -13,11 +13,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#162945',
-                            coral: '#F45D69',
-                            cyan: '#39D9C1',
-                            amber: '#FCCC6B',
-                            bg: '#F8FAFC'
+                            navy: '#14213D',
+                            cyber: '#121E38',
+                            blue: '#1E90FF',
+                            coral: '#FF6B5B',
+                            warmBg: '#F8F6F1',
+                            amber: '#FCCC6B'
                         }
                     }
                 }
@@ -34,11 +35,12 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F8F6F1;
         }
     </style>
 </head>
 
-<body class="bg-[#F8FAFC] text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-[#F8F6F1] text-slate-800 antialiased min-h-screen flex flex-col justify-between">
     @include('mahasiswa.partials.toast')
 
     @include('mahasiswa.partials.header', ['title' => 'Detail Acara'])
@@ -92,13 +94,13 @@
                         <img src="{{ $event->banner ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1000' }}"
                             alt="{{ $event->title }}" class="w-full h-80 sm:h-96 object-cover">
                         <span
-                            class="absolute top-4 left-4 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#162945]/90 text-white backdrop-blur-md border border-white/20">
+                            class="absolute top-4 left-4 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#14213D]/90 text-white backdrop-blur-md border border-white/20">
                             {{ $event->category->name }}
                         </span>
                     </div>
 
                     <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-                        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#162945] leading-snug">
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#14213D] leading-snug">
                             {{ $event->title }}
                         </h1>
 
@@ -106,11 +108,11 @@
                             class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-100">
                             <div class="flex items-start gap-3">
                                 <span
-                                    class="h-10 w-10 rounded-xl bg-[#39D9C1]/20 text-[#0F685B] flex items-center justify-center shrink-0">
+                                    class="h-10 w-10 rounded-xl bg-[#1E90FF]/15 text-[#1E90FF] flex items-center justify-center shrink-0">
                                     <i class="fa-regular fa-clock text-base"></i>
                                 </span>
                                 <div>
-                                    <h4 class="text-xs font-bold text-[#162945]">Waktu Pelaksanaan</h4>
+                                    <h4 class="text-xs font-bold text-[#14213D]">Waktu Pelaksanaan</h4>
                                     <p class="text-xs text-slate-600 mt-0.5">
                                         {{ $event->start_date->translatedFormat('l, d F Y') }}
                                     </p>
@@ -127,7 +129,7 @@
                                     <i class="fa-solid fa-location-dot text-base"></i>
                                 </span>
                                 <div>
-                                    <h4 class="text-xs font-bold text-[#162945]">Lokasi Kegiatan</h4>
+                                    <h4 class="text-xs font-bold text-[#14213D]">Lokasi Kegiatan</h4>
                                     <p class="text-xs text-slate-600 mt-0.5 leading-relaxed">
                                         {{ $event->location }}
                                     </p>
@@ -136,7 +138,7 @@
                         </div>
 
                         <div class="mt-8">
-                            <h3 class="text-base font-bold text-[#162945] mb-3">Tentang Kegiatan Ini</h3>
+                            <h3 class="text-base font-bold text-[#14213D] mb-3">Tentang Kegiatan Ini</h3>
                             <div class="text-sm text-slate-600 leading-relaxed whitespace-pre-line">
                                 {{ $event->description }}
                             </div>
@@ -156,7 +158,7 @@
                                     class="text-xs font-bold px-2.5 py-1 rounded-full bg-green-50 text-green-700 border border-green-200">
                                     Dibuka untuk Mahasiswa
                                 </span>
-                                <span class="text-xs font-bold text-[#F45D69]">
+                                <span class="text-xs font-bold text-[#FF6B5B]">
                                     Sisa {{ $remainingQuota }} Kuota
                                 </span>
                             </div>
@@ -165,7 +167,7 @@
                         <div class="py-5 space-y-3">
                             <div class="flex items-center justify-between text-xs">
                                 <span class="text-slate-500">Total Kuota</span>
-                                <span class="font-bold text-[#162945]">{{ $event->quota }} Kursi</span>
+                                <span class="font-bold text-[#14213D]">{{ $event->quota }} Kursi</span>
                             </div>
                             <div class="flex items-center justify-between text-xs">
                                 <span class="text-slate-500">Biaya Pendaftaran</span>
@@ -174,7 +176,7 @@
                                         Rp {{ number_format($event->price, 0, ',', '.') }}
                                     </span>
                                 @else
-                                    <span class="font-bold text-[#39D9C1] text-sm">GRATIS</span>
+                                    <span class="font-bold text-emerald-600 text-sm">GRATIS</span>
                                 @endif
                             </div>
                         </div>
@@ -215,7 +217,7 @@
                                 <form action="{{ route('events.register', $event->slug) }}" method="POST">
                                     @csrf
                                     <button type="submit"
-                                        class="w-full py-3.5 px-4 rounded-xl bg-[#F45D69] text-white font-bold text-sm hover:bg-[#e04d59] transition shadow-lg shadow-[#F45D69]/30 flex items-center justify-center gap-2">
+                                        class="w-full py-3.5 px-4 rounded-xl bg-[#1E90FF] text-white font-bold text-sm hover:bg-[#187bcd] transition shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2">
                                         <i class="fa-solid fa-ticket"></i>
                                         <span>{{ $event->isPaid() ? 'Daftar & Lanjut ke Pembayaran' : 'Daftar Kegiatan Ini (Gratis)' }}</span>
                                     </button>
@@ -238,7 +240,7 @@
                             </form>
                         @else
                             <a href="{{ route('login') }}"
-                                class="w-full py-3.5 px-4 rounded-xl bg-[#162945] text-white font-bold text-sm hover:bg-[#F45D69] transition shadow-md flex items-center justify-center gap-2">
+                                class="w-full py-3.5 px-4 rounded-xl bg-[#14213D] text-white font-bold text-sm hover:bg-[#1E90FF] transition shadow-md flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
                                 <span>Masuk untuk Mendaftar</span>
                             </a>
@@ -254,7 +256,7 @@
                                     alt="{{ $event->organization->name }}"
                                     class="h-12 w-12 rounded-2xl object-cover border border-slate-100">
                                 <div>
-                                    <h4 class="text-xs font-bold text-[#162945]">{{ $event->organization->name }}</h4>
+                                    <h4 class="text-xs font-bold text-[#14213D]">{{ $event->organization->name }}</h4>
                                     <p class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
                                         {{ $event->organization->description }}
                                     </p>

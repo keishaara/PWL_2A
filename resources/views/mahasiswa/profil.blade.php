@@ -13,11 +13,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#162945',
-                            coral: '#F45D69',
-                            cyan: '#39D9C1',
-                            amber: '#FCCC6B',
-                            bg: '#F8FAFC'
+                            navy: '#14213D',
+                            coral: '#FF6B5B',
+                            blue: '#1E90FF',
+                            cyber: '#121E38',
+                            warmBg: '#F8F6F1',
+                            amber: '#FCCC6B'
                         }
                     }
                 }
@@ -34,12 +35,12 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F8FAFC;
+            background-color: #F8F6F1;
         }
     </style>
 </head>
 
-<body class="bg-brand-bg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-brand-warmBg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
      @include('mahasiswa.partials.header', ['title' => 'Profil Mahasiswa'])
 
@@ -100,10 +101,10 @@
                         @if(!empty($user->avatar) && file_exists(public_path('uploads/profiles/' . $user->avatar)))
                         <img src="{{ asset('uploads/profiles/' . $user->avatar) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
                         @else
-                        <span class="text-brand-cyan">{{ strtoupper(substr($user->name ?? 'M', 0, 2)) }}</span>
+                        <span class="text-brand-blue">{{ strtoupper(substr($user->name ?? 'M', 0, 2)) }}</span>
                         @endif
                     </div>
-                    <label for="foto_profil" class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-brand-cyan text-brand-navy flex items-center justify-center cursor-pointer shadow-md hover:scale-105 transition" title="Ganti Foto">
+                    <label for="foto_profil" class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-brand-blue text-white flex items-center justify-center cursor-pointer shadow-md hover:scale-105 transition" title="Ganti Foto">
                         <i class="fa-solid fa-camera text-xs"></i>
                     </label>
                 </div>
@@ -111,7 +112,7 @@
                 <div class="text-center sm:text-left space-y-1 flex-1">
                     <div class="flex flex-col sm:flex-row sm:items-center gap-2">
                         <h2 class="text-2xl font-extrabold text-brand-navy">{{ $user->name }}</h2>
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-brand-cyan/20 text-brand-navy self-center sm:self-auto border border-brand-cyan/30">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-brand-blue/20 text-brand-blue self-center sm:self-auto border border-brand-blue/30">
                             Mahasiswa
                         </span>
                     </div>
@@ -133,7 +134,7 @@
             <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm">
                 <div class="border-b border-slate-100 pb-4 mb-6">
                     <h3 class="text-lg font-bold text-brand-navy flex items-center gap-2">
-                        <i class="fa-regular fa-id-card text-brand-cyan"></i>
+                        <i class="fa-regular fa-id-card text-brand-blue"></i>
                         Informasi Data Diri
                     </h3>
                     <p class="text-xs text-slate-500 mt-1">Perbarui profil dan kontak mahasiswa Anda.</p>

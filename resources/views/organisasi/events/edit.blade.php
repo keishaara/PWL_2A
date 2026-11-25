@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +13,10 @@
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#162945',
-                            coral: '#F45D69',
-                            cyan: '#39D9C1',
+                            navy: '#14213D',
+                            coral: '#FF6B5B',
+                            blue: '#1E90FF',
+                            warmBg: '#F8F6F1',
                         }
                     }
                 }
@@ -22,12 +24,13 @@
         }
     </script>
 </head>
+
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
     @include('organisasi.partials.header', ['title' => 'Edit Acara'])
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
-        
+
         @include('organisasi.partials.sidebar', ['active' => 'events'])
 
         <main class="flex-1 min-w-0">
@@ -46,7 +49,7 @@
                 <p class="font-bold mb-1">Ada beberapa kesalahan input:</p>
                 <ul class="list-disc list-inside space-y-0.5">
                     @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                    <li>{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
@@ -66,7 +69,7 @@
                         <label class="block text-xs font-bold text-slate-700 mb-1">Kategori Acara <span class="text-rose-500">*</span></label>
                         <select name="category_id" required class="w-full text-xs sm:text-sm p-3 rounded-xl border border-slate-200 focus:border-brand-navy focus:outline-none bg-white">
                             @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id', $event->category_id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" {{ old('category_id', $event->category_id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -170,4 +173,5 @@
     </script>
     @include('organisasi.partials.footer')
 </body>
+
 </html>

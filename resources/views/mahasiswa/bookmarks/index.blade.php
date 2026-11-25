@@ -6,7 +6,7 @@
     <title>Event Tersimpan - Univents</title>
 </head>
 
-<body class="bg-brand-bg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-brand-warmBg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
     @include('mahasiswa.partials.header', ['title' => 'Event Tersimpan'])
 
@@ -34,7 +34,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                     @foreach ($events as $event)
                         <div
-                            class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col group hover:border-brand-cyan transition">
+                            class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col group hover:border-brand-blue transition">
                             <div class="relative h-40 overflow-hidden bg-slate-100">
                                 <img src="{{ $event->banner ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600' }}"
                                     alt="{{ $event->title }}"
@@ -42,13 +42,13 @@
                                 <span
                                     class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-brand-navy/90 text-white">{{ $event->category->name }}</span>
                                 <span
-                                    class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-white/95 shadow-sm {{ $event->isPaid() ? 'text-brand-coral' : 'text-[#0F685B]' }}">
+                                    class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-white/95 shadow-sm {{ $event->isPaid() ? 'text-brand-coral' : 'text-emerald-600' }}">
                                     {{ $event->isPaid() ? 'Rp ' . number_format($event->price, 0, ',', '.') : 'GRATIS' }}
                                 </span>
                             </div>
 
                             <div class="p-4 space-y-2 flex-1">
-                                <div class="flex items-center gap-1.5 text-[11px] text-[#0F685B] font-bold">
+                                <div class="flex items-center gap-1.5 text-[11px] text-brand-blue font-bold">
                                     <i class="fa-regular fa-calendar"></i>
                                     <span>{{ $event->start_date->translatedFormat('d M Y, H:i') }} WIB</span>
                                 </div>
@@ -65,7 +65,7 @@
 
                             <div class="p-4 pt-0 flex items-center gap-2">
                                 <a href="{{ route('events.show', $event->slug) }}"
-                                    class="flex-1 text-center px-3 py-2 rounded-lg bg-brand-navy text-white text-xs font-semibold hover:bg-brand-coral transition">Detail</a>
+                                    class="flex-1 text-center px-3 py-2 rounded-lg bg-brand-blue text-white text-xs font-bold hover:bg-[#187bcd] transition shadow-sm">Detail</a>
                                 <form action="{{ route('events.bookmark', $event->slug) }}" method="POST">
                                     @csrf
                                     <button type="submit" title="Hapus dari tersimpan"

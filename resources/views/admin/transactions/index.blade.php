@@ -12,10 +12,10 @@
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#162945',
-                            coral: '#F45D69',
-                            cyan: '#39D9C1',
-                            noodle: '#FCCC6B',
+                            navy: '#14213D',
+                            coral: '#FF6B5B',
+                            blue: '#1E90FF',
+                            warmBg: '#F8F6F1',
                         }
                     }
                 }

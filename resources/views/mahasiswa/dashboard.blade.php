@@ -13,11 +13,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#162945',
-                            coral: '#F45D69',
-                            cyan: '#39D9C1',
-                            amber: '#FCCC6B',
-                            bg: '#F8FAFC'
+                            navy: '#14213D',
+                            coral: '#FF6B5B',
+                            blue: '#1E90FF',
+                            cyber: '#121E38',
+                            warmBg: '#F8F6F1',
+                            amber: '#FCCC6B'
                         }
                     }
                 }
@@ -34,12 +35,12 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F8FAFC;
+            background-color: #F8F6F1;
         }
     </style>
 </head>
 
-<body class="bg-brand-bg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-brand-warmBg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
     @include('mahasiswa.partials.header', ['title' => 'Dashboard'])
 
@@ -49,9 +50,9 @@
 
         <main class="flex-1 min-w-0 space-y-5">
 
-            <div class="bg-brand-navy text-white rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-md">
+            <div class="bg-[#121E38] text-white rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-md border border-slate-700/40">
                 <div
-                    class="absolute -top-16 -right-16 w-64 h-64 bg-brand-cyan/15 rounded-full blur-2xl pointer-events-none">
+                    class="absolute -top-16 -right-16 w-64 h-64 bg-[#1E90FF]/15 rounded-full blur-2xl pointer-events-none">
                 </div>
                 <div
                     class="absolute -bottom-16 -left-16 w-64 h-64 bg-brand-coral/15 rounded-full blur-2xl pointer-events-none">
@@ -60,7 +61,7 @@
                 <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                     <div>
                         <span
-                            class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-brand-cyan border border-white/15 mb-3">
+                            class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-[#1E90FF] border border-white/15 mb-3">
                             🎓 Mahasiswa Aktif
                         </span>
                         <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
@@ -87,11 +88,11 @@
                         <span class="text-xs font-semibold text-slate-500">Acara Tersedia</span>
                         <h3 class="text-2xl font-black text-brand-navy mt-1">{{ $totalEvents }}</h3>
                         <span
-                            class="text-[10px] font-bold text-brand-cyan bg-brand-navy px-2 py-0.5 rounded-full mt-1 inline-block">Siap
+                            class="text-[10px] font-bold text-[#1E90FF] bg-[#14213D] px-2 py-0.5 rounded-full mt-1 inline-block">Siap
                             Diikuti</span>
                     </div>
                     <div
-                        class="w-12 h-12 rounded-2xl bg-brand-cyan/20 text-brand-navy flex items-center justify-center text-xl font-bold">
+                        class="w-12 h-12 rounded-2xl bg-[#1E90FF]/15 text-[#1E90FF] flex items-center justify-center text-xl font-bold">
                         <i class="fa-solid fa-calendar-check"></i>
                     </div>
                 </div>
@@ -145,19 +146,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                     @forelse ($events as $event)
                         <div
-                            class="rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between hover:border-brand-cyan transition duration-200 group bg-slate-50/50">
+                            class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden flex flex-col justify-between hover:border-[#1E90FF] transition duration-200 group shadow-sm">
                             <div>
-                                <div class="relative h-36 w-full overflow-hidden bg-slate-200">
+                                <div class="relative h-36 w-full overflow-hidden bg-slate-100">
                                     <img src="{{ $event->banner ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500' }}"
                                         alt="{{ $event->title }}"
                                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                                     <span
-                                        class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-brand-navy/90 text-white">
+                                        class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-[#14213D]/90 text-white">
                                         {{ $event->category->name }}
                                     </span>
                                 </div>
                                 <div class="p-4 space-y-2">
-                                    <span class="text-[11px] font-bold text-brand-cyan block">
+                                    <span class="text-[11px] font-bold text-[#1E90FF] block">
                                         <i class="fa-regular fa-calendar mr-1"></i>
                                         {{ $event->start_date->translatedFormat('d M Y') }}
                                     </span>
@@ -171,7 +172,7 @@
                             </div>
                             <div class="p-4 pt-0">
                                 <a href="{{ route('events.show', $event->slug) }}"
-                                    class="block text-center w-full py-2 rounded-xl text-xs font-bold bg-brand-navy text-white hover:bg-brand-coral transition">
+                                    class="block text-center w-full py-2.5 rounded-xl text-xs font-bold bg-[#1E90FF] hover:bg-[#187bcd] text-white transition shadow-sm">
                                     Lihat Acara
                                 </a>
                             </div>

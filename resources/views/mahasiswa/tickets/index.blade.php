@@ -6,7 +6,7 @@
     <title>E-Tiket Saya - Univents</title>
 </head>
 
-<body class="bg-brand-bg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-brand-warmBg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
     @include('mahasiswa.partials.header', ['title' => 'E-Tiket Saya'])
 
@@ -33,7 +33,7 @@
 
             @if (session('success'))
                 <div
-                    class="mb-6 p-4 rounded-xl bg-brand-cyan/15 border border-brand-cyan/40 text-[#0F685B] text-xs sm:text-sm">
+                    class="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm">
                     {{ session('success') }}</div>
             @endif
 
@@ -52,7 +52,7 @@
                                             class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">Hadir{{ $ticket->checked_in_at ? ' · ' . $ticket->checked_in_at->format('d/m/Y H:i') : '' }}</span>
                                     @else
                                         <span
-                                            class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-brand-cyan/15 text-[#0F685B] border border-brand-cyan/40">
+                                            class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                                             <i class="fa-solid fa-circle-check"></i> Aktif &bull; Terverifikasi
                                         </span>
                                     @endif

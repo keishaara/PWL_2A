@@ -13,11 +13,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#162945',
-                            coral: '#F45D69',
-                            cyan: '#39D9C1',
-                            amber: '#FCCC6B',
-                            bg: '#F8FAFC'
+                            navy: '#14213D',
+                            coral: '#FF6B5B',
+                            blue: '#1E90FF',
+                            cyber: '#121E38',
+                            warmBg: '#F8F6F1',
+                            amber: '#FCCC6B'
                         }
                     }
                 }
@@ -33,7 +34,7 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F8FAFC;
+            background-color: #F8F6F1;
         }
         
         @media print {
@@ -44,7 +45,7 @@
     </style>
 </head>
 
-<body class="bg-brand-bg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-brand-warmBg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
     @include('mahasiswa.partials.header', ['title' => 'Invoice'])
 
@@ -107,7 +108,7 @@
 
                 <div class="lg:col-span-7 space-y-6 print-full">
                     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-7 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-brand-navy via-brand-cyan to-brand-coral"></div>
+                        <div class="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-brand-navy via-brand-blue to-brand-coral"></div>
 
                         <div class="flex flex-wrap items-start justify-between gap-4 border-b border-slate-100 pb-5">
                             <div>
@@ -250,7 +251,7 @@
 
                     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-7 sticky top-24">
                         <h3 class="text-base font-extrabold text-brand-navy flex items-center gap-2 mb-1">
-                            <i class="fa-solid fa-cloud-arrow-up text-brand-cyan"></i>
+                            <i class="fa-solid fa-cloud-arrow-up text-brand-blue"></i>
                             <span>Upload Bukti Transfer</span>
                         </h3>
                         <p class="text-xs text-slate-500 mb-6">
@@ -335,7 +336,7 @@
                                 <label for="notes" class="block text-xs font-bold text-slate-700 mb-1">
                                     Catatan / Nama Pengirim (Opsional)
                                 </label>
-                                <textarea name="notes" id="notes" rows="2" placeholder="Contoh: Transfer dari rekening BNI a.n Budi Santoso" class="w-full text-xs rounded-xl border-slate-200 focus:border-brand-cyan focus:ring-brand-cyan/20 p-3">{{ old('notes', $payment->notes) }}</textarea>
+                                <textarea name="notes" id="notes" rows="2" placeholder="Contoh: Transfer dari rekening BNI a.n Budi Santoso" class="w-full text-xs rounded-xl border-slate-200 focus:border-brand-blue focus:ring-brand-blue/20 p-3">{{ old('notes', $payment->notes) }}</textarea>
                             </div>
 
                             <button type="submit" class="w-full py-3.5 px-4 rounded-xl bg-brand-coral text-white font-bold text-xs sm:text-sm hover:bg-[#e04d59] transition shadow-lg shadow-brand-coral/30 flex items-center justify-center gap-2">

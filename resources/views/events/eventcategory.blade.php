@@ -13,11 +13,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#162945',
-                            coral: '#F45D69',
-                            cyan: '#39D9C1',
-                            amber: '#FCCC6B',
-                            bg: '#F8FAFC'
+                            navy: '#14213D',
+                            coral: '#FF6B5B',
+                            blue: '#1E90FF',
+                            cyber: '#121E38',
+                            warmBg: '#F8F6F1',
+                            amber: '#FCCC6B'
                         }
                     }
                 }
@@ -34,12 +35,12 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F8FAFC;
+            background-color: #F8F6F1;
         }
     </style>
 </head>
 
-<body class="bg-brand-bg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-brand-warmBg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
     @include('mahasiswa.partials.toast')   
     @include('mahasiswa.partials.header', ['title' => 'Katalog Acara'])
@@ -101,7 +102,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                     @foreach ($events as $event)
                         <div
-                            class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:border-brand-cyan transition duration-300 overflow-hidden flex flex-col justify-between group">
+                            class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:border-brand-blue transition duration-300 overflow-hidden flex flex-col justify-between group">
 
                             <div>
                                 <div class="relative h-40 w-full overflow-hidden bg-slate-100">
@@ -137,7 +138,7 @@
                                 </div>
 
                                 <div class="p-4 space-y-2">
-                                    <div class="flex items-center gap-1.5 text-[11px] text-brand-cyan font-bold">
+                                    <div class="flex items-center gap-1.5 text-[11px] text-brand-blue font-bold">
                                         <i class="fa-regular fa-calendar"></i>
                                         <span>{{ $event->start_date->translatedFormat('d M Y, H:i') }} WIB</span>
                                     </div>
@@ -168,8 +169,8 @@
                                     </div>
 
                                     <a href="{{ route('events.show', $event->slug) }}"
-                                        class="px-3 py-1.5 rounded-lg bg-brand-navy text-white text-xs font-semibold hover:bg-brand-coral transition">
-                                        Detail
+                                        class="px-3.5 py-1.5 rounded-lg bg-brand-blue hover:bg-[#187bcd] text-white text-xs font-bold transition shadow-sm">
+                                        Daftar Kegiatan
                                     </a>
                                 </div>
                             </div>
