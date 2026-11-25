@@ -19,9 +19,9 @@ class EventController extends Controller
         if ($request->filled('q')) {
             $keyword = $request->q;
             $query->where(function ($q) use ($keyword) {
-                $q->where('title', 'like', "%{$keyword}%")
-                  ->orWhere('location', 'like', "%{$keyword}%")
-                  ->orWhere('description', 'like', "%{$keyword}%");
+                $q->where('title', 'ilike', "%{$keyword}%")
+                  ->orWhere('location', 'ilike', "%{$keyword}%")
+                  ->orWhere('description', 'ilike', "%{$keyword}%");
             });
         }
 

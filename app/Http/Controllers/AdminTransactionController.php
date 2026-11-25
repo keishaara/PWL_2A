@@ -132,7 +132,8 @@ class AdminTransactionController extends Controller
             ['Total Dana Masuk (Lunas)', 'Rp ' . number_format($totalPaid, 0, ',', '.')],
             ['Total Dana Menunggu / Pending', 'Rp ' . number_format($totalPending, 0, ',', '.')],
             ['Total Transaksi Tercatat', Payment::count()],
-            ['Waktu Export Data', \Carbon\Carbon::now()->format('d/m/Y H:i:s')],
+            ['Waktu Export Data', now()->format('d/m/Y H:i:s')],
+            // ['Waktu Export Data', \Carbon\Carbon::now()->format('d/m/Y H:i:s')],
             ['Level Akses', 'Administrator Univents Global'],
         ];
 

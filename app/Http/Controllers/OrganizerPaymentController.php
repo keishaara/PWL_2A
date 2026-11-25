@@ -49,14 +49,14 @@ class OrganizerPaymentController extends Controller
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
-                $q->where('invoice_number', 'like', "%{$search}%")
+                $q->where('invoice_number', 'ilike', "%{$search}%")
                   ->orWhereHas('user', function ($uq) use ($search) {
-                      $uq->where('name', 'like', "%{$search}%")
-                         ->orWhere('npm', 'like', "%{$search}%")
-                         ->orWhere('email', 'like', "%{$search}%");
+                      $uq->where('name', 'ilike', "%{$search}%")
+                         ->orWhere('npm', 'ilike', "%{$search}%")
+                         ->orWhere('email', 'ilike', "%{$search}%");
                   })
                   ->orWhereHas('event', function ($eq) use ($search) {
-                      $eq->where('title', 'like', "%{$search}%");
+                      $eq->where('title', 'ilike', "%{$search}%");
                   });
             });
         }
@@ -94,7 +94,7 @@ class OrganizerPaymentController extends Controller
         DB::transaction(function () use ($payment) {
             $payment->update([
                 'status'           => 'paid',
-                'paid_at'          => Carbon::now(),
+                'paid_at'          => now(),
                 'rejection_reason' => null,
             ]);
 
@@ -289,7 +289,7 @@ class OrganizerPaymentController extends Controller
             ['Dana Tertunda (Belum Transfer)', 'Rp ' . number_format($totalPending, 0, ',', '.')],
             ['Total Mahasiswa Terdaftar', count($registrations)],
             ['Total Transaksi Pembayaran', count($payments)],
-            ['Waktu Export Data', Carbon::now()->format('d/m/Y H:i:s')],
+            ['Waktu Export Data', now()->format('d/m/Y H:i:s')],
             ['Penyelenggara', $organization->name],
         ];
 

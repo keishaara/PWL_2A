@@ -42,6 +42,6 @@ class CertificateController extends Controller
 
         $fileName = 'Sertifikat-' . Str::slug($event->title) . '-' . Str::slug($user->name) . '.pdf';
 
-        return Storage::disk('local')->download($filePath, $fileName);
+        return Storage::download($filePath, $fileName);
     }
 }

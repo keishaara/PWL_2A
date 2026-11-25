@@ -18,7 +18,8 @@ class ProfileController extends Controller
 
 
     public function update(Request $request)
-    {
+    {   
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         $validated = $request->validate([
@@ -69,7 +70,7 @@ class ProfileController extends Controller
 
     public function updatePassword(Request $request)
     {
-        $user = Auth::user();
+        /** @var \App\Models\User $user */
 
         $validated = $request->validate([
             'current_password' => ['required', 'current_password'],

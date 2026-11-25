@@ -67,7 +67,7 @@ class PaymentController extends Controller
                 ]);
 
                 $invoiceNumber = 'INV-' . date('Ymd') . '-' . strtoupper(Str::random(6));
-                $expiresAt = Carbon::now()->addHours(24);
+                $expiresAt = now()->addHours(24);
 
                 $payment = Payment::create([
                     'registration_id'     => $registration->id,
@@ -158,7 +158,7 @@ class PaymentController extends Controller
         $payment->update([
             'payment_proof' => $filePath,
             'status'        => 'waiting_verification',
-            'paid_at'       => Carbon::now(),
+            'paid_at'       => now(),
             'notes'         => $request->notes,
         ]);
 

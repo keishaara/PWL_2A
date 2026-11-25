@@ -6,7 +6,6 @@ use App\Models\Event;
 use App\Models\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 class BookmarkController extends Controller
 {
     public function index()
