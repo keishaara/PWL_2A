@@ -32,7 +32,7 @@ class TicketController extends Controller
             'event'  => $ticket->registration->event,
             'user'   => $ticket->registration->user,
             'qr'     => TicketQr::dataUri($ticket->ticket_code, 300),
-        ])->setPaper('a4', 'portrait');
+        ])->setPaper('a4', 'landscape');
 
         return $pdf->download('E-Tiket-' . $ticket->ticket_code . '.pdf');
     }
