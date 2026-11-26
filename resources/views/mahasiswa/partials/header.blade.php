@@ -21,9 +21,33 @@
         @endphp
         <div class="flex items-center gap-4">
             @auth
-            {{-- Kalau sudah login, tampilkan lonceng notifikasi & profil --}}
             <details class="relative">
-                ... (tetap seperti aslinya) ...
+                <summary class="relative list-none cursor-pointer w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" aria-label="Notifikasi">
+                    <i class="fa-solid fa-bell"></i>
+                    @if ($unreadNotifications)
+                    <span class="absolute -top-1 -right-1 min-w-4 h-4 px-1 rounded-full bg-brand-coral text-[9px] font-bold text-white flex items-center justify-center">{{ $unreadNotifications }}</span>
+                    @endif
+                </summary>
+                <div class="absolute right-0 mt-3 w-80 max-w-[calc(100vw-2rem)] bg-white rounded-xl border border-slate-200 shadow-xl p-3 text-brand-navy z-50">
+                    <h2 class="px-2 py-1 text-xs font-extrabold">Notifikasi</h2>
+                    @forelse ($recentNotifications as $notification)
+                    <div class="p-2 rounded-lg {{ $notification->is_read ? '' : 'bg-blue-50' }}">
+                        <p class="text-xs font-bold">{{ $notification->title }}</p>
+                        <p class="text-[11px] text-slate-600 mt-1">{{ $notification->message }}</p>
+                        <div class="flex justify-between items-center mt-1">
+                            <span class="text-[10px] text-slate-400">{{ $notification->created_at->diffForHumans() }}</span>
+                            @unless ($notification->is_read)
+                            <form action="{{ route('notifications.read', $notification) }}" method="POST">
+                                @csrf
+                                <button class="text-[10px] font-bold text-brand-navy hover:underline">Tandai dibaca</button>
+                            </form>
+                            @endunless
+                        </div>
+                    </div>
+                    @empty
+                    <p class="p-2 text-xs text-slate-500">Belum ada notifikasi.</p>
+                    @endforelse
+                </div>
             </details>
             <a href="{{ route('profile.show') }}" class="flex items-center gap-2.5 text-xs font-semibold text-white/90 hover:text-white transition">
                 <div class="w-8 h-8 rounded-full bg-[#1E90FF]/20 border border-[#1E90FF]/50 flex items-center justify-center text-[#1E90FF] font-bold text-xs">
