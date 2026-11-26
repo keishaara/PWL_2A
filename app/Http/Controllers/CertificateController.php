@@ -16,7 +16,7 @@ class CertificateController extends Controller
         $ticket = Ticket::with(['registration.event', 'registration.user'])
             ->where('ticket_code', $ticketCode)
             ->where('status', 'used')
-            ->whereHas('registration', fn ($query) => $query
+            ->whereHas('registration', fn($query) => $query
                 ->where('user_id', Auth::id())
                 ->where('status', 'confirmed'))
             ->firstOrFail();

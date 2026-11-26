@@ -46,8 +46,10 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        return redirect('/login')->with('success', 'Anda telah berhasil keluar.');
+        $pesan = $request->has('timeout')
+            ? 'Sesi Anda telah berakhir karena tidak ada aktivitas.'
+            : 'Anda telah berhasil keluar.';
+        return redirect('/login')->with('success', $pesan);
     }
 
     public function register(Request $request)

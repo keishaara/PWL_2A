@@ -57,3 +57,5 @@
         </div>
     </div>
 </header>
+
+@include('partials.idle-timeout')
