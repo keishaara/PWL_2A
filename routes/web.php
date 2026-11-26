@@ -19,7 +19,14 @@ use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\NotificationController;
 
 Route::get('/', function () {
-    return view('welcome');
+    $events = Event::with(['category', 'organization'])
+        ->where('status', 'approved')
+        ->where('start_date', '>=', now())
+        ->orderBy('start_date', 'asc')
+        ->take(3)
+        ->get();
+
+    return view('welcome', compact('events'));
 });
 
 Route::get('/register', function () {
