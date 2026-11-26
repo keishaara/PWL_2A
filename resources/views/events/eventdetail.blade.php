@@ -229,13 +229,13 @@
                                 </button>
                             @endif
 
-                            <form action="{{ route('events.bookmark', $event->slug) }}" method="POST" class="mt-3">
+                            <form action="{{ route('events.bookmark', $event->slug) }}" method="POST" class="mt-3" data-bookmark-form>
                                 @csrf
-                                <button type="submit"
+                                <button type="submit" data-variant="detail"
                                     class="w-full py-2.5 px-4 rounded-xl border text-xs font-bold transition flex items-center justify-center gap-2
                                            {{ $isBookmarked ? 'bg-brand-coral/10 border-brand-coral text-brand-coral' : 'border-slate-300 text-slate-600 hover:border-brand-navy hover:text-brand-navy' }}">
                                     <i class="{{ $isBookmarked ? 'fa-solid' : 'fa-regular' }} fa-bookmark"></i>
-                                    <span>{{ $isBookmarked ? 'Tersimpan' : 'Simpan Acara' }}</span>
+                                    <span data-bookmark-label>{{ $isBookmarked ? 'Tersimpan' : 'Simpan Acara' }}</span>
                                 </button>
                             </form>
                         @else

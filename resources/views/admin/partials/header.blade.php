@@ -66,3 +66,6 @@
         </div>
     </div>
 </header>
+
+@include('partials.logout-confirm')
+@include('partials.idle-timeout')

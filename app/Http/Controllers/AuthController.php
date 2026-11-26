@@ -12,7 +12,9 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login');
+        return response()
+            ->view('auth.login')
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
     }
 
      public function login(Request $request)
@@ -46,6 +48,12 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        // logout dari popup idle: langsung ke login tanpa pesan/popup tambahan
+        if ($request->has('silent')) {
+            return redirect('/login');
+        }
+
         $pesan = $request->has('timeout')
             ? 'Sesi Anda telah berakhir karena tidak ada aktivitas.'
             : 'Anda telah berhasil keluar.';
@@ -55,6 +63,12 @@ class AuthController extends Controller
         }
 
         return redirect('/login')->with('success', $pesan);
+    }
+
+    public function keepAlive(Request $request)
+    {
+        $request->session()->put('last_activity', now()->timestamp);
+        return response()->json(['ok' => true]);
     }
 
     public function register(Request $request)

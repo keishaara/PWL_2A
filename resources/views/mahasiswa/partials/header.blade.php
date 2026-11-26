@@ -69,3 +69,4 @@
 </header>
 
 @include('partials.idle-timeout')
+@include('partials.logout-confirm')

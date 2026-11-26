@@ -116,9 +116,9 @@
 
                                     @auth
                                         <form action="{{ route('events.bookmark', $event->slug) }}" method="POST"
-                                            class="absolute top-2.5 right-2.5">
+                                            class="absolute top-2.5 right-2.5" data-bookmark-form>
                                             @csrf
-                                            <button type="submit"
+                                            <button type="submit" data-variant="card"
                                                 title="{{ in_array($event->id, $bookmarkedIds) ? 'Hapus dari tersimpan' : 'Simpan acara' }}"
                                                 class="h-8 w-8 rounded-full bg-white/95 shadow-sm flex items-center justify-center text-sm hover:scale-110 transition {{ in_array($event->id, $bookmarkedIds) ? 'text-brand-coral' : 'text-slate-400 hover:text-brand-coral' }}">
                                                 <i

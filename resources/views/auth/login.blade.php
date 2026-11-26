@@ -41,27 +41,42 @@
             width: 100%;
             padding: 0.75rem 2.5rem 0.75rem 1rem;
             font-size: 0.875rem;
-            background-color: #F8F6F1;
-            border: 1px solid #E2E8F0;
+            background-color: #FDFCFA;
+            border: 1.5px solid #CBD5E1;
             border-radius: 0.875rem;
             color: #14213D;
             outline: none;
             transition: all 0.2s ease;
         }
 
+        .form-input:hover {
+            border-color: #94A3B8;
+        }
+
         .form-input:focus {
             background-color: #FFFFFF;
             border-color: #1E90FF;
-            box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.18);
         }
 
         .form-input::placeholder {
-            color: #94A3B8;
+            color: #64748B;
         }
 
         .form-input.field-error {
             border-color: #FF6B5B;
             background-color: #FFF5F5;
+        }
+
+        .relative > i {
+            color: #64748B;
+        }
+
+        input[type="checkbox"] {
+            accent-color: #1E90FF;
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
         }
 
         @view-transition {
@@ -107,7 +122,8 @@
             <img src="https://images.unsplash.com/photo-1781038507661-06501ddcdc90?q=80&w=1373&auto=format&fit=crop"
                 class="slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Kampus 1">
 
-            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1373&auto=format&fit=crop"
+            <img src="https://i.pinimg.com/736x/ba/82/6d/ba826dafa21437cd34359d6df851af2b.jpg"
+                referrerpolicy="no-referrer"
                 class="slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Kampus 2">
 
             <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1373&auto=format&fit=crop"
@@ -137,8 +153,7 @@
         <div class="w-full md:w-1/2 bg-white p-8 sm:p-12 flex flex-col justify-between">
 
             @php
-                $isTimeout = session('session_timeout') || (session('success') && (str_contains(session('success'), 'berakhir') || str_contains(session('success'), 'tidak ada aktivitas')));
-                $timeoutMsg = session('session_timeout') ?? (session('success') && (str_contains(session('success'), 'berakhir') || str_contains(session('success'), 'tidak ada aktivitas')) ? session('success') : null);
+                $timeoutMsg = session('session_timeout');
             @endphp
 
             <div class="flex flex-col items-center justify-center pt-2 pb-2 text-center">
@@ -158,7 +173,7 @@
                 </div>
                 @endif
 
-                @if (session('success') && !$isTimeout)
+                @if (session('success'))
                 <div class="mb-4 rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-xs text-emerald-700 flex items-start gap-2">
                     <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
                     <span>{{ session('success') }}</span>
@@ -201,16 +216,10 @@
                     </div>
 
                     <div class="flex items-center justify-between text-xs text-slate-600 pt-1">
-                        <label class="flex items-center gap-2 cursor-pointer select-none hover:text-[#14213D] transition">
-                            <input
-                                type="checkbox"
-                                name="remember"
-                                class="rounded border-slate-300 text-[#1E90FF] focus:ring-[#1E90FF] h-4 w-4">
-                            <span>Ingat saya</span>
+                        <label class="flex items-center gap-2 text-xs text-slate-600 cursor-pointer select-none">
+                            <input type="checkbox" name="remember">
+                            Ingat saya
                         </label>
-                        <a href="#" onclick="alert('Fitur reset password via email akan segera hadir!')" class="text-[#1E90FF] hover:underline font-semibold transition">
-                            Lupa password?
-                        </a>
                     </div>
 
                     <div class="pt-2">
@@ -235,7 +244,7 @@
 
     </div>
 
-    @if ($isTimeout)
+    @if ($timeoutMsg)
     <div id="sessionTimeoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#14213D]/60 backdrop-blur-sm transition-opacity duration-200">
         <div class="relative w-full max-w-sm rounded-2xl bg-[#FFFFFF] border border-slate-200 p-6 text-left shadow-xl">
             <div class="flex items-start justify-between gap-3 mb-2">
@@ -246,7 +255,7 @@
             </div>
 
             <p class="text-xs text-slate-600 leading-relaxed mb-5">
-                {{ $timeoutMsg ?? 'Sesi Anda telah berakhir karena tidak ada aktivitas. Silakan masuk kembali.' }}
+                {{ $timeoutMsg }}
             </p>
 
             <div class="flex justify-end">
@@ -276,6 +285,10 @@
                     }
                 });
             }
+        });
+
+        window.addEventListener('pageshow', (e) => {
+            if (e.persisted) closeSessionModal();
         });
 
         function togglePassword(inputId, iconId) {

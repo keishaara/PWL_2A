@@ -41,22 +41,26 @@
             width: 100%;
             padding: 0.6rem 2.25rem 0.6rem 0.875rem;
             font-size: 0.8125rem;
-            background-color: #F8F6F1;
-            border: 1px solid #E2E8F0;
+            background-color: #FDFCFA;
+            border: 1.5px solid #CBD5E1;
             border-radius: 0.75rem;
             color: #14213D;
             outline: none;
             transition: all 0.2s ease;
         }
 
+        .form-input:hover {
+            border-color: #94A3B8;
+        }
+
         .form-input:focus {
             background-color: #FFFFFF;
             border-color: #1E90FF;
-            box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.18);
         }
 
         .form-input::placeholder {
-            color: #94A3B8;
+            color: #64748B;
         }
 
         .form-input.field-error {
@@ -72,6 +76,10 @@
         select.form-input option {
             color: #14213D;
             background: #FFFFFF;
+        }
+
+        .relative > i {
+            color: #64748B;
         }
 
         @view-transition {

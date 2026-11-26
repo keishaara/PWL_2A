@@ -31,7 +31,7 @@
                 </a>
             @endforeach
 
-            <form action="{{ route('logout') }}" method="POST" class="pt-2">
+            <form action="{{ route('logout') }}" method="POST" class="pt-2" data-confirm-logout>
                 @csrf
                 <button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-brand-coral hover:bg-rose-50 transition text-left">
                     <i class="fa-solid fa-right-from-bracket w-4 text-center"></i>

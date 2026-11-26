@@ -31,15 +31,22 @@ class BookmarkController extends Controller
 
         if ($query->exists()) {
             $query->delete();
-            return back()->with('bookmark', "'{$event->title}' dihapus dari daftar tersimpan.");
+            $bookmarked = false;
+            $message = "'{$event->title}' dihapus dari daftar tersimpan.";
+        } else {
+            History::create([
+                'user_id'     => Auth::id(),
+                'action'      => 'bookmark',
+                'description' => (string) $event->id,
+            ]);
+            $bookmarked = true;
+            $message = "'{$event->title}' disimpan. Cek di halaman Event Tersimpan.";
         }
 
-        History::create([
-            'user_id'     => Auth::id(),
-            'action'      => 'bookmark',
-            'description' => (string) $event->id,
-        ]);
+        if ($request->expectsJson()) {
+            return response()->json(['bookmarked' => $bookmarked, 'message' => $message]);
+        }
 
-        return back()->with('bookmark', "'{$event->title}' disimpan. Cek di halaman Event Tersimpan.");
+        return back()->with('bookmark', $message);
     }
 }

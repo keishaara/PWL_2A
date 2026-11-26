@@ -42,6 +42,9 @@ Route::post('/login', [AuthController::class, 'login'])
     ->name('login.store');
 Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout');
+Route::post('/session/keep-alive', [AuthController::class, 'keepAlive'])
+    ->middleware('auth')
+    ->name('session.keep-alive');
 
 Route::get('/dashboard', function () {
     $events = Event::with(['category', 'organization'])
