@@ -7,70 +7,63 @@
     <title>Masuk - Univents</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkEclipse: '#14213D',
+                        cyberNavy: '#121E38',
+                        electricBlue: '#1E90FF',
+                        ripeMalinka: '#FF6B5B',
+                        surface: '#F8F6F1'
+                    },
+                    fontFamily: {
+                        jakarta: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F8F6F1;
         }
 
-        .page-bg {
-            background: linear-gradient(135deg, #162945 0%, #162945 38%, #F1F5F9 38%, #F1F5F9 100%);
-        }
-
-        .minimal-input {
-            background: transparent;
-            border: none;
-            border-bottom: 1.5px solid rgba(255, 255, 255, 0.25);
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 2.5rem 0.75rem 1rem;
+            font-size: 0.875rem;
+            background-color: #F8F6F1;
+            border: 1px solid #E2E8F0;
+            border-radius: 0.875rem;
+            color: #14213D;
             outline: none;
-            color: #ffffff;
-            transition: border-color 0.2s ease;
+            transition: all 0.2s ease;
         }
 
-        .minimal-input:focus {
-            border-bottom-color: #39D9C1;
+        .form-input:focus {
+            background-color: #FFFFFF;
+            border-color: #1E90FF;
+            box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.15);
         }
 
-        .minimal-input::placeholder {
-            color: rgba(255, 255, 255, 0.45);
+        .form-input::placeholder {
+            color: #94A3B8;
         }
 
-        .brand-bracket {
-            position: relative;
-            display: inline-block;
-            padding: 8px 18px;
+        .form-input.field-error {
+            border-color: #FF6B5B;
+            background-color: #FFF5F5;
         }
 
-        .brand-bracket::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 8px;
-            border-left: 2px solid #ffffff;
-            border-top: 2px solid #ffffff;
-            border-bottom: 2px solid #ffffff;
-        }
-
-        .brand-bracket::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 8px;
-            border-right: 2px solid #ffffff;
-            border-top: 2px solid #ffffff;
-            border-bottom: 2px solid #ffffff;
-        }
-
-        /* Transisi geser foto antara halaman login <-> register */
         @view-transition {
             navigation: auto;
         }
@@ -92,11 +85,10 @@
         }
 
         ::view-transition-group(root) {
-            animation-duration: 0.7s;
+            animation-duration: 0.4s;
         }
 
         @media (prefers-reduced-motion: reduce) {
-
             ::view-transition-group(*),
             ::view-transition-old(*),
             ::view-transition-new(*) {
@@ -106,23 +98,25 @@
     </style>
 </head>
 
-<body class="page-bg min-h-screen flex items-center justify-center p-3 sm:p-4">
+<body class="min-h-screen flex items-center justify-center p-3 sm:p-5 bg-[#F8F6F1] text-[#14213D]">
 
-    <div class="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row md:h-[536px]">
-        <div class="photo-panel relative w-full md:w-1/2 min-h-[260px] md:min-h-full flex flex-col justify-between p-8 sm:p-10 text-white overflow-hidden">
+    <div class="w-full max-w-5xl bg-white rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-200/80 overflow-hidden flex flex-col md:flex-row md:h-[560px]">
+
+        <div class="photo-panel relative w-full md:w-1/2 min-h-[260px] md:min-h-full flex flex-col justify-between p-8 sm:p-10 text-white overflow-hidden bg-[#121E38]">
 
             <img src="https://images.unsplash.com/photo-1781038507661-06501ddcdc90?q=80&w=1373&auto=format&fit=crop"
                 class="slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Kampus 1">
 
-            <img src="https://unsplash.com/id/foto/orang-orang-berkumpul-di-lapangan-rumput-6QAc23A_cDU?q=80&w=1373&auto=format&fit=crop"
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1373&auto=format&fit=crop"
                 class="slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Kampus 2">
 
-            <img src="https://unsplash.com/id/foto/sebuah-band-menampilkan-musik-live-di-luar-ruangan-di-malam-hari-3FzH5Ueq_HA?q=80&w=1373&auto=format&fit=crop"
+            <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1373&auto=format&fit=crop"
                 class="slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Kampus 3">
 
-            <div class="absolute inset-0 bg-[#162945]/60 backdrop-blur-[2px]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#14213D]/95 via-[#121E38]/80 to-[#14213D]/70 backdrop-blur-[1px]"></div>
 
-            <div class="relative z-10 text-[11px] font-semibold tracking-widest uppercase text-white/75">
+            <div class="relative z-10 flex items-center gap-2 text-[11px] font-semibold tracking-widest uppercase text-white/80">
+                <span class="w-2 h-2 rounded-full bg-[#1E90FF]"></span>
                 Official Campus Event Space
             </div>
 
@@ -130,82 +124,99 @@
                 <p class="text-xl sm:text-2xl font-bold tracking-wider leading-relaxed text-white drop-shadow-md">
                     EXPERIENCE THE MOMENTS THAT SHAPE YOUR CAMPUS LIFE
                 </p>
+                <p class="text-xs text-white/70 mt-3 font-normal">
+                    Pusat kolaborasi & kegiatan kampus terintegrasi
+                </p>
+            </div>
+
+            <div class="relative z-10 text-[11px] text-white/50">
+                &copy; {{ date('Y') }} Univents. Modern Campus Ecosystem.
             </div>
         </div>
 
-        <div class="w-full md:w-1/2 bg-[#162945] p-8 sm:p-12 flex flex-col justify-between text-white">
+        <div class="w-full md:w-1/2 bg-white p-8 sm:p-12 flex flex-col justify-between">
 
             @php
                 $isTimeout = session('session_timeout') || (session('success') && (str_contains(session('success'), 'berakhir') || str_contains(session('success'), 'tidak ada aktivitas')));
                 $timeoutMsg = session('session_timeout') ?? (session('success') && (str_contains(session('success'), 'berakhir') || str_contains(session('success'), 'tidak ada aktivitas')) ? session('success') : null);
             @endphp
 
-            <div class="text-center pt-2 p-4 rounded">
-                <span class="text-4xl font-extrabold tracking-tight text-white">Uni<span class="text-[#14d8b0]">vents</span></span>
+            <div class="flex flex-col items-center justify-center pt-2 pb-2 text-center">
+                <a href="{{ url('/') }}" class="inline-block transition hover:opacity-90">
+                    <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-11 sm:h-12 w-auto object-contain">
+                </a>
+                <h2 class="mt-3 text-xl font-bold text-[#14213D] tracking-tight">Selamat Datang</h2>
+                <p class="text-xs text-slate-500 mt-1">Masuk ke akun Univents Anda untuk melanjutkan</p>
             </div>
 
-            <div class="my-auto py-6">
+            <div class="my-auto py-4">
 
                 @if ($errors->any())
-                <div class="mb-5 rounded-lg bg-[#F45D69]/20 border border-[#F45D69]/40 p-3 text-xs text-white">
-                    <i class="fa-solid fa-circle-exclamation text-[#F45D69] mr-1"></i>
-                    {{ $errors->first() }}
+                <div class="mb-4 rounded-xl bg-rose-50 border border-rose-200 p-3 text-xs text-rose-600 flex items-start gap-2">
+                    <i class="fa-solid fa-circle-exclamation text-rose-500 mt-0.5"></i>
+                    <span>{{ $errors->first() }}</span>
                 </div>
                 @endif
 
                 @if (session('success') && !$isTimeout)
-                <div class="mb-5 rounded-lg bg-[#39D9C1]/20 border border-[#39D9C1]/40 p-3 text-xs text-white">
-                    <i class="fa-solid fa-circle-check text-[#39D9C1] mr-1"></i>
-                    {{ session('success') }}
+                <div class="mb-4 rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-xs text-emerald-700 flex items-start gap-2">
+                    <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
+                    <span>{{ session('success') }}</span>
                 </div>
                 @endif
 
-                <form action="{{ route('login.store') }}" method="POST" class="space-y-6">
+                <form action="{{ route('login.store') }}" method="POST" class="space-y-4">
                     @csrf
 
-                    <div class="relative">
-                        <input
-                            type="email"
-                            name="email"
-                            value="{{ old('email') }}"
-                            required
-                            autofocus
-                            placeholder="Email address"
-                            class="minimal-input w-full py-2.5 pr-8 text-sm">
-                        <i class="fa-regular fa-envelope absolute right-2 top-3 text-white/50 text-xs"></i>
+                    <div>
+                        <label class="block text-xs font-semibold text-[#14213D] mb-1.5">Email</label>
+                        <div class="relative">
+                            <input
+                                type="email"
+                                name="email"
+                                value="{{ old('email') }}"
+                                required
+                                autofocus
+                                placeholder="nama@kampus.ac.id"
+                                class="form-input">
+                            <i class="fa-regular fa-envelope absolute right-3.5 top-3.5 text-slate-400 text-xs pointer-events-none"></i>
+                        </div>
                     </div>
 
-                    <div class="relative">
-                        <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            required
-                            placeholder="Password"
-                            class="minimal-input w-full py-2.5 pr-8 text-sm">
-                        <i
-                            id="togglePasswordIcon"
-                            class="fa-solid fa-eye absolute right-2 top-3 text-white/50 text-xs cursor-pointer"
-                            onclick="togglePassword('password', 'togglePasswordIcon')"></i>
+                    <div>
+                        <label class="block text-xs font-semibold text-[#14213D] mb-1.5">Password</label>
+                        <div class="relative">
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                required
+                                placeholder="Masukkan password"
+                                class="form-input">
+                            <i
+                                id="togglePasswordIcon"
+                                class="fa-solid fa-eye absolute right-3.5 top-3.5 text-slate-400 hover:text-slate-600 text-xs cursor-pointer"
+                                onclick="togglePassword('password', 'togglePasswordIcon')"></i>
+                        </div>
                     </div>
 
-                    <div class="flex items-center justify-between text-xs text-white/70 pt-1">
-                        <label class="flex items-center gap-2 cursor-pointer select-none hover:text-white transition">
+                    <div class="flex items-center justify-between text-xs text-slate-600 pt-1">
+                        <label class="flex items-center gap-2 cursor-pointer select-none hover:text-[#14213D] transition">
                             <input
                                 type="checkbox"
                                 name="remember"
-                                class="rounded border-white/20 bg-transparent text-[#F45D69] focus:ring-0 h-3.5 w-3.5">
+                                class="rounded border-slate-300 text-[#1E90FF] focus:ring-[#1E90FF] h-4 w-4">
                             <span>Ingat saya</span>
                         </label>
-                        <a href="#" onclick="alert('Fitur reset password via email akan segera hadir!')" class="text-[#39D9C1] hover:underline transition">
+                        <a href="#" onclick="alert('Fitur reset password via email akan segera hadir!')" class="text-[#1E90FF] hover:underline font-semibold transition">
                             Lupa password?
                         </a>
                     </div>
 
-                    <div class="pt-3">
+                    <div class="pt-2">
                         <button
                             type="submit"
-                            class="w-full py-3 px-6 rounded-full bg-white text-[#162945] font-bold text-xs uppercase tracking-widest shadow-lg hover:bg-[#F45D69] hover:text-white hover:shadow-[#F45D69]/30 transition duration-300">
+                            class="w-full py-3 px-6 rounded-xl bg-[#1E90FF] hover:bg-[#1877d2] text-white font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg hover:shadow-[#1E90FF]/25 transition duration-200">
                             Masuk
                         </button>
                     </div>
@@ -213,9 +224,9 @@
 
             </div>
 
-            <div class="text-center text-xs text-white/60 pb-2">
+            <div class="text-center text-xs text-slate-500 pt-2 pb-1">
                 Belum punya akun?
-                <a href="{{ route('register') }}" class="font-bold text-[#39D9C1] hover:underline ml-1">
+                <a href="{{ route('register') }}" class="font-bold text-[#1E90FF] hover:underline ml-1">
                     Daftar di sini
                 </a>
             </div>
@@ -225,7 +236,6 @@
     </div>
 
     @if ($isTimeout)
-    <!-- Modal Sesi Berakhir (Sesuai Panduan Univents) -->
     <div id="sessionTimeoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#14213D]/60 backdrop-blur-sm transition-opacity duration-200">
         <div class="relative w-full max-w-sm rounded-2xl bg-[#FFFFFF] border border-slate-200 p-6 text-left shadow-xl">
             <div class="flex items-start justify-between gap-3 mb-2">
