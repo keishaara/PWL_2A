@@ -135,6 +135,11 @@
 
         <div class="w-full md:w-1/2 bg-[#162945] p-8 sm:p-12 flex flex-col justify-between text-white">
 
+            @php
+                $isTimeout = session('session_timeout') || (session('success') && (str_contains(session('success'), 'berakhir') || str_contains(session('success'), 'tidak ada aktivitas')));
+                $timeoutMsg = session('session_timeout') ?? (session('success') && (str_contains(session('success'), 'berakhir') || str_contains(session('success'), 'tidak ada aktivitas')) ? session('success') : null);
+            @endphp
+
             <div class="text-center pt-2 p-4 rounded">
                 <span class="text-4xl font-extrabold tracking-tight text-white">Uni<span class="text-[#14d8b0]">vents</span></span>
             </div>
@@ -148,7 +153,7 @@
                 </div>
                 @endif
 
-                @if (session('success'))
+                @if (session('success') && !$isTimeout)
                 <div class="mb-5 rounded-lg bg-[#39D9C1]/20 border border-[#39D9C1]/40 p-3 text-xs text-white">
                     <i class="fa-solid fa-circle-check text-[#39D9C1] mr-1"></i>
                     {{ session('success') }}
@@ -219,7 +224,50 @@
 
     </div>
 
+    @if ($isTimeout)
+    <!-- Modal Sesi Berakhir (Sesuai Panduan Univents) -->
+    <div id="sessionTimeoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#14213D]/60 backdrop-blur-sm transition-opacity duration-200">
+        <div class="relative w-full max-w-sm rounded-2xl bg-[#FFFFFF] border border-slate-200 p-6 text-left shadow-xl">
+            <div class="flex items-start justify-between gap-3 mb-2">
+                <h3 class="text-base font-bold text-[#14213D]">Sesi Berakhir</h3>
+                <button type="button" onclick="closeSessionModal()" class="text-slate-400 hover:text-slate-600 transition -mt-0.5" aria-label="Tutup">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <p class="text-xs text-slate-600 leading-relaxed mb-5">
+                {{ $timeoutMsg ?? 'Sesi Anda telah berakhir karena tidak ada aktivitas. Silakan masuk kembali.' }}
+            </p>
+
+            <div class="flex justify-end">
+                <button type="button" onclick="closeSessionModal()" class="px-5 py-2 rounded-xl bg-[#1E90FF] hover:bg-[#1877d2] text-white font-semibold text-xs transition shadow-sm">
+                    Mengerti
+                </button>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <script>
+        function closeSessionModal() {
+            const modal = document.getElementById('sessionTimeoutModal');
+            if (modal) {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => modal.remove(), 250);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('sessionTimeoutModal');
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeSessionModal();
+                    }
+                });
+            }
+        });
+
         function togglePassword(inputId, iconId) {
             const input = document.getElementById(inputId);
             const icon = document.getElementById(iconId);

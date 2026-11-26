@@ -49,6 +49,11 @@ class AuthController extends Controller
         $pesan = $request->has('timeout')
             ? 'Sesi Anda telah berakhir karena tidak ada aktivitas.'
             : 'Anda telah berhasil keluar.';
+        
+        if ($request->has('timeout')) {
+            return redirect('/login')->with('session_timeout', $pesan);
+        }
+
         return redirect('/login')->with('success', $pesan);
     }
 
