@@ -45,10 +45,9 @@
 
 <script>
     (function () {
-        // pengaturan
-        const BATAS_IDLE_MS  = 60 * 1000; // diam berapa lama sebelum peringatan muncul (produksi: mis. 15 * 60 * 1000)
-        const HITUNG_MUNDUR  = 30 * 1000; // lama hitungan mundur sebelum otomatis keluar
-
+        const BATAS_IDLE_MS  = 60 * 1000; 
+        const HITUNG_MUNDUR  = 30 * 1000; 
+        
         const KEEP_ALIVE_URL = @json(route('session.keep-alive'));
         const LOGOUT_URL     = @json(route('logout'));
         const LOGIN_URL      = @json(route('login'));
