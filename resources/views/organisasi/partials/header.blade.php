@@ -48,12 +48,12 @@
                     @endforelse
                 </div>
             </details>
-            <div class="flex items-center gap-2.5 text-xs font-semibold text-white/90">
+            <a href="{{ route('organisasi.profile') }}" class="flex items-center gap-2.5 text-xs font-semibold text-white/90 hover:text-white transition">
                 <div class="w-8 h-8 rounded-full bg-[#1E90FF]/20 border border-[#1E90FF]/50 flex items-center justify-center text-[#1E90FF] font-bold text-xs">
                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                 </div>
                 <span class="hidden md:inline font-medium text-white">{{ Auth::user()->name }}</span>
-            </div>
+            </a>
         </div>
     </div>
 </header>

@@ -85,6 +85,9 @@ Route::middleware(['auth', 'student'])->group(function () {
 
 Route::middleware(['auth', 'organizer'])->prefix('organisasi')->name('organisasi.')->group(function () {
     Route::get('/dashboard', [OrganizerEventController::class, 'index'])->name('dashboard');
+    Route::get('/profil', [ProfileController::class, 'showOrganizer'])->name('profile');
+    Route::put('/profil', [ProfileController::class, 'updateOrganizer'])->name('profile.update');
+    Route::put('/profil/password', [ProfileController::class, 'updatePasswordOrganizer'])->name('profile.password');
     Route::get('/acara/buat', [OrganizerEventController::class, 'create'])->name('events.create');
     Route::post('/acara', [OrganizerEventController::class, 'store'])->name('events.store');
     Route::get('/acara/{id}/edit', [OrganizerEventController::class, 'edit'])->name('events.edit');
@@ -103,6 +106,9 @@ Route::middleware('auth')->post('/notifikasi/{notification}/baca', [Notification
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminEventController::class, 'index'])->name('admin.dashboard');
+    Route::get('/profil', [ProfileController::class, 'showAdmin'])->name('admin.profile');
+    Route::put('/profil', [ProfileController::class, 'updateAdmin'])->name('admin.profile.update');
+    Route::put('/profil/password', [ProfileController::class, 'updatePasswordAdmin'])->name('admin.profile.password');
 
     Route::get('/events/{id}', [AdminEventController::class, 'show'])->name('admin.events.show');
     Route::post('/events/{id}/approve', [AdminEventController::class, 'approve'])->name('admin.events.approve');

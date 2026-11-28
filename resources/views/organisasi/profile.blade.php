@@ -29,7 +29,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
@@ -42,7 +41,7 @@
 
 <body class="bg-brand-warmBg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
-     @include('organisasi.partials.header', ['title' => 'Profil Organisasi'])
+    @include('organisasi.partials.header', ['title' => 'Profil Organisasi'])
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
 
@@ -50,7 +49,7 @@
 
         <main class="flex-1 min-w-0">
             @if(session('success'))
-            <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between text-sm shadow-sm">
+            <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between text-sm shadow-sm mb-6">
                 <div class="flex items-center gap-3">
                     <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
                         <i class="fa-solid fa-check text-xs"></i>
@@ -64,7 +63,7 @@
             @endif
 
             @if(session('success_password'))
-            <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between text-sm shadow-sm">
+            <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between text-sm shadow-sm mb-6">
                 <div class="flex items-center gap-3">
                     <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
                         <i class="fa-solid fa-lock text-xs"></i>
@@ -78,7 +77,7 @@
             @endif
 
             @if($errors->any())
-            <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm shadow-sm">
+            <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm shadow-sm mb-6">
                 <div class="flex items-start gap-3">
                     <div class="w-7 h-7 rounded-full bg-brand-coral text-white flex items-center justify-center shrink-0 mt-0.5">
                         <i class="fa-solid fa-exclamation text-xs"></i>
@@ -95,13 +94,13 @@
             </div>
             @endif
 
-            <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center gap-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center gap-6 mb-6">
                 <div class="relative">
                     <div class="w-24 h-24 rounded-2xl overflow-hidden bg-brand-navy text-white flex items-center justify-center text-3xl font-extrabold shadow-md border-2 border-slate-100">
                         @if(!empty($user->avatar) && file_exists(public_path('uploads/profiles/' . $user->avatar)))
                         <img src="{{ asset('uploads/profiles/' . $user->avatar) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
                         @else
-                        <span class="text-brand-blue">{{ strtoupper(substr($user->name ?? 'M', 0, 2)) }}</span>
+                        <span class="text-brand-blue">{{ strtoupper(substr($user->name ?? 'O', 0, 2)) }}</span>
                         @endif
                     </div>
                     <label for="foto_profil" class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-brand-blue text-white flex items-center justify-center cursor-pointer shadow-md hover:scale-105 transition" title="Ganti Foto">
@@ -112,18 +111,12 @@
                 <div class="text-center sm:text-left space-y-1 flex-1">
                     <div class="flex flex-col sm:flex-row sm:items-center gap-2">
                         <h2 class="text-2xl font-extrabold text-brand-navy">{{ $user->name }}</h2>
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-brand-blue/20 text-brand-blue self-center sm:self-auto border border-brand-blue/30">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#1E90FF]/20 text-[#1E90FF] self-center sm:self-auto border border-[#1E90FF]/30">
                             Organisasi
                         </span>
                     </div>
                     <p class="text-sm text-slate-500 font-medium">
-                        <span class="font-semibold text-slate-700">NPM:</span> {{ $user->npm ?? 'Belum diatur' }}
-                        <span class="mx-2 text-slate-300">|</span>
-                        <span>{{ $user->major ?? 'Jurusan belum diisi' }}</span>
-                        @if($user->semester)
-                        <span class="mx-2 text-slate-300">|</span>
-                        <span>Semester {{ $user->semester }}</span>
-                        @endif
+                        <span class="font-semibold text-slate-700">Penyelenggara Acara Kampus</span>
                     </p>
                     <p class="text-xs text-slate-400">
                         <i class="fa-regular fa-envelope mr-1"></i> {{ $user->email }}
@@ -131,7 +124,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm">
+            <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm mb-6">
                 <div class="border-b border-slate-100 pb-4 mb-6">
                     <h3 class="text-lg font-bold text-brand-navy flex items-center gap-2">
                         <i class="fa-regular fa-id-card text-brand-blue"></i>
@@ -140,12 +133,12 @@
                     <p class="text-xs text-slate-500 mt-1">Perbarui profil dan kontak organisasi Anda.</p>
                 </div>
 
-                <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="space-y-5">
+                <form method="POST" action="{{ route('organisasi.profile.update') }}" enctype="multipart/form-data" class="space-y-5">
                     @csrf
                     @method('PUT')
 
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <label class="block text-xs font-bold text-slate-700 mb-1.5">Unggah Foto Profil Baru</label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">Unggah Foto Profil / Logo Baru</label>
                         <input
                             type="file"
                             name="foto_profil"
@@ -156,24 +149,14 @@
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Lengkap</label>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Organisasi</label>
                             <input
                                 type="text"
                                 name="name"
                                 value="{{ old('name', $user->name) }}"
                                 required
                                 class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1.5">NPM</label>
-                            <input
-                                type="text"
-                                value="{{ $user->npm ?? '-' }}"
-                                readonly
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-100 text-slate-500 text-sm cursor-not-allowed">
-                            <span class="text-[10px] text-slate-400 mt-0.5 block">NPM dikunci sesuai identitas registrasi.</span>
                         </div>
 
                         <div>
@@ -187,34 +170,12 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1.5">No. WhatsApp / Telepon</label>
+                            <label class="block text-xs font-bold text-slate-700 mb-1.5">No. WhatsApp / Kontak Narahubung</label>
                             <input
                                 type="text"
                                 name="phone"
                                 value="{{ old('phone', $user->phone) }}"
                                 placeholder="Contoh: 081234567890"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1.5">Program Studi</label>
-                            <input
-                                type="text"
-                                name="major"
-                                value="{{ old('major', $user->major) }}"
-                                placeholder="Contoh: Ilmu Komputer"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1.5">Semester</label>
-                            <input
-                                type="number"
-                                name="semester"
-                                min="1"
-                                max="14"
-                                value="{{ old('semester', $user->semester) }}"
-                                placeholder="Contoh: 3"
                                 class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-navy focus:ring-1 focus:ring-brand-navy transition">
                         </div>
                     </div>
@@ -236,7 +197,7 @@
                     <p class="text-xs text-slate-500 mt-1">Perbarui kata sandi akun Anda secara berkala.</p>
                 </div>
 
-                <form method="POST" action="{{ route('profile.password') }}" class="space-y-4">
+                <form method="POST" action="{{ route('organisasi.profile.password') }}" class="space-y-4">
                     @csrf
                     @method('PUT')
 

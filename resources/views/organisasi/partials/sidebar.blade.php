@@ -5,6 +5,7 @@
         'payments'      => ['Verifikasi Pembayaran', route('organisasi.payments.index'), 'fa-receipt'],
         'attendance'    => ['Presensi Hari-H', route('organisasi.attendance.index'), 'fa-user-check'],
         'reviews'       => ['Rekap Ulasan', route('organisasi.reviews.index'), 'fa-star'],
+        'profile'       => ['Profil Organisasi', route('organisasi.profile'), 'fa-user'],
     ];
 @endphp
 
