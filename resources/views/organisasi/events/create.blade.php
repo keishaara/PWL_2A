@@ -143,13 +143,13 @@
                             <div class="flex items-center gap-2.5 pb-4 border-b border-slate-100">
                                 <div class="w-8 h-8 rounded-xl bg-brand-navy/5 text-brand-navy flex items-center justify-center font-bold text-sm">3</div>
                                 <div>
-                                    <h3 class="font-bold text-brand-navy text-sm">Poster / Banner Acara</h3>
+                                    <h3 class="font-bold text-brand-navy text-sm">Poster / Banner Acara <span class="text-brand-coral">*</span></h3>
                                     <p class="text-[11px] text-slate-400">Pilih gambar visual terbaik agar menarik minat mahasiswa.</p>
                                 </div>
                             </div>
 
                             <div class="relative border-2 border-dashed border-slate-300 hover:border-brand-coral rounded-2xl p-6 text-center cursor-pointer transition bg-slate-50/50 hover:bg-slate-50 group">
-                                <input type="file" name="banner" id="bannerInput" accept="image/png, image/jpeg, image/jpg" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="handleBannerChange(this)">
+                                <input type="file" name="banner" id="bannerInput" required accept="image/png, image/jpeg, image/jpg" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onchange="handleBannerChange(this)">
 
                                 <div id="bannerPlaceholder">
                                     <div class="w-12 h-12 rounded-full bg-brand-coral/10 text-brand-coral flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition">

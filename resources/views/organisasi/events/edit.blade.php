@@ -97,13 +97,18 @@
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">Poster / Banner Acara (Biarkan kosong jika tidak diganti)</label>
-                    @if($event->banner)
+
                     <div class="mb-2 flex items-center gap-3">
-                        <img src="{{ asset('storage/' . $event->banner) }}" class="w-16 h-16 rounded-lg object-cover border border-slate-200">
-                        <span class="text-[11px] text-slate-400">Poster saat ini</span>
+                        {{-- Gambar ini id-nya kita kasih "editBannerPreview" supaya bisa otomatis berganti --}}
+                        <img id="editBannerPreview"
+                            src="{{ $event->banner ? asset('storage/' . $event->banner) : asset('images/default-event.png') }}"
+                            class="w-20 h-20 rounded-xl object-cover border border-slate-200 shadow-sm">
+                        <span class="text-[11px] text-slate-400">Pratinjau poster acara</span>
                     </div>
-                    @endif
-                    <input type="file" name="banner" accept="image/png, image/jpeg, image/jpg" class="w-full text-xs p-2.5 rounded-xl border border-slate-200 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-navy file:text-white hover:file:bg-slate-800">
+
+                    <input type="file" name="banner" id="editBannerInput" accept="image/png, image/jpeg, image/jpg"
+                        onchange="previewEditBanner(this)"
+                        class="w-full text-xs p-2.5 rounded-xl border border-slate-200 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-navy file:text-white hover:file:bg-slate-800">
                 </div>
 
                 <div>
@@ -175,3 +180,15 @@
 </body>
 
 </html>
+
+<script>
+function previewEditBanner(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('editBannerPreview').src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>

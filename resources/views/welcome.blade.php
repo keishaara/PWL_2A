@@ -67,8 +67,7 @@
                 @if (Route::has('login'))
                 @auth
                 @if(Auth::user()->role === 'student')
-                <a href="{{ route('profile.show') }}" class="hidden sm:inline text-xs font-bold text-slate-700 hover:text-darkEclipse transition">Profil Mahasiswa</a>
-                <a href="{{ route('dashboard') }}" class="px-5 py-2.5 rounded-full bg-darkEclipse hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm">Dashboard</a>
+                <a href="{{ route('dashboard') }}" class="px-5 py-2.5 rounded-full bg-darkEclipse hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm">Dashboard Mahasiswa</a>
                 @elseif(Auth::user()->role === 'organizer')
                 <a href="{{ route('organisasi.dashboard') }}" class="px-5 py-2.5 rounded-full bg-darkEclipse hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm">Dashboard Ormawa</a>
                 @else
