@@ -85,6 +85,7 @@ Route::middleware(['auth', 'student'])->group(function () {
 
 Route::middleware(['auth', 'organizer'])->prefix('organisasi')->name('organisasi.')->group(function () {
     Route::get('/dashboard', [OrganizerEventController::class, 'index'])->name('dashboard');
+    Route::get('/acara', [OrganizerEventController::class, 'index'])->name('events.index');
     Route::get('/profil', [ProfileController::class, 'showOrganizer'])->name('profile');
     Route::put('/profil', [ProfileController::class, 'updateOrganizer'])->name('profile.update');
     Route::put('/profil/password', [ProfileController::class, 'updatePasswordOrganizer'])->name('profile.password');

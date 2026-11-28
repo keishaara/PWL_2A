@@ -66,19 +66,30 @@
             <div class="flex items-center gap-3 sm:gap-4">
                 @if (Route::has('login'))
                 @auth
-                @if(Auth::user()->role === 'student')
-                <a href="{{ route('profile.show') }}" class="hidden sm:inline text-xs font-bold text-slate-700 hover:text-darkEclipse transition">Profil Mahasiswa</a>
-                <a href="{{ route('dashboard') }}" class="px-5 py-2.5 rounded-full bg-darkEclipse hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm">Dashboard</a>
-                @elseif(Auth::user()->role === 'organizer')
-                <a href="{{ route('organisasi.dashboard') }}" class="px-5 py-2.5 rounded-full bg-darkEclipse hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm">Dashboard Ormawa</a>
+                    @if(Auth::user()->role === 'student')
+                        <a href="{{ route('profile.show') }}" class="hidden sm:inline text-xs font-bold text-slate-700 hover:text-darkEclipse transition">Profil Mahasiswa</a>
+                        <a href="{{ route('dashboard') }}" class="px-5 py-2.5 rounded-full bg-darkEclipse hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm">Dashboard</a>
+                    @elseif(Auth::user()->role === 'organizer')
+                        <span class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full">
+                            <i class="fa-solid fa-building-columns text-electricBlue"></i> {{ Auth::user()->name }}
+                        </span>
+                        <a href="{{ route('organisasi.dashboard') }}" class="px-5 py-2.5 rounded-full bg-darkEclipse hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm">Dashboard Ormawa</a>
+                    @else
+                        <a href="{{ route('admin.dashboard') }}" class="px-5 py-2.5 rounded-full bg-darkEclipse hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm">Dashboard Admin</a>
+                    @endif
+
+                    <form action="{{ route('logout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-full border border-slate-200 hover:border-rose-300 hover:bg-rose-50 text-rose-600 text-xs font-bold transition" title="Keluar dari akun">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span class="hidden sm:inline">Keluar</span>
+                        </button>
+                    </form>
                 @else
-                <a href="{{ route('admin.dashboard') }}" class="px-5 py-2.5 rounded-full bg-darkEclipse hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm">Dashboard Admin</a>
-                @endif
-                @else
-                <a href="{{ route('login') }}" class="text-xs font-bold text-slate-700 hover:text-darkEclipse transition">Masuk</a>
-                @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="px-5 py-2.5 rounded-full bg-darkEclipse hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm">Daftar Akun</a>
-                @endif
+                    <a href="{{ route('login') }}" class="text-xs font-bold text-slate-700 hover:text-darkEclipse transition">Masuk</a>
+                    @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="px-5 py-2.5 rounded-full bg-darkEclipse hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm">Daftar Akun</a>
+                    @endif
                 @endauth
                 @endif
             </div>
@@ -113,14 +124,12 @@
                 </a>
             </div>
 
-            <!-- phone + rings + 4 floating cards -->
             <div class="mt-14 max-w-4xl mx-auto relative flex items-center justify-center min-h-[460px]">
 
                 <div class="absolute w-[360px] h-[360px] rounded-full border border-blue-200/60 pointer-events-none"></div>
                 <div class="absolute w-[280px] h-[280px] rounded-full border border-blue-300/50 pointer-events-none"></div>
                 <div class="absolute w-[200px] h-[200px] rounded-full border border-blue-400/40 pointer-events-none"></div>
 
-                <!-- phone (contoh E-Tiket) -->
                 <div class="relative z-10 w-64 rounded-3xl bg-cyberNavy p-4 text-white shadow-2xl border-2 border-electricBlue/40 space-y-4">
                     <div class="w-16 h-3 bg-darkEclipse rounded-full mx-auto"></div>
 
@@ -142,7 +151,6 @@
                     </div>
                 </div>
 
-                <!-- Langkah 1 (kiri atas) -->
                 <div class="floaty absolute -left-2 top-4 hidden sm:flex items-center gap-3 bg-cream p-4 rounded-2xl border border-warm shadow-md">
                     <div>
                         <p class="text-base font-black text-darkEclipse">Temukan Acara</p>
@@ -151,7 +159,6 @@
                     <div class="w-9 h-9 rounded-xl bg-white flex items-center justify-center text-sm font-extrabold text-darkEclipse shadow-sm">1</div>
                 </div>
 
-                <!-- Langkah 4 (kiri bawah) -->
                 <div class="floaty-2 absolute -left-6 bottom-6 hidden sm:flex items-center gap-3 bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-lg max-w-xs">
                     <div class="w-10 h-10 rounded-xl bg-amber text-darkEclipse flex items-center justify-center font-extrabold text-sm shrink-0">4</div>
                     <div class="min-w-0 pr-2">
@@ -160,7 +167,6 @@
                     </div>
                 </div>
 
-                <!-- Langkah 2 (kanan atas) -->
                 <div class="floaty-2 absolute -right-2 top-2 hidden sm:flex items-center gap-3 bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-lg max-w-xs">
                     <div class="w-12 h-12 rounded-xl bg-electricBlue text-white flex items-center justify-center font-extrabold text-base shrink-0">2</div>
                     <div>
@@ -169,7 +175,6 @@
                     </div>
                 </div>
 
-                <!-- Langkah 3 (kanan bawah) -->
                 <div class="floaty absolute -right-6 bottom-8 hidden sm:flex items-center gap-3 bg-ripeMalinka text-white p-4 rounded-2xl shadow-lg glow-coral">
                     <div>
                         <p class="text-base font-black text-white">Terima E-Tiket</p>
@@ -179,7 +184,6 @@
                 </div>
             </div>
 
-            <!-- trust bar -->
             <div class="mt-12 pt-8 border-t border-slate-200/80 max-w-4xl mx-auto text-center space-y-4">
                 <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Dipakai oleh berbagai unsur organisasi kampus</span>
                 <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-slate-400 font-extrabold text-sm sm:text-base">
@@ -192,7 +196,6 @@
             </div>
         </section>
 
-        <!-- katalog acara -->
         <section id="agenda" class="bg-surface py-16 sm:py-20">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                 <div class="flex items-end justify-between gap-4">
@@ -241,7 +244,6 @@
             </div>
         </section>
 
-        <!-- peran -->
         <section id="peran" class="bg-white border-y border-warm py-16 sm:py-24">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-2xl mx-auto text-center mb-14">
@@ -287,7 +289,6 @@
             </div>
         </section>
 
-        <!-- fitur -->
         <section id="fitur" class="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl mx-auto text-center mb-14">
                 <span class="text-[11px] font-extrabold uppercase tracking-wider text-electricBlue mb-2 block">Fitur Inti</span>
@@ -314,7 +315,6 @@
             </div>
         </section>
 
-        <!-- CTA -->
         <section id="tentang" class="px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
             <div class="max-w-6xl mx-auto bg-darkEclipse text-white rounded-3xl px-8 sm:px-12 py-12 sm:py-14 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
                 <div class="absolute -right-16 -top-16 w-64 h-64 rounded-full border border-electricBlue/30 pointer-events-none"></div>
