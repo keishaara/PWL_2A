@@ -60,24 +60,24 @@
 
                 <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                     <div>
-                        <span
+                        <!-- <span
                             class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-[#1E90FF] border border-white/15 mb-3">
                             🎓 Mahasiswa Aktif
-                        </span>
+                        </span> -->
                         <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
                             Selamat Datang, {{ Auth::user()->name }}! 👋
                         </h1>
-                        <p class="text-slate-300 text-xs sm:text-sm mt-1.5 max-w-xl">
+                        <!-- <p class="text-slate-300 text-xs sm:text-sm mt-1.5 max-w-xl">
                             {{ Auth::user()->major ?? 'Program Studi Mahasiswa' }} &bull; NPM:
                             {{ Auth::user()->npm ?? '-' }}
-                        </p>
+                        </p> -->
                     </div>
 
-                    <a href="{{ route('events.index') }}"
+                    <!-- <a href="{{ route('events.index') }}"
                         class="px-5 py-3 rounded-xl bg-brand-coral text-white text-xs sm:text-sm font-bold hover:bg-[#e04d59] transition shadow-lg shadow-brand-coral/30 inline-flex items-center justify-center gap-2 shrink-0">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span>Jelajahi Acara</span>
-                    </a>
+                    </a> -->
                 </div>
             </div>
 

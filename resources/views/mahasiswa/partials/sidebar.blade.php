@@ -56,16 +56,35 @@
     function toggleStudentSidebar() {
         const sidebar = document.getElementById('studentSidebar');
         const overlay = document.getElementById('studentSidebarOverlay');
-        const willOpen = sidebar.classList.contains('-translate-x-full');
+        const isDesktop = window.innerWidth >= 768;
 
-        sidebar.classList.toggle('-translate-x-full', !willOpen);
-        overlay.classList.toggle('hidden', !willOpen);
-        document.body.classList.toggle('overflow-hidden', willOpen);
+        if (isDesktop) {
+            // DI LAPTOP / DESKTOP: Sembunyikan sidebar agar konten utama otomatis melebar!
+            sidebar.classList.toggle('md:hidden');
+
+            // Simpan status ke memori browser agar pas pindah halaman tetap konsisten
+            const isHidden = sidebar.classList.contains('md:hidden');
+            localStorage.setItem('univents_sidebar_collapsed', isHidden ? '1' : '0');
+        } else {
+            // DI HP / MOBILE: Buka / tutup drawer dari samping
+            const willOpen = sidebar.classList.contains('-translate-x-full');
+            sidebar.classList.toggle('-translate-x-full', !willOpen);
+            overlay.classList.toggle('hidden', !willOpen);
+            document.body.classList.toggle('overflow-hidden', willOpen);
+        }
     }
 
+    // Pas halaman dibuka di laptop, cek apakah user sebelumnya memilih sembunyikan sidebar
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.innerWidth >= 768 && localStorage.getItem('univents_sidebar_collapsed') === '1') {
+            document.getElementById('studentSidebar')?.classList.add('md:hidden');
+        }
+    });
+
+    // Menutup drawer saat tekan tombol ESC di keyboard
     document.addEventListener('keydown', function (e) {
         const sidebar = document.getElementById('studentSidebar');
-        if (e.key === 'Escape' && !sidebar.classList.contains('-translate-x-full')) {
+        if (e.key === 'Escape' && !sidebar.classList.contains('-translate-x-full') && window.innerWidth < 768) {
             toggleStudentSidebar();
         }
     });

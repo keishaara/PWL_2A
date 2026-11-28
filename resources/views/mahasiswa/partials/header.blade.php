@@ -1,16 +1,15 @@
 <header class="w-full bg-brand-navy border-b border-white/10 sticky top-0 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <button type="button" onclick="toggleStudentSidebar()" aria-label="Buka menu" class="md:hidden w-9 h-9 -ml-1 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center border border-white/10 transition">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-            <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5">
+        <div class="flex items-center gap-2.5">
+            <button type="button" onclick="toggleStudentSidebar()" title="Klik untuk Buka/Tutup Sidebar" class="focus:outline-none hover:scale-105 transition">
                 <img src="{{ asset('images/univents-logo.png') }}" alt="Univents" class="h-8 w-auto object-contain">
-                <span class="text-xl font-extrabold tracking-tight text-white">Uni<span class="text-[#1E90FF]">vents</span></span>
+            </button>
+            <a href="{{ route('dashboard') }}" class="text-xl font-extrabold tracking-tight text-white hover:opacity-90 transition">
+                Uni<span class="text-[#1E90FF]">vents</span>
             </a>
-            <span class="hidden sm:inline-block ml-2 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#1E90FF]/20 text-[#1E90FF] border border-[#1E90FF]/30 uppercase tracking-wider">Mahasiswa</span>
+            <span class="hidden sm:inline-block ml-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#1E90FF]/20 text-[#1E90FF] border border-[#1E90FF]/30 uppercase tracking-wider">Mahasiswa</span>
             @if(isset($title) && $title)
-            <div class="hidden sm:block h-5 w-[1px] bg-white/20 ml-2"></div>
+            <div class="hidden sm:block h-5 w-[1px] bg-white/20 ml-1"></div>
             <span class="hidden sm:inline-block text-xs font-semibold text-[#1E90FF]">{{ $title }}</span>
             @endif
         </div>

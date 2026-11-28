@@ -42,7 +42,7 @@
 
 <body class="bg-brand-warmBg text-brand-navy antialiased min-h-screen flex flex-col justify-between">
 
-     @include('mahasiswa.partials.header', ['title' => 'Profil Mahasiswa'])
+    @include('mahasiswa.partials.header', ['title' => 'Profil Mahasiswa'])
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col md:flex-row gap-8">
 
@@ -219,7 +219,13 @@
                         </div>
                     </div>
 
-                    <div class="pt-4 border-t border-slate-100 flex justify-end">
+                    <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <button type="button" onclick="togglePasswordForm()" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition inline-flex items-center gap-2 border border-slate-200 shadow-sm">
+                            <i class="fa-solid fa-key text-amber-500"></i>
+                            <span>Ganti Kata Sandi</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-slate-400 ml-1 transition-transform" id="passToggleIcon"></i>
+                        </button>
+
                         <button type="submit" class="px-6 py-2.5 rounded-xl text-sm font-bold bg-brand-navy text-white hover:bg-brand-navy/90 transition shadow-sm">
                             Simpan Perubahan
                         </button>
@@ -227,7 +233,7 @@
                 </form>
             </div>
 
-            <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm">
+            <div id="cardGantiPassword" class="{{ $errors->has('current_password') || $errors->has('password') ? '' : 'hidden' }} mt-8 bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm transition-all duration-300">
                 <div class="border-b border-slate-100 pb-4 mb-6">
                     <h3 class="text-lg font-bold text-brand-navy flex items-center gap-2">
                         <i class="fa-solid fa-key text-brand-amber"></i>
@@ -282,6 +288,29 @@
 
         </main>
     </div>
+
+    <script>
+        function togglePasswordForm() {
+            const card = document.getElementById('cardGantiPassword');
+            const icon = document.getElementById('passToggleIcon');
+
+            // Buka atau tutup kartu form password
+            const isHidden = card.classList.toggle('hidden');
+
+            // Putar ikon panah kecil
+            if (icon) {
+                icon.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+            }
+
+            // Kalau baru dibuka, geser layar secara halus ke form password
+            if (!isHidden) {
+                card.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+            }
+        }
+    </script>
     @include('mahasiswa.partials.footer')
 </body>
 
