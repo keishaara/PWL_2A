@@ -214,13 +214,13 @@
                                 onclick="togglePassword('password', 'togglePasswordIcon')"></i>
                         </div>
                     </div>
-
+<!-- 
                     <div class="flex items-center justify-between text-xs text-slate-600 pt-1">
                         <label class="flex items-center gap-2 text-xs text-slate-600 cursor-pointer select-none">
                             <input type="checkbox" name="remember">
                             Ingat saya
                         </label>
-                    </div>
+                    </div> -->
 
                     <div class="pt-2">
                         <button
