@@ -3,6 +3,7 @@
         'verification' => ['Verifikasi Acara', route('admin.dashboard'), 'fa-clipboard-check'],
         'transactions' => ['Monitoring Transaksi', route('admin.transactions.index'), 'fa-chart-line'],
         'categories' => ['Kelola Kategori', route('admin.categories.index'), 'fa-tags'],
+        'profile' => ['Profil Admin', route('admin.profile'), 'fa-user'],
     ];
 @endphp
 

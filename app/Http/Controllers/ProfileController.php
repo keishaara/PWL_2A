@@ -16,6 +16,17 @@ class ProfileController extends Controller
         return view('mahasiswa.profil', compact('user'));
     }
 
+    public function showOrganizer()
+    {
+        $user = Auth::user();
+        return view('organisasi.profile', compact('user'));
+    }
+
+    public function showAdmin()
+    {
+        $user = Auth::user();
+        return view('admin.profile', compact('user'));
+    }
 
     public function update(Request $request)
     {   
@@ -68,9 +79,104 @@ class ProfileController extends Controller
         return redirect()->route('profile.show')->with('success', 'Profil Anda berhasil diperbarui!');
     }
 
+    public function updateOrganizer(Request $request)
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name'         => ['required', 'string', 'max:255'],
+            'email'        => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'phone'        => ['nullable', 'string', 'max:20'],
+            'foto_profil'  => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+        ], [
+            'name.required'       => 'Nama organisasi wajib diisi.',
+            'email.required'      => 'Email wajib diisi.',
+            'email.unique'        => 'Email sudah digunakan oleh akun lain.',
+            'foto_profil.image'   => 'Berkas foto profil harus berupa gambar.',
+            'foto_profil.mimes'   => 'Format foto profil harus JPG, JPEG, atau PNG.',
+            'foto_profil.max'     => 'Ukuran foto maksimal 2MB.',
+        ]);
+
+        if ($request->hasFile('foto_profil')) {
+            if ($user->avatar && file_exists(public_path('uploads/profiles/' . $user->avatar))) {
+                @unlink(public_path('uploads/profiles/' . $user->avatar));
+            }
+
+            $file = $request->file('foto_profil');
+            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/profiles');
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            $file->move($destinationPath, $fileName);
+            $user->avatar = $fileName;
+        }
+
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        $user->phone = $validated['phone'] ?? null;
+        $user->save();
+
+        if ($user->organization) {
+            $user->organization->update([
+                'name' => $validated['name'],
+            ]);
+        }
+
+        return redirect()->route('organisasi.profile')->with('success', 'Profil organisasi berhasil diperbarui!');
+    }
+
+    public function updateAdmin(Request $request)
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name'         => ['required', 'string', 'max:255'],
+            'email'        => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'phone'        => ['nullable', 'string', 'max:20'],
+            'foto_profil'  => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+        ], [
+            'name.required'       => 'Nama lengkap wajib diisi.',
+            'email.required'      => 'Email wajib diisi.',
+            'email.unique'        => 'Email sudah digunakan oleh akun lain.',
+            'foto_profil.image'   => 'Berkas foto profil harus berupa gambar.',
+            'foto_profil.mimes'   => 'Format foto profil harus JPG, JPEG, atau PNG.',
+            'foto_profil.max'     => 'Ukuran foto maksimal 2MB.',
+        ]);
+
+        if ($request->hasFile('foto_profil')) {
+            if ($user->avatar && file_exists(public_path('uploads/profiles/' . $user->avatar))) {
+                @unlink(public_path('uploads/profiles/' . $user->avatar));
+            }
+
+            $file = $request->file('foto_profil');
+            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/profiles');
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            $file->move($destinationPath, $fileName);
+            $user->avatar = $fileName;
+        }
+
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        $user->phone = $validated['phone'] ?? null;
+        $user->save();
+
+        return redirect()->route('admin.profile')->with('success', 'Profil admin berhasil diperbarui!');
+    }
+
     public function updatePassword(Request $request)
     {
         /** @var \App\Models\User $user */
+        $user = Auth::user();
 
         $validated = $request->validate([
             'current_password' => ['required', 'current_password'],
@@ -88,4 +194,49 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.show')->with('success_password', 'Kata sandi berhasil diperbarui!');
     }
+
+    public function updatePasswordOrganizer(Request $request)
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password'         => ['required', 'confirmed', Password::defaults()],
+        ], [
+            'current_password.required'         => 'Kata sandi saat ini wajib diisi.',
+            'current_password.current_password' => 'Kata sandi lama yang Anda masukkan tidak sesuai.',
+            'password.required'                 => 'Kata sandi baru wajib diisi.',
+            'password.confirmed'                => 'Konfirmasi kata sandi baru tidak cocok.',
+        ]);
+
+        $user->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return redirect()->route('organisasi.profile')->with('success_password', 'Kata sandi berhasil diperbarui!');
+    }
+
+    public function updatePasswordAdmin(Request $request)
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password'         => ['required', 'confirmed', Password::defaults()],
+        ], [
+            'current_password.required'         => 'Kata sandi saat ini wajib diisi.',
+            'current_password.current_password' => 'Kata sandi lama yang Anda masukkan tidak sesuai.',
+            'password.required'                 => 'Kata sandi baru wajib diisi.',
+            'password.confirmed'                => 'Konfirmasi kata sandi baru tidak cocok.',
+        ]);
+
+        $user->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return redirect()->route('admin.profile')->with('success_password', 'Kata sandi berhasil diperbarui!');
+    }
 }
+
